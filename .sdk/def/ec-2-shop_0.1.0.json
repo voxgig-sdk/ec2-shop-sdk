@@ -1,0 +1,251 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "EC2 Shop API",
+    "description": "A simple and fast API to get Amazon EC2 instance pricing right from your terminal. Supports filtering and sorting by various attributes like memory, CPU, price, and spot price. Provides up-to-date pricing data for on-demand and spot instances, refreshed every 2.5 minutes.",
+    "version": "1.0.0",
+    "contact": {
+      "url": "https://github.com/yeo/ec2.shop"
+    },
+    "license": {
+      "name": "MIT",
+      "url": "https://github.com/yeo/ec2.shop/blob/master/LICENSE"
+    }
+  },
+  "servers": [
+    {
+      "url": "https://ec2.shop",
+      "description": "Production server"
+    }
+  ],
+  "paths": {
+    "/": {
+      "get": {
+        "summary": "Get EC2 instance pricing",
+        "description": "Retrieves AWS EC2 instance pricing information with optional filtering and sorting capabilities. Supports both text and JSON response formats.",
+        "operationId": "getInstancePricing",
+        "parameters": [
+          {
+            "name": "filter",
+            "in": "query",
+            "description": "Filter instances by various criteria. Supports instance types (e.g., 't2.medium'), storage types (e.g., 'ssd'), and comparison expressions (e.g., 'mem>=32', 'cpu<=4', 'price<0.1', 'spotprice>0.05', 'gpu_core>=1', 'gpu_mem>=8'). Multiple filters can be comma-separated. Use '-' prefix to exclude (e.g., '-t3').",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "examples": {
+              "instanceType": {
+                "value": "i3",
+                "description": "Filter for i3 instance types"
+              },
+              "storageType": {
+                "value": "ssd",
+                "description": "Filter for instances with SSD storage"
+              },
+              "multipleTypes": {
+                "value": "t2.medium,t3.medium",
+                "description": "Filter for specific instance types"
+              },
+              "advancedFilter": {
+                "value": "ssd,mem>=32,mem<=64,cpu>=2,cpu<=4",
+                "description": "Advanced filter with multiple criteria"
+              },
+              "excludeFilter": {
+                "value": "-t3,price<0.1,mem>=2",
+                "description": "Exclude t3 instances with additional criteria"
+              }
+            }
+          },
+          {
+            "name": "sort",
+            "in": "query",
+            "description": "Sort instances by specified field(s). Use '-' prefix for descending order (e.g., '-price'). Multiple sort fields can be comma-separated (e.g., '-price,mem'). Supported fields: price, mem, cpu, spotprice, gpu_core, gpu_mem.",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "examples": {
+              "ascending": {
+                "value": "price",
+                "description": "Sort by price ascending"
+              },
+              "descending": {
+                "value": "-price",
+                "description": "Sort by price descending"
+              },
+              "multiple": {
+                "value": "-price,mem",
+                "description": "Sort by price descending, then by memory"
+              }
+            }
+          },
+          {
+            "name": "json",
+            "in": "query",
+            "description": "Alternative method to request JSON response format instead of using Accept header",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "enum": [
+                ""
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response with instance pricing data",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/InstancePricing"
+                  }
+                },
+                "examples": {
+                  "instanceList": {
+                    "value": [
+                      {
+                        "InstanceType": "r3.xlarge",
+                        "Memory": "30.5 GiB",
+                        "VCPUS": 4,
+                        "Storage": "1 x 80 SSD",
+                        "Network": "Moderate",
+                        "Cost": 0.333,
+                        "MonthlyPrice": 243.09,
+                        "SpotPrice": "0.0650"
+                      },
+                      {
+                        "InstanceType": "m5.xlarge",
+                        "Memory": "16 GiB",
+                        "VCPUS": 4,
+                        "Storage": "EBS only",
+                        "Network": "Up to 10 Gigabit",
+                        "Cost": 0.192,
+                        "MonthlyPrice": 140.16,
+                        "SpotPrice": "0.0806"
+                      }
+                    ]
+                  }
+                }
+              },
+              "text/plain": {
+                "schema": {
+                  "type": "string"
+                },
+                "example": "Instance Type    Memory       vCPUs        Storage              Network              Price    Monthly  Spot Price\nc5d.9xlarge      72 GiB       36 vCPUs     1 x 900 NVMe SSD     10 Gigabit           1.7280   1261.440 0.7175\nm5dn.24xlarge    384 GiB      96 vCPUs     4 x 900 NVMe SSD     100 Gigabit          6.5280   4765.440 1.6323\nm6g.large        8 GiB        2 vCPUs      EBS only             Up to 10 Gigabit     0.0770   56.210   0.0357"
+              }
+            },
+            "headers": {
+              "Cache-Control": {
+                "description": "Cache control header",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request - invalid filter or sort parameters",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "InstancePricing": {
+        "type": "object",
+        "description": "EC2 instance pricing information",
+        "properties": {
+          "InstanceType": {
+            "type": "string",
+            "description": "The EC2 instance type (e.g., 't2.micro', 'm5.large')",
+            "example": "r3.xlarge"
+          },
+          "Memory": {
+            "type": "string",
+            "description": "Amount of memory available in GiB",
+            "example": "30.5 GiB"
+          },
+          "VCPUS": {
+            "type": "integer",
+            "description": "Number of virtual CPUs",
+            "example": 4
+          },
+          "Storage": {
+            "type": "string",
+            "description": "Storage type and capacity (e.g., 'EBS only', '1 x 80 SSD')",
+            "example": "1 x 80 SSD"
+          },
+          "Network": {
+            "type": "string",
+            "description": "Network performance capability",
+            "example": "Moderate"
+          },
+          "Cost": {
+            "type": "number",
+            "format": "float",
+            "description": "Hourly cost for on-demand Linux instance in USD",
+            "example": 0.333
+          },
+          "MonthlyPrice": {
+            "type": "number",
+            "format": "float",
+            "description": "Estimated monthly cost in USD (Cost * 730 hours)",
+            "example": 243.09
+          },
+          "SpotPrice": {
+            "type": "string",
+            "description": "Current spot instance hourly price in USD, or 'NA' if not available for spot pricing",
+            "example": "0.0650"
+          }
+        },
+        "required": [
+          "InstanceType",
+          "Memory",
+          "VCPUS",
+          "Storage",
+          "Network",
+          "Cost",
+          "MonthlyPrice",
+          "SpotPrice"
+        ]
+      },
+      "Error": {
+        "type": "object",
+        "description": "Error response",
+        "properties": {
+          "error": {
+            "type": "string",
+            "description": "Error message describing what went wrong"
+          }
+        }
+      }
+    }
+  },
+  "tags": [
+    {
+      "name": "pricing",
+      "description": "EC2 instance pricing operations"
+    }
+  ]
+}

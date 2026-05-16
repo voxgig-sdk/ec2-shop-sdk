@@ -1,0 +1,50 @@
+{
+  "existing": {
+    "get_instance_pricing": {
+      "GET_INSTANCE_PRICING00": {
+        "cost": 80,
+        "instance_type": "s51",
+        "memory": "s52",
+        "monthly_price": 83,
+        "network": "s54",
+        "spot_price": "s55",
+        "storage": "s56",
+        "vcpus": "s57"
+      },
+      "GET_INSTANCE_PRICING01": {
+        "cost": 160,
+        "instance_type": "sa1",
+        "memory": "sa2",
+        "monthly_price": 163,
+        "network": "sa4",
+        "spot_price": "sa5",
+        "storage": "sa6",
+        "vcpus": "sa7"
+      },
+      "GET_INSTANCE_PRICING02": {
+        "cost": 240,
+        "instance_type": "sf1",
+        "memory": "sf2",
+        "monthly_price": 243,
+        "network": "sf4",
+        "spot_price": "sf5",
+        "storage": "sf6",
+        "vcpus": "sf7"
+      }
+    }
+  },
+  "new": {
+    "get_instance_pricing": {
+      "get_instance_pricing_ref01": {
+        "cost": 320,
+        "instance_type": "s141",
+        "memory": "s142",
+        "monthly_price": 323,
+        "network": "s144",
+        "spot_price": "s145",
+        "storage": "s146",
+        "vcpus": "s147"
+      }
+    }
+  }
+}

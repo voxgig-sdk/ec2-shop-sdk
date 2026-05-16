@@ -1,0 +1,103 @@
+# Entity: get_instance_pricing
+
+main: kit: entity: get_instance_pricing: {
+
+  alias: field: {}
+
+  fields: [
+    {
+      name: "cost"
+      req: true
+      type: "`$NUMBER`"
+    }
+    {
+      name: "instance_type"
+      req: true
+      type: "`$STRING`"
+    }
+    {
+      name: "memory"
+      req: true
+      type: "`$STRING`"
+    }
+    {
+      name: "monthly_price"
+      req: true
+      type: "`$NUMBER`"
+    }
+    {
+      name: "network"
+      req: true
+      type: "`$STRING`"
+    }
+    {
+      name: "spot_price"
+      req: true
+      type: "`$STRING`"
+    }
+    {
+      name: "storage"
+      req: true
+      type: "`$STRING`"
+    }
+    {
+      name: "vcpus"
+      req: true
+      type: "`$INTEGER`"
+    }
+  ]
+
+  name: "get_instance_pricing"
+  op: {
+    list: {
+      name: "list"
+      points: [
+        {
+          args: {
+            query: [
+              {
+                example: "i3"
+                kind: "query"
+                name: "filter"
+                orig: "filter"
+                reqd: false
+                type: "`$STRING`"
+              }
+              {
+                kind: "query"
+                name: "json"
+                orig: "json"
+                reqd: false
+                type: "`$STRING`"
+              }
+              {
+                example: "price"
+                kind: "query"
+                name: "sort"
+                orig: "sort"
+                reqd: false
+                type: "`$STRING`"
+              }
+            ]
+          }
+          method: "GET"
+          orig: "/"
+          select: {
+            exist: [
+              "filter"
+              "json"
+              "sort"
+            ]
+          }
+          transform: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
+  }
+
+
+
+}

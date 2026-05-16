@@ -1,0 +1,22 @@
+# BasicGetInstancePricingFlow
+
+main: kit: flow: BasicGetInstancePricingFlow:
+{
+  entity: "get_instance_pricing",
+  kind: "basic",
+  name: "BasicGetInstancePricingFlow",
+  step: [
+    {
+      op: "list",
+      valid: [
+        {
+          apply: "ItemExists",
+          def: {
+            ref: "get_instance_pricing_ref01"
+          }
+        }
+      ]
+    }
+  ],
+  "key$": "BasicGetInstancePricingFlow"
+}

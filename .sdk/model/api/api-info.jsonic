@@ -1,0 +1,27 @@
+# API Information
+
+
+main: {
+  kit: {
+    info: {
+      contact: {
+        url: "https://github.com/yeo/ec2.shop"
+      }
+      description: "A simple and fast API to get Amazon EC2 instance pricing right from your terminal. Supports filtering and sorting by various attributes like memory, CPU, price, and spot price. Provides up-to-date pricing data for on-demand and spot instances, refreshed every 2.5 minutes."
+      license: {
+        name: "MIT"
+        url: "https://github.com/yeo/ec2.shop/blob/master/LICENSE"
+      }
+      servers: [
+        {
+          description: "Production server"
+          url: "https://ec2.shop"
+        }
+      ]
+      title: "EC2 Shop API"
+      version: "1.0.0"
+    }
+  }
+}
+
+}
