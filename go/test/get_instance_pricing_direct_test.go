@@ -6,8 +6,8 @@ import (
 	"strings"
 	"testing"
 
-	sdk "github.com/voxgig-sdk/ec2-shop-sdk"
-	"github.com/voxgig-sdk/ec2-shop-sdk/core"
+	sdk "github.com/voxgig-sdk/ec2-shop-sdk/go"
+	"github.com/voxgig-sdk/ec2-shop-sdk/go/core"
 )
 
 func TestGetInstancePricingDirect(t *testing.T) {

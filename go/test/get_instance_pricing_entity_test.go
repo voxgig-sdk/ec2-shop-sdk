@@ -9,10 +9,10 @@ import (
 	"testing"
 	"time"
 
-	sdk "github.com/voxgig-sdk/ec2-shop-sdk"
-	"github.com/voxgig-sdk/ec2-shop-sdk/core"
+	sdk "github.com/voxgig-sdk/ec2-shop-sdk/go"
+	"github.com/voxgig-sdk/ec2-shop-sdk/go/core"
 
-	vs "github.com/voxgig/struct"
+	vs "github.com/voxgig-sdk/ec2-shop-sdk/go/utility/struct"
 )
 
 func TestGetInstancePricingEntity(t *testing.T) {

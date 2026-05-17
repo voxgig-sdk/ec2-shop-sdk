@@ -1,6 +1,6 @@
 package utility
 
-import "github.com/voxgig-sdk/ec2-shop-sdk/core"
+import "github.com/voxgig-sdk/ec2-shop-sdk/go/core"
 
 func makeErrorUtil(ctx *core.Context, err error) (any, error) {
 	if ctx == nil {

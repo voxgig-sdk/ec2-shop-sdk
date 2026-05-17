@@ -5,14 +5,14 @@ The Golang SDK for the Ec2Shop API. Provides an entity-oriented interface using 
 
 ## Install
 ```bash
-go get github.com/voxgig-sdk/ec2-shop-sdk
+go get github.com/voxgig-sdk/ec2-shop-sdk/go
 ```
 
 If the module is not yet published to a registry, use a `replace` directive
 in your `go.mod` to point to a local checkout:
 
 ```bash
-go mod edit -replace github.com/voxgig-sdk/ec2-shop-sdk=../path/to/github.com/voxgig-sdk/ec2-shop-sdk
+go mod edit -replace github.com/voxgig-sdk/ec2-shop-sdk/go=../path/to/github.com/voxgig-sdk/ec2-shop-sdk/go
 ```
 
 
@@ -30,8 +30,8 @@ import (
     "fmt"
     "os"
 
-    sdk "github.com/voxgig-sdk/ec2-shop-sdk"
-    "github.com/voxgig-sdk/ec2-shop-sdk/core"
+    sdk "github.com/voxgig-sdk/ec2-shop-sdk/go"
+    "github.com/voxgig-sdk/ec2-shop-sdk/go/core"
 )
 
 func main() {
@@ -322,7 +322,7 @@ Use `core.ToMapAny()` to safely cast results and nested data.
 ### Package structure
 
 ```
-github.com/voxgig-sdk/ec2-shop-sdk/
+github.com/voxgig-sdk/ec2-shop-sdk/go/
 ├── ec2-shop.go        # Root package — type aliases and constructors
 ├── core/               # SDK core — client, types, pipeline
 ├── entity/             # Entity implementations
@@ -331,7 +331,7 @@ github.com/voxgig-sdk/ec2-shop-sdk/
 └── test/               # Test suites
 ```
 
-The root package (`github.com/voxgig-sdk/ec2-shop-sdk`) re-exports everything needed
+The root package (`github.com/voxgig-sdk/ec2-shop-sdk/go`) re-exports everything needed
 for normal use. Import sub-packages only when you need specific types
 like `core.ToMapAny`.
 

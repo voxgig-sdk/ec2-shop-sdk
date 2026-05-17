@@ -1,10 +1,10 @@
 package voxgigec2shopsdk
 
 import (
-	"github.com/voxgig-sdk/ec2-shop-sdk/core"
-	"github.com/voxgig-sdk/ec2-shop-sdk/entity"
-	"github.com/voxgig-sdk/ec2-shop-sdk/feature"
-	_ "github.com/voxgig-sdk/ec2-shop-sdk/utility"
+	"github.com/voxgig-sdk/ec2-shop-sdk/go/core"
+	"github.com/voxgig-sdk/ec2-shop-sdk/go/entity"
+	"github.com/voxgig-sdk/ec2-shop-sdk/go/feature"
+	_ "github.com/voxgig-sdk/ec2-shop-sdk/go/utility"
 )
 
 // Type aliases preserve external API.
