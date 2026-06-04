@@ -17,9 +17,7 @@ loading a specific record.
 ```ts
 import { Ec2ShopSDK } from 'ec2-shop'
 
-const client = new Ec2ShopSDK({
-  apikey: process.env.EC2-SHOP_APIKEY,
-})
+const client = new Ec2ShopSDK({})
 ```
 
 ### 2. List getinstancepricings
@@ -84,7 +82,7 @@ const result = await client.Planet().load({ id: 'test01' })
 You can also use the instance method:
 
 ```ts
-const client = new Ec2ShopSDK({ apikey: '...' })
+const client = new Ec2ShopSDK()
 const testClient = client.tester()
 ```
 
@@ -120,7 +118,6 @@ const logger = {
 }
 
 const client = new Ec2ShopSDK({
-  apikey: '...',
   extend: [logger],
 })
 ```
@@ -131,7 +128,6 @@ Create a `.env.local` file at the project root:
 
 ```
 EC2-SHOP_TEST_LIVE=TRUE
-EC2-SHOP_APIKEY=<your-key>
 ```
 
 Then run:
@@ -149,7 +145,6 @@ cd ts && npm test
 
 ```ts
 new Ec2ShopSDK(options?: {
-  apikey?: string
   base?: string
   prefix?: string
   suffix?: string
@@ -160,7 +155,6 @@ new Ec2ShopSDK(options?: {
 
 | Option | Type | Description |
 | --- | --- | --- |
-| `apikey` | `string` | API key for authentication. |
 | `base` | `string` | Base URL of the API server. |
 | `prefix` | `string` | URL path prefix prepended to all requests. |
 | `suffix` | `string` | URL path suffix appended to all requests. |

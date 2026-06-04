@@ -61,14 +61,12 @@ def _get_instance_pricing_direct_setup(mockres):
     env = runner.env_override({
         "EC_SHOP_TEST_GET_INSTANCE_PRICING_ENTID": {},
         "EC_SHOP_TEST_LIVE": "FALSE",
-        "EC_SHOP_APIKEY": "NONE",
     })
 
     live = env.get("EC_SHOP_TEST_LIVE") == "TRUE"
 
     if live:
         merged_opts = {
-            "apikey": env.get("EC_SHOP_APIKEY"),
         }
         client = Ec2ShopSDK(merged_opts)
         return {
