@@ -10,7 +10,7 @@ The PHP SDK for the Ec2Shop API — an entity-oriented client using PHP conventi
 
 ## Install
 ```bash
-composer require voxgig/ec2-shop-sdk
+composer require voxgig-sdk/ec2-shop
 ```
 
 

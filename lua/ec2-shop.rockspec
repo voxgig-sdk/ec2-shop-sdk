@@ -8,12 +8,14 @@ source = {
   dir = "ec2-shop-sdk/lua"
 }
 description = {
-  summary = "Ec2Shop SDK for Lua",
-  license = "MIT"
+  summary = "Unofficial generated Lua SDK for the EC2 Shop public API. Not affiliated with or endorsed by the upstream API provider.",
+  homepage = "https://github.com/voxgig-sdk/ec2-shop-sdk",
+  issues_url = "https://github.com/voxgig-sdk/ec2-shop-sdk/issues",
+  license = "MIT",
+  labels = { "voxgig", "sdk", "generated-sdk", "openapi", "api-client", "ec2-shop" }
 }
 dependencies = {
   "lua >= 5.3",
-  "dkjson >= 2.5",
   "dkjson >= 2.5",
 }
 build = {

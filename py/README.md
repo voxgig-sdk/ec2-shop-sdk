@@ -10,7 +10,7 @@ The Python SDK for the Ec2Shop API — an entity-oriented client following Pytho
 
 ## Install
 ```bash
-pip install ec2-shop-sdk
+pip install voxgig-sdk-ec2-shop
 ```
 
 Or install from source:

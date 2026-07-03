@@ -10,7 +10,7 @@ The Lua SDK for the Ec2Shop API — an entity-oriented client using Lua conventi
 
 ## Install
 ```bash
-luarocks install ec2-shop-sdk
+luarocks install voxgig-sdk-ec2-shop
 ```
 
 If the module is not yet published, add the source directory to

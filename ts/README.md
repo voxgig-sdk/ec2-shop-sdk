@@ -10,7 +10,7 @@ The TypeScript SDK for the Ec2Shop API — a type-safe, entity-oriented client w
 
 ## Install
 ```bash
-npm install ec2-shop
+npm install @voxgig-sdk/ec2-shop
 ```
 ## Tutorial: your first API call
 

@@ -10,13 +10,13 @@ The Ruby SDK for the Ec2Shop API — an entity-oriented client using idiomatic R
 
 ## Install
 ```bash
-gem install ec2-shop-sdk
+gem install voxgig-sdk-ec2-shop
 ```
 
 Or add to your `Gemfile`:
 
 ```ruby
-gem "ec2-shop-sdk"
+gem "voxgig-sdk-ec2-shop"
 ```
 
 Then run:
