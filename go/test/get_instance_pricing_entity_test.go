@@ -119,6 +119,7 @@ func get_instance_pricingBasicSetup(extra map[string]any) *entityTestSetup {
 		"EC_SHOP_TEST_GET_INSTANCE_PRICING_ENTID": idmap,
 		"EC_SHOP_TEST_LIVE":      "FALSE",
 		"EC_SHOP_TEST_EXPLAIN":   "FALSE",
+		"EC_SHOP_APIKEY":         "NONE",
 	})
 
 	idmapResolved := core.ToMapAny(env["EC_SHOP_TEST_GET_INSTANCE_PRICING_ENTID"])
@@ -129,6 +130,7 @@ func get_instance_pricingBasicSetup(extra map[string]any) *entityTestSetup {
 	if env["EC_SHOP_TEST_LIVE"] == "TRUE" {
 		mergedOpts := vs.Merge([]any{
 			map[string]any{
+				"apikey": env["EC_SHOP_APIKEY"],
 			},
 			extra,
 		})

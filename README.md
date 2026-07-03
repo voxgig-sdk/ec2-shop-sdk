@@ -1,22 +1,8 @@
 # Ec2Shop SDK
 
-Query Amazon EC2 instance pricing and specs from the command line, with filters and sorting
+EC2 Shop API client, generated from the OpenAPI spec.
 
 > TypeScript, Python, PHP, Golang, Ruby, Lua SDKs, a CLI, an interactive REPL, and an MCP server for AI agents — all generated from one OpenAPI spec by [@voxgig/sdkgen](https://github.com/voxgig/sdkgen).
-
-## About EC2 Shop API
-
-[ec2.shop](https://ec2.shop) is a small, community-run service that turns AWS EC2 pricing into a quick command-line lookup. It is built and maintained by [yeo](https://github.com/yeo) and is designed to be hit with `curl` from a terminal, returning either a human-readable text table or JSON.
-
-What you get from the API:
-- Instance type, memory, vCPUs, storage, and network specs
-- On-demand hourly cost and a derived monthly price
-- Spot price (string field; may be `"NA"` when unavailable)
-- Filtering by instance family, features (e.g. `ssd`, `gpu`), or comparison expressions like `mem>=32,cpu<=4`
-- Sorting by any field with `+`/`-` prefix (for example `sort=-price`)
-- Region selection across 40+ AWS regions
-
-Operational notes: the default response is a text table; pass `Accept: json` or append `?json` for a JSON body. Spot prices are refreshed roughly every 2.5 minutes; on-demand pricing tracks AWS's published pricing pages. No authentication is required and no published rate limits are documented — please be considerate of the service.
 
 ## Try it
 
@@ -50,29 +36,31 @@ gem install ec2-shop-sdk
 luarocks install ec2-shop-sdk
 ```
 
-## 30-second quickstart
+## Quickstart
 
 ### TypeScript
 
 ```ts
 import { Ec2ShopSDK } from 'ec2-shop'
 
-const client = new Ec2ShopSDK({})
+const client = new Ec2ShopSDK({
+  apikey: process.env.EC2-SHOP_APIKEY,
+})
 
 // List all getinstancepricings
 const getinstancepricings = await client.GetInstancePricing().list()
+console.log(getinstancepricings.data)
 ```
 
-See the [TypeScript README](ts/README.md) for the
-full guide, or scroll down for the same example in other languages.
+See the [TypeScript README](ts/README.md) for the full guide.
 
-## What's in the box
+## Surfaces
 
-| Surface | Use it for | Path |
-| --- | --- | --- |
-| **SDK** (TypeScript, Python, PHP, Golang, Ruby, Lua) | App integration | `ts/` `py/` `php/` `go/` `rb/` `lua/` |
-| **CLI** | Scripts, CI, ops, one-off API calls | `go-cli/` |
-| **MCP server** | AI agents (Claude, Cursor, Cline) | `go-mcp/` |
+| Surface | Path |
+| --- | --- |
+| **SDK** (TypeScript, Python, PHP, Golang, Ruby, Lua) | `ts/` `py/` `php/` `go/` `rb/` `lua/` |
+| **CLI** | `go-cli/` |
+| **MCP server** | `go-mcp/` |
 
 ## Use it from an AI agent (MCP)
 
@@ -102,7 +90,7 @@ The API exposes one entity:
 
 | Entity | Description | API path |
 | --- | --- | --- |
-| **GetInstancePricing** | Lookup of EC2 instance specs and pricing (on-demand hourly, derived monthly, and spot) for a chosen AWS region, served from the root path `/` with optional `filter`, `sort`, and `region` query parameters. | `/` |
+| **GetInstancePricing** |  | `/` |
 
 Each entity supports the following operations where available: **load**,
 **list**, **create**, **update**, and **remove**.
@@ -112,12 +100,16 @@ Each entity supports the following operations where available: **load**,
 ### Python
 
 ```python
+import os
 from ec2shop_sdk import Ec2ShopSDK
 
-client = Ec2ShopSDK({})
+client = Ec2ShopSDK({
+    "apikey": os.environ.get("EC2-SHOP_APIKEY"),
+})
 
 # List all getinstancepricings
-getinstancepricings, err = client.GetInstancePricing(None).list(None, None)
+getinstancepricings, err = client.GetInstancePricing().list()
+print(getinstancepricings)
 ```
 
 ### PHP
@@ -126,10 +118,13 @@ getinstancepricings, err = client.GetInstancePricing(None).list(None, None)
 <?php
 require_once 'ec2shop_sdk.php';
 
-$client = new Ec2ShopSDK([]);
+$client = new Ec2ShopSDK([
+    "apikey" => getenv("EC2-SHOP_APIKEY"),
+]);
 
 // List all getinstancepricings
-[$getinstancepricings, $err] = $client->GetInstancePricing(null)->list(null, null);
+[$getinstancepricings, $err] = $client->GetInstancePricing()->list();
+print_r($getinstancepricings);
 ```
 
 ### Golang
@@ -137,10 +132,13 @@ $client = new Ec2ShopSDK([]);
 ```go
 import sdk "github.com/voxgig-sdk/ec2-shop-sdk/go"
 
-client := sdk.NewEc2ShopSDK(map[string]any{})
+client := sdk.NewEc2ShopSDK(map[string]any{
+    "apikey": os.Getenv("EC2-SHOP_APIKEY"),
+})
 
 // List all getinstancepricings
 getinstancepricings, err := client.GetInstancePricing(nil).List(nil, nil)
+fmt.Println(getinstancepricings)
 ```
 
 ### Ruby
@@ -148,10 +146,13 @@ getinstancepricings, err := client.GetInstancePricing(nil).List(nil, nil)
 ```ruby
 require_relative "Ec2Shop_sdk"
 
-client = Ec2ShopSDK.new({})
+client = Ec2ShopSDK.new({
+  "apikey" => ENV["EC2-SHOP_APIKEY"],
+})
 
 # List all getinstancepricings
-getinstancepricings, err = client.GetInstancePricing(nil).list(nil, nil)
+getinstancepricings, err = client.GetInstancePricing().list
+puts getinstancepricings
 ```
 
 ### Lua
@@ -159,10 +160,13 @@ getinstancepricings, err = client.GetInstancePricing(nil).list(nil, nil)
 ```lua
 local sdk = require("ec2-shop_sdk")
 
-local client = sdk.new({})
+local client = sdk.new({
+  apikey = os.getenv("EC2-SHOP_APIKEY"),
+})
 
 -- List all getinstancepricings
-local getinstancepricings, err = client:GetInstancePricing(nil):list(nil, nil)
+local getinstancepricings, err = client:GetInstancePricing():list()
+print(getinstancepricings)
 ```
 
 ## Unit testing in offline mode
@@ -181,25 +185,21 @@ const result = await client.GetInstancePricing().load({ id: 'test01' })
 ### Python
 
 ```python
-client = Ec2ShopSDK.test(None, None)
-result, err = client.GetInstancePricing(None).load(
-    {"id": "test01"}, None
-)
+client = Ec2ShopSDK.test()
+result, err = client.GetInstancePricing().load({"id": "test01"})
 ```
 
 ### PHP
 
 ```php
-$client = Ec2ShopSDK::test(null, null);
-[$result, $err] = $client->GetInstancePricing(null)->load(
-    ["id" => "test01"], null
-);
+$client = Ec2ShopSDK::test();
+[$result, $err] = $client->GetInstancePricing()->load(["id" => "test01"]);
 ```
 
 ### Golang
 
 ```go
-client := sdk.TestSDK(nil, nil)
+client := sdk.Test()
 result, err := client.GetInstancePricing(nil).Load(
     map[string]any{"id": "test01"}, nil,
 )
@@ -208,19 +208,15 @@ result, err := client.GetInstancePricing(nil).Load(
 ### Ruby
 
 ```ruby
-client = Ec2ShopSDK.test(nil, nil)
-result, err = client.GetInstancePricing(nil).load(
-  { "id" => "test01" }, nil
-)
+client = Ec2ShopSDK.test
+result, err = client.GetInstancePricing().load({ "id" => "test01" })
 ```
 
 ### Lua
 
 ```lua
-local client = sdk.test(nil, nil)
-local result, err = client:GetInstancePricing(nil):load(
-  { id = "test01" }, nil
-)
+local client = sdk.test()
+local result, err = client:GetInstancePricing():load({ id = "test01" })
 ```
 
 ## How it works
@@ -324,15 +320,6 @@ local result, err = client:direct({
 - [Golang](go/README.md)
 - [Ruby](rb/README.md)
 - [Lua](lua/README.md)
-
-## Using the EC2 Shop API
-
-- Upstream: [https://ec2.shop](https://ec2.shop)
-- API docs: [https://github.com/yeo/ec2.shop](https://github.com/yeo/ec2.shop)
-
-- The [ec2.shop source](https://github.com/yeo/ec2.shop) is released under the MIT licence.
-- The service is community-run by [yeo](https://github.com/yeo) and is not affiliated with AWS.
-- Underlying pricing data is sourced from AWS's published pricing; consult AWS for authoritative figures before billing decisions.
 
 ---
 

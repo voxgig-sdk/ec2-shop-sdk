@@ -20,28 +20,7 @@ main: {
       ]
       title: "EC2 Shop API"
       version: "1.0.0"
-      tagline: "Query Amazon EC2 instance pricing and specs from the command line, with filters and sorting"
-      homepage: "https://ec2.shop"
-      docs_url: "https://github.com/yeo/ec2.shop"
-      license_short: "MIT licensed; community-run service by [yeo](https://github.com/yeo)."
-      license_md: `- The [ec2.shop source](https://github.com/yeo/ec2.shop) is released under the MIT licence.
-- The service is community-run by [yeo](https://github.com/yeo) and is not affiliated with AWS.
-- Underlying pricing data is sourced from AWS's published pricing; consult AWS for authoritative figures before billing decisions.`
-      about_md: `[ec2.shop](https://ec2.shop) is a small, community-run service that turns AWS EC2 pricing into a quick command-line lookup. It is built and maintained by [yeo](https://github.com/yeo) and is designed to be hit with \`curl\` from a terminal, returning either a human-readable text table or JSON.
-
-What you get from the API:
-- Instance type, memory, vCPUs, storage, and network specs
-- On-demand hourly cost and a derived monthly price
-- Spot price (string field; may be \`"NA"\` when unavailable)
-- Filtering by instance family, features (e.g. \`ssd\`, \`gpu\`), or comparison expressions like \`mem>=32,cpu<=4\`
-- Sorting by any field with \`+\`/\`-\` prefix (for example \`sort=-price\`)
-- Region selection across 40+ AWS regions
-
-Operational notes: the default response is a text table; pass \`Accept: json\` or append \`?json\` for a JSON body. Spot prices are refreshed roughly every 2.5 minutes; on-demand pricing tracks AWS's published pricing pages. No authentication is required and no published rate limits are documented — please be considerate of the service.`
-      entity_desc: {
-        get_instance_pricing: "Lookup of EC2 instance specs and pricing (on-demand hourly, derived monthly, and spot) for a chosen AWS region, served from the root path `/` with optional `filter`, `sort`, and `region` query parameters."
-      }
-      auth: false
     }
   }
 }
+

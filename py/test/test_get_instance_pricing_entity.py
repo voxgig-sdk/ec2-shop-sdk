@@ -92,6 +92,7 @@ def _get_instance_pricing_basic_setup(extra):
         "EC_SHOP_TEST_GET_INSTANCE_PRICING_ENTID": idmap,
         "EC_SHOP_TEST_LIVE": "FALSE",
         "EC_SHOP_TEST_EXPLAIN": "FALSE",
+        "EC_SHOP_APIKEY": "NONE",
     })
 
     idmap_resolved = helpers.to_map(
@@ -102,6 +103,7 @@ def _get_instance_pricing_basic_setup(extra):
     if env.get("EC_SHOP_TEST_LIVE") == "TRUE":
         merged_opts = vs.merge([
             {
+                "apikey": env.get("EC_SHOP_APIKEY"),
             },
             extra or {},
         ])

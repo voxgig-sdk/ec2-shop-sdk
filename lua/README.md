@@ -1,6 +1,11 @@
 # Ec2Shop Lua SDK
 
-The Lua SDK for the Ec2Shop API. Provides an entity-oriented interface using Lua conventions.
+
+
+The Lua SDK for the Ec2Shop API — an entity-oriented client using Lua conventions.
+
+> Other languages, the CLI, and MCP server live alongside this one — see
+> the [top-level README](../README.md).
 
 
 ## Install
@@ -26,13 +31,15 @@ loading a specific record.
 ```lua
 local sdk = require("ec2-shop_sdk")
 
-local client = sdk.new({})
+local client = sdk.new({
+  apikey = os.getenv("EC2-SHOP_APIKEY"),
+})
 ```
 
 ### 2. List getinstancepricings
 
 ```lua
-local result, err = client:GetInstancePricing(nil):list(nil, nil)
+local result, err = client:GetInstancePricing():list()
 if err then error(err) end
 
 if type(result) == "table" then
@@ -84,11 +91,9 @@ print(fetchdef["headers"])
 Create a mock client for unit testing — no server required:
 
 ```lua
-local client = sdk.test(nil, nil)
+local client = sdk.test()
 
-local result, err = client:Ec2Shop(nil):load(
-  { id = "test01" }, nil
-)
+local result, err = client:Ec2Shop():load({ id = "test01" })
 -- result contains mock response data
 ```
 
@@ -122,6 +127,7 @@ Create a `.env.local` file at the project root:
 
 ```
 EC2-SHOP_TEST_LIVE=TRUE
+EC2-SHOP_APIKEY=<your-key>
 ```
 
 Then run:
@@ -144,6 +150,7 @@ Creates a new SDK client.
 
 | Option | Type | Description |
 | --- | --- | --- |
+| `apikey` | `string` | API key for authentication. |
 | `base` | `string` | Base URL of the API server. |
 | `prefix` | `string` | URL path prefix prepended to all requests. |
 | `suffix` | `string` | URL path suffix appended to all requests. |
