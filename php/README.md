@@ -29,18 +29,16 @@ require_once 'ec2shop_sdk.php';
 $client = new Ec2ShopSDK();
 ```
 
-### 2. List getinstancepricings
+### 2. List getinstancepricing records
 
 ```php
 try {
-    $result = $client->getinstancepricing()->list();
-    if (is_array($result)) {
-        foreach ($result as $item) {
-            $d = $item->data_get();
-            echo $d["id"] . " " . $d["name"] . "\n";
-        }
+    // list() returns an array of GetInstancePricing records — iterate directly.
+    $getinstancepricings = $client->GetInstancePricing()->list();
+    foreach ($getinstancepricings as $item) {
+        echo $item["id"] . " " . $item["name"] . "\n";
     }
-} catch (\Exception $err) {
+} catch (\Throwable $err) {
     echo "Error: " . $err->getMessage();
 }
 ```
@@ -86,13 +84,17 @@ print_r($fetchdef["headers"]);
 
 ### Use test mode
 
-Create a mock client for unit testing — no server required:
+Create a mock client for unit testing — no server required. Seed fixture
+data via the `entity` option so offline calls resolve without a live server:
 
 ```php
-$client = Ec2ShopSDK::test();
+$client = Ec2ShopSDK::test([
+    "entity" => ["getinstancepricing" => ["test01" => ["id" => "test01"]]],
+]);
 
-$result = $client->getinstancepricing()->load(["id" => "test01"]);
-// $result contains mock response data
+// load() returns the bare mock record (throws on error).
+$getinstancepricing = $client->GetInstancePricing()->load(["id" => "test01"]);
+print_r($getinstancepricing);
 ```
 
 ### Use a custom fetch function
@@ -235,7 +237,7 @@ API path: `/`
 
 ### GetInstancePricing
 
-Create an instance: `const get_instance_pricing = client.get_instance_pricing`
+Create an instance: `$get_instance_pricing = $client->GetInstancePricing();`
 
 #### Operations
 
@@ -258,8 +260,9 @@ Create an instance: `const get_instance_pricing = client.get_instance_pricing`
 
 #### Example: List
 
-```ts
-const get_instance_pricings = await client.get_instance_pricing.list()
+```php
+// list() returns an array of GetInstancePricing records (throws on error).
+$get_instance_pricings = $client->GetInstancePricing()->list();
 ```
 
 
@@ -334,7 +337,7 @@ Entity instances are stateful. After a successful `load`, the entity
 stores the returned data and match criteria internally.
 
 ```php
-$getinstancepricing = $client->getinstancepricing();
+$getinstancepricing = $client->GetInstancePricing();
 $getinstancepricing->load(["id" => "example_id"]);
 
 // $getinstancepricing->dataGet() now returns the loaded getinstancepricing data

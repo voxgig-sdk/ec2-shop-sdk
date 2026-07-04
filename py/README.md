@@ -31,14 +31,16 @@ from ec2shop_sdk import Ec2ShopSDK
 client = Ec2ShopSDK()
 ```
 
-### 2. List getinstancepricings
+### 2. List getinstancepricing records
+
+`list()` returns a `list` of records (each a `dict`) and raises on
+error — iterate it directly.
 
 ```python
 try:
-    result = client.getinstancepricing.list()
-    for item in result:
-        d = item.data_get()
-        print(d["id"], d["name"])
+    getinstancepricings = client.GetInstancePricing().list({})
+    for getinstancepricing in getinstancepricings:
+        print(getinstancepricing)
 except Exception as err:
     print(f"list failed: {err}")
 ```
@@ -86,8 +88,9 @@ Create a mock client for unit testing — no server required:
 ```python
 client = Ec2ShopSDK.test()
 
-result = client.getinstancepricing.load({"id": "test01"})
-# result contains mock response data
+# Entity ops return the bare record and raise on error.
+getinstancepricing = client.GetInstancePricing().load({"id": "test01"})
+# getinstancepricing contains the mock response record
 ```
 
 ### Use a custom fetch function
@@ -227,7 +230,7 @@ API path: `/`
 
 ### GetInstancePricing
 
-Create an instance: `const get_instance_pricing = client.get_instance_pricing`
+Create an instance: `get_instance_pricing = client.GetInstancePricing()`
 
 #### Operations
 
@@ -250,8 +253,8 @@ Create an instance: `const get_instance_pricing = client.get_instance_pricing`
 
 #### Example: List
 
-```ts
-const get_instance_pricings = await client.get_instance_pricing.list()
+```python
+get_instance_pricings = client.GetInstancePricing().list({})
 ```
 
 
@@ -325,7 +328,7 @@ Entity instances are stateful. After a successful `load`, the entity
 stores the returned data and match criteria internally.
 
 ```python
-getinstancepricing = client.getinstancepricing
+getinstancepricing = client.GetInstancePricing()
 getinstancepricing.load({"id": "example_id"})
 
 # getinstancepricing.data_get() now returns the loaded getinstancepricing data

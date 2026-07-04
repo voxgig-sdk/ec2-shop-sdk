@@ -4,15 +4,19 @@
 # params (op.<name>.points[].args.params[]). Field/param types come from the
 # canonical type sentinels via @voxgig/sdkgen canonToType (source of truth:
 # @voxgig/apidef VALID_CANON). Do not edit by hand.
+#
+# These are TypedDicts, not dataclasses: the SDK ops return/accept plain dicts
+# at runtime, and a TypedDict IS a dict shape, so the types match the runtime.
+# Optional (req:false) keys are modelled as TypedDict key-optionality
+# (total=False), split into a required base + total=False subclass when a type
+# has both required and optional keys.
 
 from __future__ import annotations
 
-from dataclasses import dataclass
-from typing import Optional, Any
+from typing import TypedDict, Any
 
 
-@dataclass
-class GetInstancePricing:
+class GetInstancePricing(TypedDict):
     cost: float
     instance_type: str
     memory: str
@@ -23,14 +27,12 @@ class GetInstancePricing:
     vcpus: int
 
 
-@dataclass
-class GetInstancePricingListMatch:
-    cost: Optional[float] = None
-    instance_type: Optional[str] = None
-    memory: Optional[str] = None
-    monthly_price: Optional[float] = None
-    network: Optional[str] = None
-    spot_price: Optional[str] = None
-    storage: Optional[str] = None
-    vcpus: Optional[int] = None
-
+class GetInstancePricingListMatch(TypedDict, total=False):
+    cost: float
+    instance_type: str
+    memory: str
+    monthly_price: float
+    network: str
+    spot_price: str
+    storage: str
+    vcpus: int

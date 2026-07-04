@@ -26,9 +26,11 @@ import { Ec2ShopSDK } from '@voxgig-sdk/ec2-shop'
 
 const client = new Ec2ShopSDK()
 
-// List all getinstancepricings
-const getinstancepricings = await client.getinstancepricing.list()
-console.log(getinstancepricings.data)
+// List all getinstancepricings (returns GetInstancePricing[])
+const getinstancepricings = await client.GetInstancePricing().list()
+for (const getinstancepricing of getinstancepricings) {
+  console.log(getinstancepricing)
+}
 ```
 
 See the [TypeScript README](ts/README.md) for the full guide.
@@ -83,9 +85,10 @@ from ec2shop_sdk import Ec2ShopSDK
 
 client = Ec2ShopSDK()
 
-# List all getinstancepricings
-getinstancepricings = client.getinstancepricing.list()
-print(getinstancepricings)
+# List all getinstancepricings (returns a list, raises on error)
+getinstancepricings = client.GetInstancePricing().list({})
+for getinstancepricing in getinstancepricings:
+    print(getinstancepricing)
 ```
 
 ### PHP
@@ -96,8 +99,8 @@ require_once 'ec2shop_sdk.php';
 
 $client = new Ec2ShopSDK();
 
-// List all getinstancepricings (throws on error)
-$getinstancepricings = $client->getinstancepricing()->list();
+// List all getinstancepricings (returns an array; throws on error)
+$getinstancepricings = $client->GetInstancePricing()->list();
 print_r($getinstancepricings);
 ```
 
@@ -120,8 +123,8 @@ require_relative "Ec2Shop_sdk"
 
 client = Ec2ShopSDK.new
 
-# List all getinstancepricings
-getinstancepricings = client.getinstancepricing.list
+# List all getinstancepricings (returns an Array; raises on error)
+getinstancepricings = client.GetInstancePricing.list
 puts getinstancepricings
 ```
 
@@ -133,7 +136,7 @@ local sdk = require("ec2-shop_sdk")
 local client = sdk.new()
 
 -- List all getinstancepricings
-local getinstancepricings, err = client:getinstancepricing():list()
+local getinstancepricings, err = client:GetInstancePricing():list()
 print(getinstancepricings)
 ```
 
@@ -146,22 +149,27 @@ in-memory mock, so unit tests run offline.
 
 ```ts
 const client = Ec2ShopSDK.test()
-const result = await client.getinstancepricing.load({ id: 'test01' })
-// result.ok === true, result.data contains mock data
+const getinstancepricing = await client.GetInstancePricing().load({ id: 'test01' })
+// getinstancepricing is a bare GetInstancePricing populated with mock data
+console.log(getinstancepricing)
 ```
 
 ### Python
 
 ```python
 client = Ec2ShopSDK.test()
-result = client.getinstancepricing.load({"id": "test01"})
+getinstancepricing = client.GetInstancePricing().load({"id": "test01"})
+print(getinstancepricing)
 ```
 
 ### PHP
 
 ```php
-$client = Ec2ShopSDK::test();
-$result = $client->getinstancepricing()->load(["id" => "test01"]);
+// Seed fixture data so offline calls resolve without a live server.
+$client = Ec2ShopSDK::test([
+    "entity" => ["getinstancepricing" => ["test01" => ["id" => "test01"]]],
+]);
+$getinstancepricing = $client->GetInstancePricing()->load(["id" => "test01"]);
 ```
 
 ### Golang
@@ -176,15 +184,18 @@ result, err := client.GetInstancePricing(nil).Load(
 ### Ruby
 
 ```ruby
-client = Ec2ShopSDK.test
-result = client.getinstancepricing.load({ "id" => "test01" })
+# Seed fixture data so offline calls resolve without a live server.
+client = Ec2ShopSDK.test({
+  "entity" => { "getinstancepricing" => { "test01" => { "id" => "test01" } } },
+})
+getinstancepricing = client.GetInstancePricing.load({ "id" => "test01" })
 ```
 
 ### Lua
 
 ```lua
 local client = sdk.test()
-local result, err = client:getinstancepricing():load({ id = "test01" })
+local result, err = client:GetInstancePricing():load({ id = "test01" })
 ```
 
 ## How it works
@@ -232,6 +243,9 @@ const result = await client.direct({
   method: 'GET',
   params: { id: 'example' },
 })
+if (result instanceof Error) {
+  throw result
+}
 console.log(result.data)
 ```
 

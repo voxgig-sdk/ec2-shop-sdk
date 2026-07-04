@@ -244,8 +244,9 @@ end
 
 
 
--- Idiomatic facade: client:get_instance_pricing():list() / client:get_instance_pricing():load({ id = ... })
-function Ec2ShopSDK:get_instance_pricing(data)
+-- Idiomatic facade: client:GetInstancePricing():list() / client:GetInstancePricing():load({ id = ... })
+-- Entity access is capitalised (PascalCase) for parity with the other SDKs.
+function Ec2ShopSDK:GetInstancePricing(data)
   local EntityMod = require("entity.get_instance_pricing_entity")
   if data == nil then
     if self._get_instance_pricing == nil then
@@ -253,12 +254,6 @@ function Ec2ShopSDK:get_instance_pricing(data)
     end
     return self._get_instance_pricing
   end
-  return EntityMod.new(self, data)
-end
-
--- Deprecated: use client:get_instance_pricing() instead.
-function Ec2ShopSDK:GetInstancePricing(data)
-  local EntityMod = require("entity.get_instance_pricing_entity")
   return EntityMod.new(self, data)
 end
 

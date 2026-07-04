@@ -220,25 +220,15 @@ class Ec2ShopSDK:
         }
 
 
-    @property
-    def get_instance_pricing(self):
-        """Idiomatic facade: client.get_instance_pricing.list() / client.get_instance_pricing.load({"id": ...})."""
-        from entity.get_instance_pricing_entity import GetInstancePricingEntity
-        cached = getattr(self, "_get_instance_pricing", None)
-        if cached is None:
-            cached = GetInstancePricingEntity(self, None)
-            self._get_instance_pricing = cached
-        return cached
-
-    def GetInstancePricing(self, data=None):
-        # Deprecated: use client.get_instance_pricing instead.
+    def GetInstancePricing(self, data=None) -> "GetInstancePricingEntity":
+        """Entity factory: client.GetInstancePricing().list({}) / client.GetInstancePricing().load({"id": ...})."""
         from entity.get_instance_pricing_entity import GetInstancePricingEntity
         return GetInstancePricingEntity(self, data)
 
 
 
     @classmethod
-    def test(cls, testopts=None, sdkopts=None):
+    def test(cls, testopts=None, sdkopts=None) -> "Ec2ShopSDK":
         if sdkopts is None:
             sdkopts = {}
         sdkopts = vs.clone(sdkopts)
@@ -258,3 +248,9 @@ class Ec2ShopSDK:
         sdk.mode = "test"
 
         return sdk
+
+
+from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from entity.get_instance_pricing_entity import GetInstancePricingEntity

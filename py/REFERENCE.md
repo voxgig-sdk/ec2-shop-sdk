@@ -80,7 +80,7 @@ Prepare a fetch definition without sending. Returns the `fetchdef` and raises on
 ## GetInstancePricingEntity
 
 ```python
-get_instance_pricing = client.get_instance_pricing
+get_instance_pricing = client.GetInstancePricing()
 ```
 
 ### Fields
@@ -103,7 +103,9 @@ get_instance_pricing = client.get_instance_pricing
 List entities matching the given criteria. Returns a list and raises on error.
 
 ```python
-results = client.get_instance_pricing.list({})
+results = client.GetInstancePricing().list({})
+for get_instance_pricing in results:
+    print(get_instance_pricing)
 ```
 
 ### Common Methods

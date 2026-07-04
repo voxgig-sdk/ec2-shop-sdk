@@ -233,10 +233,10 @@ class Ec2ShopSDK
 
     private $_get_instance_pricing = null;
 
-    // Idiomatic facade: $client->get_instance_pricing()->list() / ->load(["id" => ...]).
-    // Also serves the deprecated PascalCase alias GetInstancePricing() (PHP method
-    // names are case-insensitive).
-    public function get_instance_pricing($data = null)
+    // Canonical facade: $client->GetInstancePricing()->list() / ->load(["id" => ...]).
+    // PHP method names are case-insensitive, so lowercase $client->get_instance_pricing()
+    // resolves here too.
+    public function GetInstancePricing($data = null)
     {
         require_once __DIR__ . '/entity/get_instance_pricing_entity.php';
         if ($data === null) {

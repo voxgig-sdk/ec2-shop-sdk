@@ -109,7 +109,7 @@ Alias for `Ec2ShopSDK.test()`.
 ## GetInstancePricingEntity
 
 ```ts
-const get_instance_pricing = client.get_instance_pricing
+const get_instance_pricing = client.GetInstancePricing()
 ```
 
 ### Fields
@@ -132,7 +132,7 @@ const get_instance_pricing = client.get_instance_pricing
 List entities matching the given criteria. Returns an array.
 
 ```ts
-const results = await client.get_instance_pricing.list()
+const results = await client.GetInstancePricing().list()
 ```
 
 ### Common Methods

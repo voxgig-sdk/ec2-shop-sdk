@@ -28,16 +28,14 @@ require_relative "Ec2Shop_sdk"
 client = Ec2ShopSDK.new
 ```
 
-### 2. List getinstancepricings
+### 2. List getinstancepricing records
 
 ```ruby
 begin
-  result = client.getinstancepricing.list
-  if result.is_a?(Array)
-    result.each do |item|
-      d = item.data_get
-      puts "#{d["id"]} #{d["name"]}"
-    end
+  # list returns an Array of GetInstancePricing records — iterate directly.
+  getinstancepricings = client.GetInstancePricing.list
+  getinstancepricings.each do |item|
+    puts "#{item["id"]} #{item["name"]}"
   end
 rescue => err
   warn "list failed: #{err}"
@@ -85,13 +83,17 @@ end
 
 ### Use test mode
 
-Create a mock client for unit testing — no server required:
+Create a mock client for unit testing — no server required. Seed fixture
+data via the `entity` option so offline calls resolve without a live server:
 
 ```ruby
-client = Ec2ShopSDK.test
+client = Ec2ShopSDK.test({
+  "entity" => { "getinstancepricing" => { "test01" => { "id" => "test01" } } },
+})
 
-result = client.getinstancepricing.load({ "id" => "test01" })
-# result contains mock response data
+# load returns the bare mock record (raises on error).
+getinstancepricing = client.GetInstancePricing.load({ "id" => "test01" })
+puts getinstancepricing
 ```
 
 ### Use a custom fetch function
@@ -230,7 +232,7 @@ API path: `/`
 
 ### GetInstancePricing
 
-Create an instance: `const get_instance_pricing = client.get_instance_pricing`
+Create an instance: `get_instance_pricing = client.GetInstancePricing`
 
 #### Operations
 
@@ -253,8 +255,9 @@ Create an instance: `const get_instance_pricing = client.get_instance_pricing`
 
 #### Example: List
 
-```ts
-const get_instance_pricings = await client.get_instance_pricing.list()
+```ruby
+# list returns an Array of GetInstancePricing records (raises on error).
+get_instance_pricings = client.GetInstancePricing.list
 ```
 
 
@@ -329,7 +332,7 @@ Entity instances are stateful. After a successful `load`, the entity
 stores the returned data and match criteria internally.
 
 ```ruby
-getinstancepricing = client.getinstancepricing
+getinstancepricing = client.GetInstancePricing
 getinstancepricing.load({ "id" => "example_id" })
 
 # getinstancepricing.data_get now returns the loaded getinstancepricing data

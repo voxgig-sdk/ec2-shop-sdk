@@ -83,7 +83,7 @@ same parameters as `direct()`.
 ## GetInstancePricingEntity
 
 ```lua
-local get_instance_pricing = client:get_instance_pricing(nil)
+local get_instance_pricing = client:GetInstancePricing(nil)
 ```
 
 ### Fields
@@ -106,7 +106,7 @@ local get_instance_pricing = client:get_instance_pricing(nil)
 List entities matching the given criteria. Returns an array.
 
 ```lua
-local results, err = client:get_instance_pricing():list()
+local results, err = client:GetInstancePricing():list()
 ```
 
 ### Common Methods

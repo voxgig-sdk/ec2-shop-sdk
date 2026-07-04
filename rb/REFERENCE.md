@@ -86,7 +86,7 @@ same parameters as `direct()`. Raises on error.
 ## GetInstancePricingEntity
 
 ```ruby
-get_instance_pricing = client.get_instance_pricing
+get_instance_pricing = client.GetInstancePricing
 ```
 
 ### Fields
@@ -109,7 +109,7 @@ get_instance_pricing = client.get_instance_pricing
 List entities matching the given criteria. Returns an array. Raises on error.
 
 ```ruby
-results = client.get_instance_pricing.list(nil)
+results = client.GetInstancePricing.list(nil)
 ```
 
 ### Common Methods

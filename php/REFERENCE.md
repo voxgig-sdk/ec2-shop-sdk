@@ -85,7 +85,7 @@ Prepare a fetch definition without sending the request. Returns the
 ## GetInstancePricingEntity
 
 ```php
-$get_instance_pricing = $client->get_instance_pricing();
+$get_instance_pricing = $client->GetInstancePricing();
 ```
 
 ### Fields
@@ -108,7 +108,7 @@ $get_instance_pricing = $client->get_instance_pricing();
 List entities matching the given criteria. Returns an array. Throws on error.
 
 ```php
-$results = $client->get_instance_pricing()->list([]);
+$results = $client->GetInstancePricing()->list([]);
 ```
 
 ### Common Methods

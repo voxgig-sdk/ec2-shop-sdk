@@ -208,13 +208,7 @@ class Ec2ShopSDK
   end
 
 
-  # Idiomatic facade: client.get_instance_pricing.list / client.get_instance_pricing.load({ "id" => ... })
-  def get_instance_pricing
-    require_relative 'entity/get_instance_pricing_entity'
-    @get_instance_pricing ||= GetInstancePricingEntity.new(self, nil)
-  end
-
-  # Deprecated: use client.get_instance_pricing instead.
+  # Canonical facade: client.GetInstancePricing.list / client.GetInstancePricing.load({ "id" => ... })
   def GetInstancePricing(data = nil)
     require_relative 'entity/get_instance_pricing_entity'
     GetInstancePricingEntity.new(self, data)

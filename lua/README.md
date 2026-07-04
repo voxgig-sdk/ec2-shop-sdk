@@ -31,17 +31,17 @@ local sdk = require("ec2-shop_sdk")
 local client = sdk.new()
 ```
 
-### 2. List getinstancepricings
+### 2. List getinstancepricing records
+
+Entity operations return `(value, err)`. For `list`, `value` is the
+array of records itself — iterate it directly (there is no wrapper).
 
 ```lua
-local result, err = client:getinstancepricing():list()
+local getinstancepricings, err = client:GetInstancePricing():list()
 if err then error(err) end
 
-if type(result) == "table" then
-  for _, item in ipairs(result) do
-    local d = item:data_get()
-    print(d["id"], d["name"])
-  end
+for _, item in ipairs(getinstancepricings) do
+  print(item["id"], item["name"])
 end
 ```
 
@@ -88,8 +88,8 @@ Create a mock client for unit testing — no server required:
 ```lua
 local client = sdk.test()
 
-local result, err = client:getinstancepricing():load({ id = "test01" })
--- result contains mock response data
+local result, err = client:GetInstancePricing():load({ id = "test01" })
+-- result is the loaded data; err is set on failure
 ```
 
 ### Use a custom fetch function
@@ -189,17 +189,22 @@ All entities share the same interface.
 
 ### Result shape
 
-Entity operations return `(any, err)`. The first value is a
-`table` with these keys:
+Entity operations return `(value, err)`. The `value` is the operation's
+data **directly** — there is no wrapper:
 
-| Key | Type | Description |
-| --- | --- | --- |
-| `ok` | `boolean` | `true` if the HTTP status is 2xx. |
-| `status` | `number` | HTTP status code. |
-| `headers` | `table` | Response headers. |
-| `data` | `any` | Parsed JSON response body. |
+| Operation | `value` |
+| --- | --- |
+| `load` / `create` / `update` / `remove` | the entity record (a `table`) |
+| `list` | an array (`table`) of entity records |
 
-On error, `ok` is `false` and `err` contains the error value.
+Check `err` first (it is non-`nil` on failure), then use `value`:
+
+    local get_instance_pricing, err = client:GetInstancePricing():load({ id = "example_id" })
+    if err then error(err) end
+    -- get_instance_pricing is the loaded record
+
+Only `direct()` returns a response envelope — a `table` with `ok`,
+`status`, `headers`, and `data` keys.
 
 ### Entities
 
@@ -227,7 +232,7 @@ API path: `/`
 
 ### GetInstancePricing
 
-Create an instance: `const get_instance_pricing = client.get_instance_pricing`
+Create an instance: `local get_instance_pricing = client:GetInstancePricing(nil)`
 
 #### Operations
 
@@ -250,8 +255,8 @@ Create an instance: `const get_instance_pricing = client.get_instance_pricing`
 
 #### Example: List
 
-```ts
-const get_instance_pricings = await client.get_instance_pricing.list()
+```lua
+local get_instance_pricings, err = client:GetInstancePricing():list()
 ```
 
 
@@ -326,7 +331,7 @@ Entity instances are stateful. After a successful `load`, the entity
 stores the returned data and match criteria internally.
 
 ```lua
-local getinstancepricing = client:getinstancepricing()
+local getinstancepricing = client:GetInstancePricing()
 getinstancepricing:load({ id = "example_id" })
 
 -- getinstancepricing:data_get() now returns the loaded getinstancepricing data

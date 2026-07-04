@@ -204,14 +204,7 @@ class Ec2ShopSDK {
 
 
 
-  _get_instance_pricing?: GetInstancePricingEntity
-
-  // Idiomatic facade: `client.get_instance_pricing.list()` / `client.get_instance_pricing.load({ id })`.
-  get get_instance_pricing(): GetInstancePricingEntity {
-    return (this._get_instance_pricing ??= new GetInstancePricingEntity(this, undefined))
-  }
-
-  /** @deprecated Use `client.get_instance_pricing` instead. */
+  // Entity access: `client.GetInstancePricing().list()` / `client.GetInstancePricing().load({ id })`.
   GetInstancePricing(data?: any) {
     const self = this
     return new GetInstancePricingEntity(self,data)
