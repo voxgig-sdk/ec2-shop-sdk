@@ -50,8 +50,7 @@ class TestGetInstancePricingEntity:
         get_instance_pricing_ref01_ent = client.GetInstancePricing(None)
         get_instance_pricing_ref01_match = {}
 
-        get_instance_pricing_ref01_list_result, err = get_instance_pricing_ref01_ent.list(get_instance_pricing_ref01_match, None)
-        assert err is None
+        get_instance_pricing_ref01_list_result = get_instance_pricing_ref01_ent.list(get_instance_pricing_ref01_match, None)
         assert isinstance(get_instance_pricing_ref01_list_result, list)
 
 
@@ -92,7 +91,6 @@ def _get_instance_pricing_basic_setup(extra):
         "EC_SHOP_TEST_GET_INSTANCE_PRICING_ENTID": idmap,
         "EC_SHOP_TEST_LIVE": "FALSE",
         "EC_SHOP_TEST_EXPLAIN": "FALSE",
-        "EC_SHOP_APIKEY": "NONE",
     })
 
     idmap_resolved = helpers.to_map(
@@ -103,7 +101,6 @@ def _get_instance_pricing_basic_setup(extra):
     if env.get("EC_SHOP_TEST_LIVE") == "TRUE":
         merged_opts = vs.merge([
             {
-                "apikey": env.get("EC_SHOP_APIKEY"),
             },
             extra or {},
         ])

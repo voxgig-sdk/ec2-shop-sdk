@@ -45,6 +45,7 @@ class GetInstancePricingEntity
     end
   end
 
+  # @return [GetInstancePricing, Hash] the current GetInstancePricing data
   def data_get
     @_utility.feature_hook.call(@_entctx, "GetData")
     VoxgigStruct.clone(@_data)
@@ -57,6 +58,7 @@ class GetInstancePricingEntity
     end
   end
 
+  # @return [Hash] the current match filter (any subset of GetInstancePricing fields)
   def match_get
     @_utility.feature_hook.call(@_entctx, "GetMatch")
     VoxgigStruct.clone(@_match)
@@ -65,6 +67,11 @@ class GetInstancePricingEntity
   
 
   
+  # List GetInstancePricing items matching the given filter.
+  #
+  # @param reqmatch [GetInstancePricingListMatch, Hash, nil] match filter (any subset of GetInstancePricing fields)
+  # @param ctrl [Object, nil] optional per-call control
+  # @return [Array<GetInstancePricing>, Array] the matching GetInstancePricing items; raises Ec2ShopError on failure
   def list(reqmatch, ctrl = nil)
     utility = @_utility
     ctx = utility.make_context.call({

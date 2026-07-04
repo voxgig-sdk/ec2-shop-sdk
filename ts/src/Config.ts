@@ -38,10 +38,6 @@ class Config {
   options = {
     base: 'https://ec2.shop',
 
-    auth: {
-      prefix: 'Bearer',
-    },
-
     headers: {
       "content-type": "application/json"
     },

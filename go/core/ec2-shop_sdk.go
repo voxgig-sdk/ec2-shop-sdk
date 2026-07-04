@@ -245,6 +245,9 @@ func (sdk *Ec2ShopSDK) Direct(fetchargs map[string]any) (map[string]any, error) 
 }
 
 
+// GetInstancePricing returns a GetInstancePricing entity bound to this client.
+// Idiomatic usage: client.GetInstancePricing(nil).List(nil, nil) or
+// client.GetInstancePricing(nil).Load(map[string]any{"id": ...}, nil).
 func (sdk *Ec2ShopSDK) GetInstancePricing(data map[string]any) Ec2ShopEntity {
 	return NewGetInstancePricingEntityFunc(sdk, data)
 }

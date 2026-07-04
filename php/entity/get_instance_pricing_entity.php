@@ -55,6 +55,9 @@ class GetInstancePricingEntity
         return new GetInstancePricingEntity($this->_client, $opts);
     }
 
+    /**
+     * @param GetInstancePricing|array $args GetInstancePricing data (assoc-array) to store.
+     */
     public function data_set($args): void
     {
         if ($args) {
@@ -63,12 +66,18 @@ class GetInstancePricingEntity
         }
     }
 
+    /**
+     * @return GetInstancePricing|array The current GetInstancePricing data as an assoc-array.
+     */
     public function data_get()
     {
         ($this->_utility->feature_hook)($this->_entctx, "GetData");
         return Struct::clone($this->_data);
     }
 
+    /**
+     * @param array $args Match filter (any subset of GetInstancePricing fields).
+     */
     public function match_set($args): void
     {
         if ($args) {
@@ -77,6 +86,9 @@ class GetInstancePricingEntity
         }
     }
 
+    /**
+     * @return array The current match filter (any subset of GetInstancePricing fields).
+     */
     public function match_get()
     {
         ($this->_utility->feature_hook)($this->_entctx, "GetMatch");
@@ -86,7 +98,16 @@ class GetInstancePricingEntity
     
 
     
-    public function list($reqmatch, $ctrl = null): array
+    /**
+     * List GetInstancePricing items matching the given filter.
+     *
+     * @param GetInstancePricingListMatch|array|null $reqmatch Match filter (any subset
+     *   of GetInstancePricing fields) as an assoc-array; GetInstancePricingListMatch names the shape.
+     * @param mixed $ctrl Optional per-call control overrides.
+     * @return GetInstancePricing[]|array A list of GetInstancePricing items as assoc-arrays at
+     *   the SDK boundary; throws Ec2ShopError on failure (item-5 convention).
+     */
+    public function list(?array $reqmatch = null, $ctrl = null): mixed
     {
         $utility = $this->_utility;
         $ctx = ($utility->make_context)([
@@ -114,7 +135,7 @@ class GetInstancePricingEntity
 
     
 
-    private function _run_op($ctx, callable $post_done): array
+    private function _run_op($ctx, callable $post_done): mixed
     {
         $utility = $this->_utility;
 

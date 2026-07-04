@@ -43,8 +43,7 @@ class GetInstancePricingEntityTest < Minitest::Test
     get_instance_pricing_ref01_ent = client.GetInstancePricing(nil)
     get_instance_pricing_ref01_match = {}
 
-    get_instance_pricing_ref01_list_result, err = get_instance_pricing_ref01_ent.list(get_instance_pricing_ref01_match, nil)
-    assert_nil err
+    get_instance_pricing_ref01_list_result = get_instance_pricing_ref01_ent.list(get_instance_pricing_ref01_match, nil)
     assert get_instance_pricing_ref01_list_result.is_a?(Array)
 
   end
@@ -83,7 +82,6 @@ def get_instance_pricing_basic_setup(extra)
     "EC_SHOP_TEST_GET_INSTANCE_PRICING_ENTID" => idmap,
     "EC_SHOP_TEST_LIVE" => "FALSE",
     "EC_SHOP_TEST_EXPLAIN" => "FALSE",
-    "EC_SHOP_APIKEY" => "NONE",
   })
 
   idmap_resolved = Helpers.to_map(
@@ -95,7 +93,6 @@ def get_instance_pricing_basic_setup(extra)
   if env["EC_SHOP_TEST_LIVE"] == "TRUE"
     merged_opts = Vs.merge([
       {
-        "apikey" => env["EC_SHOP_APIKEY"],
       },
       extra || {},
     ])

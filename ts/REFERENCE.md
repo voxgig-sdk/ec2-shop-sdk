@@ -18,7 +18,6 @@ Create a new SDK client instance.
 | Name | Type | Description |
 | --- | --- | --- |
 | `options` | `object` | SDK configuration options. |
-| `options.apikey` | `string` | API key for authentication. |
 | `options.base` | `string` | Base URL for API requests. |
 | `options.prefix` | `string` | URL prefix appended after base. |
 | `options.suffix` | `string` | URL suffix appended after path. |
@@ -110,7 +109,7 @@ Alias for `Ec2ShopSDK.test()`.
 ## GetInstancePricingEntity
 
 ```ts
-const get_instance_pricing = client.GetInstancePricing()
+const get_instance_pricing = client.get_instance_pricing
 ```
 
 ### Fields
@@ -133,7 +132,7 @@ const get_instance_pricing = client.GetInstancePricing()
 List entities matching the given criteria. Returns an array.
 
 ```ts
-const results = await client.GetInstancePricing().list()
+const results = await client.get_instance_pricing.list()
 ```
 
 ### Common Methods

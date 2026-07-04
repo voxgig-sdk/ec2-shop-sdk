@@ -19,7 +19,6 @@ Create a new SDK client instance.
 | Name | Type | Description |
 | --- | --- | --- |
 | `options` | `table` | SDK configuration options. |
-| `options.apikey` | `string` | API key for authentication. |
 | `options.base` | `string` | Base URL for API requests. |
 | `options.prefix` | `string` | URL prefix appended after base. |
 | `options.suffix` | `string` | URL suffix appended after path. |
@@ -84,7 +83,7 @@ same parameters as `direct()`.
 ## GetInstancePricingEntity
 
 ```lua
-local get_instance_pricing = client:GetInstancePricing(nil)
+local get_instance_pricing = client:get_instance_pricing(nil)
 ```
 
 ### Fields
@@ -107,7 +106,7 @@ local get_instance_pricing = client:GetInstancePricing(nil)
 List entities matching the given criteria. Returns an array.
 
 ```lua
-local results, err = client:GetInstancePricing():list()
+local results, err = client:get_instance_pricing():list()
 ```
 
 ### Common Methods

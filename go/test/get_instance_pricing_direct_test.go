@@ -93,14 +93,12 @@ func get_instance_pricingDirectSetup(mockres any) *get_instance_pricingDirectSet
 	env := envOverride(map[string]any{
 		"EC_SHOP_TEST_GET_INSTANCE_PRICING_ENTID": map[string]any{},
 		"EC_SHOP_TEST_LIVE":    "FALSE",
-		"EC_SHOP_APIKEY":       "NONE",
 	})
 
 	live := env["EC_SHOP_TEST_LIVE"] == "TRUE"
 
 	if live {
 		mergedOpts := map[string]any{
-			"apikey": env["EC_SHOP_APIKEY"],
 		}
 		client := sdk.NewEc2ShopSDK(mergedOpts)
 

@@ -9,12 +9,9 @@ The Lua SDK for the Ec2Shop API — an entity-oriented client using Lua conventi
 
 
 ## Install
-```bash
-luarocks install voxgig-sdk-ec2-shop
-```
-
-If the module is not yet published, add the source directory to
-your `LUA_PATH`:
+This package is not yet published to LuaRocks. Install it from the
+GitHub release tag (`lua/vX.Y.Z`, see [Releases](https://github.com/voxgig-sdk/ec2-shop-sdk/releases)),
+or add the source directory to your `LUA_PATH`:
 
 ```bash
 export LUA_PATH="path/to/lua/?.lua;path/to/lua/?/init.lua;;"
@@ -31,15 +28,13 @@ loading a specific record.
 ```lua
 local sdk = require("ec2-shop_sdk")
 
-local client = sdk.new({
-  apikey = os.getenv("EC2-SHOP_APIKEY"),
-})
+local client = sdk.new()
 ```
 
 ### 2. List getinstancepricings
 
 ```lua
-local result, err = client:GetInstancePricing():list()
+local result, err = client:getinstancepricing():list()
 if err then error(err) end
 
 if type(result) == "table" then
@@ -93,7 +88,7 @@ Create a mock client for unit testing — no server required:
 ```lua
 local client = sdk.test()
 
-local result, err = client:Ec2Shop():load({ id = "test01" })
+local result, err = client:getinstancepricing():load({ id = "test01" })
 -- result contains mock response data
 ```
 
@@ -126,8 +121,7 @@ local client = sdk.new({
 Create a `.env.local` file at the project root:
 
 ```
-EC2-SHOP_TEST_LIVE=TRUE
-EC2-SHOP_APIKEY=<your-key>
+EC2_SHOP_TEST_LIVE=TRUE
 ```
 
 Then run:
@@ -150,7 +144,6 @@ Creates a new SDK client.
 
 | Option | Type | Description |
 | --- | --- | --- |
-| `apikey` | `string` | API key for authentication. |
 | `base` | `string` | Base URL of the API server. |
 | `prefix` | `string` | URL path prefix prepended to all requests. |
 | `suffix` | `string` | URL path suffix appended to all requests. |
@@ -234,7 +227,7 @@ API path: `/`
 
 ### GetInstancePricing
 
-Create an instance: `const get_instance_pricing = client.GetInstancePricing()`
+Create an instance: `const get_instance_pricing = client.get_instance_pricing`
 
 #### Operations
 
@@ -258,7 +251,7 @@ Create an instance: `const get_instance_pricing = client.GetInstancePricing()`
 #### Example: List
 
 ```ts
-const get_instance_pricings = await client.GetInstancePricing().list()
+const get_instance_pricings = await client.get_instance_pricing.list()
 ```
 
 
@@ -333,11 +326,11 @@ Entity instances are stateful. After a successful `load`, the entity
 stores the returned data and match criteria internally.
 
 ```lua
-local moon = client:Moon(nil)
-moon:load({ planet_id = "earth", id = "luna" }, nil)
+local getinstancepricing = client:getinstancepricing()
+getinstancepricing:load({ id = "example_id" })
 
--- moon:data_get() now returns the loaded moon data
--- moon:match_get() returns the last match criteria
+-- getinstancepricing:data_get() now returns the loaded getinstancepricing data
+-- getinstancepricing:match_get() returns the last match criteria
 ```
 
 Call `make()` to create a fresh instance with the same configuration

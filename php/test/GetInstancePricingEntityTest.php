@@ -50,8 +50,7 @@ class GetInstancePricingEntityTest extends TestCase
         $get_instance_pricing_ref01_ent = $client->GetInstancePricing(null);
         $get_instance_pricing_ref01_match = [];
 
-        [$get_instance_pricing_ref01_list_result, $err] = $get_instance_pricing_ref01_ent->list($get_instance_pricing_ref01_match, null);
-        $this->assertNull($err);
+        $get_instance_pricing_ref01_list_result = $get_instance_pricing_ref01_ent->list($get_instance_pricing_ref01_match, null);
         $this->assertIsArray($get_instance_pricing_ref01_list_result);
 
     }
@@ -86,7 +85,6 @@ function get_instance_pricing_basic_setup($extra)
         "EC_SHOP_TEST_GET_INSTANCE_PRICING_ENTID" => $idmap,
         "EC_SHOP_TEST_LIVE" => "FALSE",
         "EC_SHOP_TEST_EXPLAIN" => "FALSE",
-        "EC_SHOP_APIKEY" => "NONE",
     ]);
 
     $idmap_resolved = Helpers::to_map(
@@ -98,7 +96,6 @@ function get_instance_pricing_basic_setup($extra)
     if ($env["EC_SHOP_TEST_LIVE"] === "TRUE") {
         $merged_opts = Vs::merge([
             [
-                "apikey" => $env["EC_SHOP_APIKEY"],
             ],
             $extra ?? [],
         ]);

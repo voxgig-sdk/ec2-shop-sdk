@@ -63,14 +63,12 @@ function get_instance_pricing_direct_setup(mockres)
   local env = runner.env_override({
     ["EC_SHOP_TEST_GET_INSTANCE_PRICING_ENTID"] = {},
     ["EC_SHOP_TEST_LIVE"] = "FALSE",
-    ["EC_SHOP_APIKEY"] = "NONE",
   })
 
   local live = env["EC_SHOP_TEST_LIVE"] == "TRUE"
 
   if live then
     local merged_opts = {
-      apikey = env["EC_SHOP_APIKEY"],
     }
     local client = sdk.new(merged_opts)
     return {

@@ -113,7 +113,6 @@ function basicSetup(extra?: any) {
     'EC__SHOP_TEST_GET_INSTANCE_PRICING_ENTID': idmap,
     'EC__SHOP_TEST_LIVE': 'FALSE',
     'EC__SHOP_TEST_EXPLAIN': 'FALSE',
-    'EC__SHOP_APIKEY': 'NONE',
   })
 
   idmap = env['EC__SHOP_TEST_GET_INSTANCE_PRICING_ENTID']
@@ -123,7 +122,6 @@ function basicSetup(extra?: any) {
   if (live) {
     client = new Ec2ShopSDK(merge([
       {
-        apikey: env.EC__SHOP_APIKEY,
       },
       extra
     ]))

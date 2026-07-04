@@ -79,14 +79,12 @@ function directSetup(mockres?: any) {
   const env = envOverride({
     'EC_SHOP_TEST_GET_INSTANCE_PRICING_ENTID': {},
     'EC_SHOP_TEST_LIVE': 'FALSE',
-    'EC_SHOP_APIKEY': 'NONE',
   })
 
   const live = 'TRUE' === env.EC_SHOP_TEST_LIVE
 
   if (live) {
     const client = new Ec2ShopSDK({
-      apikey: env.EC_SHOP_APIKEY,
     })
 
     let idmap: any = env['EC_SHOP_TEST_GET_INSTANCE_PRICING_ENTID']

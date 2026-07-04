@@ -14,9 +14,13 @@ import type {
   Control,
 } from '../types'
 
+import type {
+  GetInstancePricing,
+  GetInstancePricingListMatch,
+} from '../Ec2ShopTypes'
 
 // TODO: needs Entity superclass
-class GetInstancePricingEntity extends Ec2ShopEntityBase {
+class GetInstancePricingEntity extends Ec2ShopEntityBase<GetInstancePricing> {
 
   constructor(client: Ec2ShopSDK, entopts: any) {
     super(client, entopts)
@@ -33,7 +37,7 @@ class GetInstancePricingEntity extends Ec2ShopEntityBase {
 
 
 
-  async list(this: any, reqmatch?: any, ctrl?: Control) {
+  async list(this: any, reqmatch?: GetInstancePricingListMatch, ctrl?: Control): Promise<GetInstancePricing[]> {
 
     const utility = this._utility
 
@@ -133,7 +137,9 @@ class GetInstancePricingEntity extends Ec2ShopEntityBase {
         throw err
       }
       else {
-        return undefined
+        // Off-happy-path (throw disabled): typed as any so the method's
+        // Promise<GetInstancePricing[]> return stays clean under strict null checks.
+        return undefined as any
       }
     }
   }

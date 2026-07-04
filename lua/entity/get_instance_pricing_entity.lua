@@ -81,6 +81,10 @@ end
 
 
 
+---@param reqmatch GetInstancePricingListMatch
+---@param ctrl? table
+---@return GetInstancePricing[]
+---@return string? err
 function GetInstancePricingEntity:list(reqmatch, ctrl)
   local utility = self._utility
   local ctx = utility.make_context({
