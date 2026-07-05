@@ -8,7 +8,7 @@ Complete API reference for the Ec2Shop Ruby SDK.
 ### Constructor
 
 ```ruby
-require_relative 'ec2-shop_sdk'
+require_relative 'Ec2Shop_sdk'
 
 client = Ec2ShopSDK.new(options)
 ```
@@ -93,23 +93,23 @@ get_instance_pricing = client.GetInstancePricing
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `cost` | ``$NUMBER`` | Yes |  |
-| `instance_type` | ``$STRING`` | Yes |  |
-| `memory` | ``$STRING`` | Yes |  |
-| `monthly_price` | ``$NUMBER`` | Yes |  |
-| `network` | ``$STRING`` | Yes |  |
-| `spot_price` | ``$STRING`` | Yes |  |
-| `storage` | ``$STRING`` | Yes |  |
-| `vcpus` | ``$INTEGER`` | Yes |  |
+| `cost` | `Float` | Yes |  |
+| `instance_type` | `String` | Yes |  |
+| `memory` | `String` | Yes |  |
+| `monthly_price` | `Float` | Yes |  |
+| `network` | `String` | Yes |  |
+| `spot_price` | `String` | Yes |  |
+| `storage` | `String` | Yes |  |
+| `vcpus` | `Integer` | Yes |  |
 
 ### Operations
 
-#### `list(reqmatch, ctrl = nil) -> Array`
+#### `list(reqmatch = nil, ctrl = nil) -> Array`
 
-List entities matching the given criteria. Returns an array. Raises on error.
+List entities matching the given criteria (call with no argument to list all). Returns an array. Raises on error.
 
 ```ruby
-results = client.GetInstancePricing.list(nil)
+results = client.GetInstancePricing.list
 ```
 
 ### Common Methods

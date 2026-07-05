@@ -25,7 +25,7 @@ class GetInstancePricing
     public int $vcpus;
 }
 
-/** Match filter for GetInstancePricing#list (any subset of GetInstancePricing fields). */
+/** Request payload for GetInstancePricing#list. */
 class GetInstancePricingListMatch
 {
     public ?float $cost = null;

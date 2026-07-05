@@ -8,7 +8,7 @@ Complete API reference for the Ec2Shop PHP SDK.
 ### Constructor
 
 ```php
-require_once __DIR__ . '/ec2-shop_sdk.php';
+require_once __DIR__ . '/ec2shop_sdk.php';
 
 $client = new Ec2ShopSDK($options);
 ```
@@ -45,11 +45,11 @@ $client = Ec2ShopSDK::test();
 
 Create a new `GetInstancePricingEntity` instance. Pass `null` for no initial data.
 
-#### `optionsMap(): array`
+#### `options_map(): array`
 
 Return a deep copy of the current SDK options.
 
-#### `getUtility(): ProjectNameUtility`
+#### `get_utility(): Ec2ShopUtility`
 
 Return a copy of the SDK utility object.
 
@@ -92,40 +92,40 @@ $get_instance_pricing = $client->GetInstancePricing();
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `cost` | ``$NUMBER`` | Yes |  |
-| `instance_type` | ``$STRING`` | Yes |  |
-| `memory` | ``$STRING`` | Yes |  |
-| `monthly_price` | ``$NUMBER`` | Yes |  |
-| `network` | ``$STRING`` | Yes |  |
-| `spot_price` | ``$STRING`` | Yes |  |
-| `storage` | ``$STRING`` | Yes |  |
-| `vcpus` | ``$INTEGER`` | Yes |  |
+| `cost` | `float` | Yes |  |
+| `instance_type` | `string` | Yes |  |
+| `memory` | `string` | Yes |  |
+| `monthly_price` | `float` | Yes |  |
+| `network` | `string` | Yes |  |
+| `spot_price` | `string` | Yes |  |
+| `storage` | `string` | Yes |  |
+| `vcpus` | `int` | Yes |  |
 
 ### Operations
 
-#### `list(array $reqmatch, ?array $ctrl = null): mixed`
+#### `list(?array $reqmatch = null, ?array $ctrl = null): mixed`
 
-List entities matching the given criteria. Returns an array. Throws on error.
+List entities matching the given criteria (call with no argument to list all). Returns an array. Throws on error.
 
 ```php
-$results = $client->GetInstancePricing()->list([]);
+$results = $client->GetInstancePricing()->list();
 ```
 
 ### Common Methods
 
-#### `dataGet(): array`
+#### `data_get(): array`
 
 Get the entity data. Returns a copy of the current data.
 
-#### `dataSet($data): void`
+#### `data_set($data): void`
 
 Set the entity data.
 
-#### `matchGet(): array`
+#### `match_get(): array`
 
 Get the entity match criteria.
 
-#### `matchSet($match): void`
+#### `match_set($match): void`
 
 Set the entity match criteria.
 
@@ -134,7 +134,7 @@ Set the entity match criteria.
 Create a new `GetInstancePricingEntity` instance with the same client and
 options.
 
-#### `getName(): string`
+#### `get_name(): string`
 
 Return the entity name.
 

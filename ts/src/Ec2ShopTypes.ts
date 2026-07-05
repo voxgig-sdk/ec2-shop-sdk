@@ -16,5 +16,14 @@ export interface GetInstancePricing {
   vcpus: number
 }
 
-export type GetInstancePricingListMatch = Partial<GetInstancePricing>
+export interface GetInstancePricingListMatch {
+  cost?: number
+  instance_type?: string
+  memory?: string
+  monthly_price?: number
+  network?: string
+  spot_price?: string
+  storage?: string
+  vcpus?: number
+}
 

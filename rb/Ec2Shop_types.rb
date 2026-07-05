@@ -45,7 +45,7 @@ GetInstancePricing = Struct.new(
   keyword_init: true
 )
 
-# Match filter for GetInstancePricing#list (any subset of GetInstancePricing fields).
+# Request payload for GetInstancePricing#list.
 #
 # @!attribute [rw] cost
 #   @return [Float, nil]

@@ -4,6 +4,11 @@
 
 The Python SDK for the Ec2Shop API — an entity-oriented client following Pythonic conventions.
 
+The SDK exposes the API as capitalised, semantic **Entities** — for example `client.GetInstancePricing()` — each
+carrying a small, uniform set of operations (`list`) instead of raw URL
+paths and query strings. You work with named resources and verbs, which
+keeps the cognitive load low.
+
 > Other languages, the CLI, and MCP server live alongside this one — see
 > the [top-level README](../README.md).
 
@@ -38,11 +43,39 @@ error — iterate it directly.
 
 ```python
 try:
-    getinstancepricings = client.GetInstancePricing().list({})
+    getinstancepricings = client.GetInstancePricing().list()
     for getinstancepricing in getinstancepricings:
         print(getinstancepricing)
 except Exception as err:
     print(f"list failed: {err}")
+```
+
+
+## Error handling
+
+Entity operations raise on failure, so wrap them in `try` / `except`:
+
+```python
+try:
+    getinstancepricings = client.GetInstancePricing().list()
+    print(getinstancepricings)
+except Exception as err:
+    print(f"list failed: {err}")
+```
+
+`direct()` does **not** raise — it returns the result envelope. Branch
+on `ok`; on failure `status` holds the HTTP status (for error responses)
+and `err` holds a transport error, so read both defensively:
+
+```python
+result = client.direct({
+    "path": "/api/resource/{id}",
+    "method": "GET",
+    "params": {"id": "example_id"},
+})
+
+if not result["ok"]:
+    print("request failed:", result.get("status"), result.get("err"))
 ```
 
 
@@ -63,7 +96,10 @@ if result["ok"]:
     print(result["status"])  # 200
     print(result["data"])    # response body
 else:
-    print(result["err"])     # error value
+    # A non-2xx response carries status + data (the error body); a
+    # transport-level failure carries err instead. Only one is present, so
+    # read both with .get() rather than indexing a key that may be absent.
+    print(result.get("status"), result.get("err"))
 ```
 
 ### Prepare a request without sending it
@@ -89,7 +125,7 @@ Create a mock client for unit testing — no server required:
 client = Ec2ShopSDK.test()
 
 # Entity ops return the bare record and raise on error.
-getinstancepricing = client.GetInstancePricing().load({"id": "test01"})
+getinstancepricing = client.GetInstancePricing().list()
 # getinstancepricing contains the mock response record
 ```
 
@@ -174,11 +210,7 @@ All entities share the same interface.
 
 | Method | Signature | Description |
 | --- | --- | --- |
-| `load` | `(reqmatch, ctrl) -> any` | Load a single entity by match criteria. Raises on error. |
 | `list` | `(reqmatch, ctrl) -> list` | List entities matching the criteria. Raises on error. |
-| `create` | `(reqdata, ctrl) -> any` | Create a new entity. Raises on error. |
-| `update` | `(reqdata, ctrl) -> any` | Update an existing entity. Raises on error. |
-| `remove` | `(reqmatch, ctrl) -> any` | Remove an entity. Raises on error. |
 | `data_get` | `() -> dict` | Get entity data. |
 | `data_set` | `(data)` | Set entity data. |
 | `match_get` | `() -> dict` | Get entity match criteria. |
@@ -236,34 +268,38 @@ Create an instance: `get_instance_pricing = client.GetInstancePricing()`
 
 | Method | Description |
 | --- | --- |
-| `list(match)` | List entities matching the criteria. |
+| `list()` | List entities, optionally matching the given criteria. |
 
 #### Fields
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `cost` | ``$NUMBER`` |  |
-| `instance_type` | ``$STRING`` |  |
-| `memory` | ``$STRING`` |  |
-| `monthly_price` | ``$NUMBER`` |  |
-| `network` | ``$STRING`` |  |
-| `spot_price` | ``$STRING`` |  |
-| `storage` | ``$STRING`` |  |
-| `vcpus` | ``$INTEGER`` |  |
+| `cost` | `float` |  |
+| `instance_type` | `str` |  |
+| `memory` | `str` |  |
+| `monthly_price` | `float` |  |
+| `network` | `str` |  |
+| `spot_price` | `str` |  |
+| `storage` | `str` |  |
+| `vcpus` | `int` |  |
 
 #### Example: List
 
 ```python
-get_instance_pricings = client.GetInstancePricing().list({})
+get_instance_pricings = client.GetInstancePricing().list()
 ```
 
 
-## Explanation
+## Advanced
+
+> The sections above cover everyday use. The material below explains the
+> SDK's internals — useful when extending it with custom features, but not
+> needed for normal use.
 
 ### The operation pipeline
 
-Every entity operation (load, list, create, update, remove) follows a
-six-stage pipeline. Each stage fires a feature hook before executing:
+Every entity operation follows a six-stage pipeline. Each stage fires a
+feature hook before executing:
 
 ```
 PrePoint → PreSpec → PreRequest → PreResponse → PreResult → PreDone
@@ -280,8 +316,9 @@ PrePoint → PreSpec → PreRequest → PreResponse → PreResult → PreDone
 - **PreDone**: Final stage before returning to the caller. Entity
   state (match, data) is updated here.
 
-If any stage returns an error, the pipeline short-circuits and the
-error is returned to the caller as the second element in the return tuple.
+If any stage errors, the pipeline short-circuits and the error surfaces
+to the caller — see [Error handling](#error-handling) for how that looks
+in this language.
 
 ### Features and hooks
 
@@ -324,14 +361,14 @@ Import entity or utility modules directly only when needed.
 
 ### Entity state
 
-Entity instances are stateful. After a successful `load`, the entity
+Entity instances are stateful. After a successful `list`, the entity
 stores the returned data and match criteria internally.
 
 ```python
 getinstancepricing = client.GetInstancePricing()
-getinstancepricing.load({"id": "example_id"})
+getinstancepricing.list()
 
-# getinstancepricing.data_get() now returns the loaded getinstancepricing data
+# getinstancepricing.data_get() now returns the getinstancepricing data from the last list
 # getinstancepricing.match_get() returns the last match criteria
 ```
 

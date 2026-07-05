@@ -221,7 +221,7 @@ class Ec2ShopSDK:
 
 
     def GetInstancePricing(self, data=None) -> "GetInstancePricingEntity":
-        """Entity factory: client.GetInstancePricing().list({}) / client.GetInstancePricing().load({"id": ...})."""
+        """Entity factory: client.GetInstancePricing().list() / client.GetInstancePricing().load({"id": ...})."""
         from entity.get_instance_pricing_entity import GetInstancePricingEntity
         return GetInstancePricingEntity(self, data)
 

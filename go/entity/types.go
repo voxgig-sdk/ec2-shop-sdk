@@ -20,8 +20,7 @@ type GetInstancePricing struct {
 	Vcpus int `json:"vcpus"`
 }
 
-// GetInstancePricingListMatch mirrors the get_instance_pricing fields as an all-optional match
-// filter (Go analog of Partial<GetInstancePricing>).
+// GetInstancePricingListMatch is the typed request payload for GetInstancePricing.ListTyped.
 type GetInstancePricingListMatch struct {
 	Cost *float64 `json:"cost,omitempty"`
 	InstanceType *string `json:"instance_type,omitempty"`

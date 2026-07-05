@@ -8,7 +8,7 @@ Complete API reference for the Ec2Shop Python SDK.
 ### Constructor
 
 ```python
-from ec2-shop_sdk import Ec2ShopSDK
+from ec2shop_sdk import Ec2ShopSDK
 
 client = Ec2ShopSDK(options)
 ```
@@ -87,23 +87,23 @@ get_instance_pricing = client.GetInstancePricing()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `cost` | ``$NUMBER`` | Yes |  |
-| `instance_type` | ``$STRING`` | Yes |  |
-| `memory` | ``$STRING`` | Yes |  |
-| `monthly_price` | ``$NUMBER`` | Yes |  |
-| `network` | ``$STRING`` | Yes |  |
-| `spot_price` | ``$STRING`` | Yes |  |
-| `storage` | ``$STRING`` | Yes |  |
-| `vcpus` | ``$INTEGER`` | Yes |  |
+| `cost` | `float` | Yes |  |
+| `instance_type` | `str` | Yes |  |
+| `memory` | `str` | Yes |  |
+| `monthly_price` | `float` | Yes |  |
+| `network` | `str` | Yes |  |
+| `spot_price` | `str` | Yes |  |
+| `storage` | `str` | Yes |  |
+| `vcpus` | `int` | Yes |  |
 
 ### Operations
 
-#### `list(reqmatch, ctrl=None) -> list`
+#### `list(reqmatch=None, ctrl=None) -> list`
 
-List entities matching the given criteria. Returns a list and raises on error.
+List entities matching the given criteria. The match is optional — call `list()` with no argument to list all records. Returns a list and raises on error.
 
 ```python
-results = client.GetInstancePricing().list({})
+results = client.GetInstancePricing().list()
 for get_instance_pricing in results:
     print(get_instance_pricing)
 ```

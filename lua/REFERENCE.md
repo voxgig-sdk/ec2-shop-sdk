@@ -90,14 +90,14 @@ local get_instance_pricing = client:GetInstancePricing(nil)
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `cost` | ``$NUMBER`` | Yes |  |
-| `instance_type` | ``$STRING`` | Yes |  |
-| `memory` | ``$STRING`` | Yes |  |
-| `monthly_price` | ``$NUMBER`` | Yes |  |
-| `network` | ``$STRING`` | Yes |  |
-| `spot_price` | ``$STRING`` | Yes |  |
-| `storage` | ``$STRING`` | Yes |  |
-| `vcpus` | ``$INTEGER`` | Yes |  |
+| `cost` | `number` | Yes |  |
+| `instance_type` | `string` | Yes |  |
+| `memory` | `string` | Yes |  |
+| `monthly_price` | `number` | Yes |  |
+| `network` | `string` | Yes |  |
+| `spot_price` | `string` | Yes |  |
+| `storage` | `string` | Yes |  |
+| `vcpus` | `number` | Yes |  |
 
 ### Operations
 
