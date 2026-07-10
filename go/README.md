@@ -50,12 +50,12 @@ import (
 func main() {
     client := sdk.New()
 
-    // List getinstancepricing records — the value is the array of records itself.
-    getinstancepricings, err := client.GetInstancePricing(nil).List(nil, nil)
+    // List getInstancePricing records — the value is the array of records itself.
+    getInstancePricings, err := client.GetInstancePricing(nil).List(nil, nil)
     if err != nil {
         panic(err)
     }
-    for _, item := range getinstancepricings.([]any) {
+    for _, item := range getInstancePricings.([]any) {
         fmt.Println(item)
     }
 }
@@ -137,13 +137,13 @@ Create a mock client for unit testing — no server required:
 ```go
 client := sdk.Test()
 
-getinstancepricing, err := client.GetInstancePricing(nil).List(
+getInstancePricing, err := client.GetInstancePricing(nil).List(
     nil, nil,
 )
 if err != nil {
     panic(err)
 }
-fmt.Println(getinstancepricing) // the returned mock data
+fmt.Println(getInstancePricing) // the returned mock data
 ```
 
 ### Use a custom fetch function
@@ -247,9 +247,9 @@ Check `err` first, then use the value directly (or the typed
 `...Typed` variants, which return the entity's model struct and a typed
 slice):
 
-    getinstancepricing, err := client.GetInstancePricing(nil).List(map[string]any{/* fields */}, nil)
+    getInstancePricing, err := client.GetInstancePricing(nil).List(map[string]any{/* fields */}, nil)
     if err != nil { /* handle */ }
-    // getinstancepricing is the returned record
+    // getInstancePricing is the returned record
 
 Only `Direct()` returns a response envelope — a `map[string]any` with
 `"ok"`, `"status"`, `"headers"`, and `"data"` keys.
@@ -280,7 +280,7 @@ API path: `/`
 
 ### GetInstancePricing
 
-Create an instance: `get_instance_pricing := client.GetInstancePricing(nil)`
+Create an instance: `getInstancePricing := client.GetInstancePricing(nil)`
 
 #### Operations
 
@@ -304,11 +304,11 @@ Create an instance: `get_instance_pricing := client.GetInstancePricing(nil)`
 #### Example: List
 
 ```go
-get_instance_pricings, err := client.GetInstancePricing(nil).List(nil, nil)
+getInstancePricings, err := client.GetInstancePricing(nil).List(nil, nil)
 if err != nil {
     panic(err)
 }
-fmt.Println(get_instance_pricings) // the array of records
+fmt.Println(getInstancePricings) // the array of records
 ```
 
 

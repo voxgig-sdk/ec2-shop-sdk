@@ -19,9 +19,9 @@ main: {
           url: "https://ec2.shop"
         }
       ]
+      summary: "A simple and fast API to get Amazon EC2 instance pricing right from your terminal."
       title: "EC2 Shop API"
       version: "1.0.0"
+      website: "https://ec2.shop"
     }
   }
-}
-

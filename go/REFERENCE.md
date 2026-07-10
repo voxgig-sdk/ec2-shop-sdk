@@ -90,7 +90,8 @@ same parameters as `Direct()`.
 ## GetInstancePricingEntity
 
 ```go
-get_instance_pricing := client.GetInstancePricing(nil)
+getInstancePricing := client.GetInstancePricing(nil)
+fmt.Println(getInstancePricing.GetName()) // "get_instance_pricing"
 ```
 
 ### Fields
@@ -114,6 +115,10 @@ List entities matching the given criteria. Returns an array.
 
 ```go
 results, err := client.GetInstancePricing(nil).List(nil, nil)
+if err != nil {
+    panic(err)
+}
+fmt.Println(results)
 ```
 
 ### Common Methods

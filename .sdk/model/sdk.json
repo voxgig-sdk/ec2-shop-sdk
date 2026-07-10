@@ -6,9 +6,6 @@
     },
     "kit": {
       "config": {
-        "auth": {
-          "prefix": "Bearer"
-        },
         "docs_order": [
           "ts",
           "py",
@@ -269,14 +266,17 @@
           "name": "MIT",
           "url": "https://github.com/yeo/ec2.shop/blob/master/LICENSE"
         },
+        "meta_source": "https://www.freepublicapis.com",
         "servers": [
           {
             "description": "Production server",
             "url": "https://ec2.shop"
           }
         ],
+        "summary": "A simple and fast API to get Amazon EC2 instance pricing right from your terminal.",
         "title": "EC2 Shop API",
-        "version": "1.0.0"
+        "version": "1.0.0",
+        "website": "https://ec2.shop"
       },
       "option": {},
       "target": {
@@ -329,6 +329,9 @@
           },
           "name": "go-cli",
           "phase": {
+            "agentguide": {
+              "active": false
+            },
             "entity": {
               "active": false
             },
@@ -379,6 +382,9 @@
           },
           "name": "go-mcp",
           "phase": {
+            "agentguide": {
+              "active": false
+            },
             "entity": {
               "active": false
             },
