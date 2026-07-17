@@ -1,4 +1,4 @@
--- ProjectName SDK exists test
+-- Ec2Shop SDK exists test
 
 local sdk = require("ec2-shop_sdk")
 

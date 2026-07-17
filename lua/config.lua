@@ -1,4 +1,4 @@
--- ProjectName SDK configuration
+-- Ec2Shop SDK configuration
 
 local function make_config()
   return {
