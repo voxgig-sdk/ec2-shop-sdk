@@ -14,12 +14,12 @@ from __future__ import annotations
 
 from urllib.parse import quote
 
-from config import make_config
-from features import _make_feature
-from core.control import Ec2ShopControl
-from core.error import Ec2ShopError
-from core.result import Ec2ShopResult
-from core.spec import Ec2ShopSpec
+from projectname_sdk.config import make_config
+from projectname_sdk.features import _make_feature
+from projectname_sdk.core.control import Ec2ShopControl
+from projectname_sdk.core.error import Ec2ShopError
+from projectname_sdk.core.result import Ec2ShopResult
+from projectname_sdk.core.spec import Ec2ShopSpec
 
 
 # True when this SDK was generated with the named feature.

@@ -98,14 +98,14 @@ fmt.Println(getInstancePricing.GetName()) // "get_instance_pricing"
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `cost` | `float64` | Yes |  |
-| `instance_type` | `string` | Yes |  |
-| `memory` | `string` | Yes |  |
-| `monthly_price` | `float64` | Yes |  |
-| `network` | `string` | Yes |  |
-| `spot_price` | `string` | Yes |  |
-| `storage` | `string` | Yes |  |
-| `vcpus` | `int` | Yes |  |
+| `Cost` | `float64` | Yes |  |
+| `InstanceType` | `string` | Yes |  |
+| `Memory` | `string` | Yes |  |
+| `MonthlyPrice` | `float64` | Yes |  |
+| `Network` | `string` | Yes |  |
+| `SpotPrice` | `string` | Yes |  |
+| `Storage` | `string` | Yes |  |
+| `VCPUS` | `int` | Yes |  |
 
 ### Operations
 

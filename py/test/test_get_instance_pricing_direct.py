@@ -3,9 +3,9 @@
 import json
 import pytest
 
-from utility.voxgig_struct import voxgig_struct as vs
+from ec2shop_sdk.utility.voxgig_struct import voxgig_struct as vs
 from ec2shop_sdk import Ec2ShopSDK
-from core import helpers
+from ec2shop_sdk.core import helpers
 from test import runner
 
 
@@ -58,11 +58,11 @@ def _get_instance_pricing_direct_setup(mockres):
     calls = []
 
     env = runner.env_override({
-        "EC_SHOP_TEST_GET_INSTANCE_PRICING_ENTID": {},
-        "EC_SHOP_TEST_LIVE": "FALSE",
+        "EC2_SHOP_TEST_GET_INSTANCE_PRICING_ENTID": {},
+        "EC2_SHOP_TEST_LIVE": "FALSE",
     })
 
-    live = env.get("EC_SHOP_TEST_LIVE") == "TRUE"
+    live = env.get("EC2_SHOP_TEST_LIVE") == "TRUE"
 
     if live:
         merged_opts = {

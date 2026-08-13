@@ -43,7 +43,7 @@ local getinstancepricings, err = client:GetInstancePricing():list()
 if err then error(err) end
 
 for _, item in ipairs(getinstancepricings) do
-  print(item["instance_type"])
+  print(item["InstanceType"])
 end
 ```
 
@@ -218,9 +218,9 @@ data **directly** — there is no wrapper:
 
 Check `err` first (it is non-`nil` on failure), then use `value`:
 
-    local get_instance_pricing, err = client:GetInstancePricing():load()
+    local get_instance_pricing, err = client:GetInstancePricing():list()
     if err then error(err) end
-    -- get_instance_pricing is the loaded record
+    -- get_instance_pricing is the record list
 
 Only `direct()` returns a response envelope — a `table` with `ok`,
 `status`, `headers`, and `data` keys.
@@ -231,14 +231,14 @@ Only `direct()` returns a response envelope — a `table` with `ok`,
 
 | Field | Description |
 | --- | --- |
-| `cost` |  |
-| `instance_type` |  |
-| `memory` |  |
-| `monthly_price` |  |
-| `network` |  |
-| `spot_price` |  |
-| `storage` |  |
-| `vcpus` |  |
+| `Cost` |  |
+| `InstanceType` |  |
+| `Memory` |  |
+| `MonthlyPrice` |  |
+| `Network` |  |
+| `SpotPrice` |  |
+| `Storage` |  |
+| `VCPUS` |  |
 
 Operations: List.
 
@@ -263,14 +263,14 @@ Create an instance: `local get_instance_pricing = client:GetInstancePricing(nil)
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `cost` | `number` |  |
-| `instance_type` | `string` |  |
-| `memory` | `string` |  |
-| `monthly_price` | `number` |  |
-| `network` | `string` |  |
-| `spot_price` | `string` |  |
-| `storage` | `string` |  |
-| `vcpus` | `number` |  |
+| `Cost` | `number` |  |
+| `InstanceType` | `string` |  |
+| `Memory` | `string` |  |
+| `MonthlyPrice` | `number` |  |
+| `Network` | `string` |  |
+| `SpotPrice` | `string` |  |
+| `Storage` | `string` |  |
+| `VCPUS` | `number` |  |
 
 #### Example: List
 

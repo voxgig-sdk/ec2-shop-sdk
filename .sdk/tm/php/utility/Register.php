@@ -23,6 +23,7 @@ require_once __DIR__ . '/MakeUrl.php';
 require_once __DIR__ . '/Param.php';
 require_once __DIR__ . '/PrepareAuth.php';
 require_once __DIR__ . '/PrepareBody.php';
+require_once __DIR__ . '/Graphql.php';
 require_once __DIR__ . '/PrepareHeaders.php';
 require_once __DIR__ . '/PrepareMethod.php';
 require_once __DIR__ . '/PrepareParams.php';
@@ -59,6 +60,8 @@ Ec2ShopUtility::setRegistrar(function (Ec2ShopUtility $u): void {
     $u->prepare_params = [Ec2ShopPrepareParams::class, 'call'];
     $u->prepare_path = [Ec2ShopPreparePath::class, 'call'];
     $u->prepare_query = [Ec2ShopPrepareQuery::class, 'call'];
+    $u->graphql_body = [Ec2ShopGraphql::class, 'body'];
+    $u->graphql_errors = [Ec2ShopGraphql::class, 'errors'];
     $u->result_basic = [Ec2ShopResultBasic::class, 'call'];
     $u->result_body = [Ec2ShopResultBody::class, 'call'];
     $u->result_headers = [Ec2ShopResultHeaders::class, 'call'];

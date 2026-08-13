@@ -260,14 +260,14 @@ Only `Direct()` returns a response envelope — a `map[string]any` with
 
 | Field | Description |
 | --- | --- |
-| `"cost"` |  |
-| `"instance_type"` |  |
-| `"memory"` |  |
-| `"monthly_price"` |  |
-| `"network"` |  |
-| `"spot_price"` |  |
-| `"storage"` |  |
-| `"vcpus"` |  |
+| `"Cost"` |  |
+| `"InstanceType"` |  |
+| `"Memory"` |  |
+| `"MonthlyPrice"` |  |
+| `"Network"` |  |
+| `"SpotPrice"` |  |
+| `"Storage"` |  |
+| `"VCPUS"` |  |
 
 Operations: List.
 
@@ -292,14 +292,14 @@ Create an instance: `getInstancePricing := client.GetInstancePricing(nil)`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `cost` | `float64` |  |
-| `instance_type` | `string` |  |
-| `memory` | `string` |  |
-| `monthly_price` | `float64` |  |
-| `network` | `string` |  |
-| `spot_price` | `string` |  |
-| `storage` | `string` |  |
-| `vcpus` | `int` |  |
+| `Cost` | `float64` |  |
+| `InstanceType` | `string` |  |
+| `Memory` | `string` |  |
+| `MonthlyPrice` | `float64` |  |
+| `Network` | `string` |  |
+| `SpotPrice` | `string` |  |
+| `Storage` | `string` |  |
+| `VCPUS` | `int` |  |
 
 #### Example: List
 

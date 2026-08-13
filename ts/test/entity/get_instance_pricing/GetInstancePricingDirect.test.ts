@@ -19,11 +19,15 @@ import {
 describe('GetInstancePricingDirect', async () => {
 
   // Per-test live pacing. Delay is read from sdk-test-control.json's
-  // `test.live.delayMs`; only sleeps when EC2SHOP_TEST_LIVE=TRUE.
-  afterEach(liveDelay('EC2SHOP_TEST_LIVE'))
+  // `test.live.delayMs`; only sleeps when EC2_SHOP_TEST_LIVE=TRUE.
+  afterEach(liveDelay('EC2_SHOP_TEST_LIVE'))
 
   test('direct-exists', async () => {
     const sdk = new Ec2ShopSDK({
+      // Concrete base: a live construction must satisfy any server
+      // variables a templated base URL declares; overriding base with a
+      // literal (as the direct flow tests do) sidesteps the requirement.
+      base: 'http://localhost:8080',
       system: { fetch: async () => ({}) }
     })
     assert('function' === typeof sdk.direct)
@@ -77,17 +81,17 @@ function directSetup(mockres?: any) {
   const calls: any[] = []
 
   const env = envOverride({
-    'EC_SHOP_TEST_GET_INSTANCE_PRICING_ENTID': {},
-    'EC_SHOP_TEST_LIVE': 'FALSE',
+    'EC2_SHOP_TEST_GET_INSTANCE_PRICING_ENTID': {},
+    'EC2_SHOP_TEST_LIVE': 'FALSE',
   })
 
-  const live = 'TRUE' === env.EC_SHOP_TEST_LIVE
+  const live = 'TRUE' === env.EC2_SHOP_TEST_LIVE
 
   if (live) {
     const client = new Ec2ShopSDK({
     })
 
-    let idmap: any = env['EC_SHOP_TEST_GET_INSTANCE_PRICING_ENTID']
+    let idmap: any = env['EC2_SHOP_TEST_GET_INSTANCE_PRICING_ENTID']
     if ('string' === typeof idmap && idmap.startsWith('{')) {
       idmap = JSON.parse(idmap)
     }

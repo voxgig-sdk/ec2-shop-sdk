@@ -1,4 +1,4 @@
-# ProjectName SDK exists test
+# Ec2Shop SDK exists test
 
 import pytest
 from ec2shop_sdk import Ec2ShopSDK

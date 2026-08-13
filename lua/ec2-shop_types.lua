@@ -7,24 +7,24 @@
 -- edit by hand.
 
 ---@class GetInstancePricing
----@field cost number
----@field instance_type string
----@field memory string
----@field monthly_price number
----@field network string
----@field spot_price string
----@field storage string
----@field vcpus number
+---@field Cost number
+---@field InstanceType string
+---@field Memory string
+---@field MonthlyPrice number
+---@field Network string
+---@field SpotPrice string
+---@field Storage string
+---@field VCPUS number
 
 ---@class GetInstancePricingListMatch
----@field cost? number
----@field instance_type? string
----@field memory? string
----@field monthly_price? number
----@field network? string
----@field spot_price? string
----@field storage? string
----@field vcpus? number
+---@field Cost? number
+---@field InstanceType? string
+---@field Memory? string
+---@field MonthlyPrice? number
+---@field Network? string
+---@field SpotPrice? string
+---@field Storage? string
+---@field VCPUS? number
 
 local M = {}
 

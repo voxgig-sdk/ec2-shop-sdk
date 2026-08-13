@@ -21,7 +21,7 @@ class Config {
 
 
   main = {
-    name: 'ProjectName',
+    name: 'Ec2Shop',
   }
 
 
@@ -56,56 +56,56 @@ class Config {
       "fields": [
         {
           "active": true,
-          "name": "cost",
+          "name": "Cost",
           "req": true,
           "type": "`$NUMBER`",
           "index$": 0
         },
         {
           "active": true,
-          "name": "instance_type",
+          "name": "InstanceType",
           "req": true,
           "type": "`$STRING`",
           "index$": 1
         },
         {
           "active": true,
-          "name": "memory",
+          "name": "Memory",
           "req": true,
           "type": "`$STRING`",
           "index$": 2
         },
         {
           "active": true,
-          "name": "monthly_price",
+          "name": "MonthlyPrice",
           "req": true,
           "type": "`$NUMBER`",
           "index$": 3
         },
         {
           "active": true,
-          "name": "network",
+          "name": "Network",
           "req": true,
           "type": "`$STRING`",
           "index$": 4
         },
         {
           "active": true,
-          "name": "spot_price",
+          "name": "SpotPrice",
           "req": true,
           "type": "`$STRING`",
           "index$": 5
         },
         {
           "active": true,
-          "name": "storage",
+          "name": "Storage",
           "req": true,
           "type": "`$STRING`",
           "index$": 6
         },
         {
           "active": true,
-          "name": "vcpus",
+          "name": "VCPUS",
           "req": true,
           "type": "`$INTEGER`",
           "index$": 7
@@ -149,6 +149,7 @@ class Config {
                   }
                 ]
               },
+              "kind": "http",
               "method": "GET",
               "orig": "/",
               "parts": [],

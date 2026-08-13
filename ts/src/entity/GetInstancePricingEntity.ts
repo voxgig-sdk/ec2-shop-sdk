@@ -37,7 +37,7 @@ class GetInstancePricingEntity extends Ec2ShopEntityBase<GetInstancePricing> {
 
 
 
-  async list(this: any, reqmatch?: GetInstancePricingListMatch, ctrl?: Control): Promise<GetInstancePricing[]> {
+  async list(this: any, reqmatch?: GetInstancePricingListMatch, ctrl?: Control): Promise<GetInstancePricingEntity[]> {
 
     const utility = this._utility
 

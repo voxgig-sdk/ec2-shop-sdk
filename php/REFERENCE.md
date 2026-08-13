@@ -92,14 +92,14 @@ $get_instance_pricing = $client->GetInstancePricing();
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `cost` | `float` | Yes |  |
-| `instance_type` | `string` | Yes |  |
-| `memory` | `string` | Yes |  |
-| `monthly_price` | `float` | Yes |  |
-| `network` | `string` | Yes |  |
-| `spot_price` | `string` | Yes |  |
-| `storage` | `string` | Yes |  |
-| `vcpus` | `int` | Yes |  |
+| `Cost` | `float` | Yes |  |
+| `InstanceType` | `string` | Yes |  |
+| `Memory` | `string` | Yes |  |
+| `MonthlyPrice` | `float` | Yes |  |
+| `Network` | `string` | Yes |  |
+| `SpotPrice` | `string` | Yes |  |
+| `Storage` | `string` | Yes |  |
+| `VCPUS` | `int` | Yes |  |
 
 ### Operations
 

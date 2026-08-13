@@ -6,42 +6,42 @@ main: kit: entity: get_instance_pricing: {
 
   fields: [
     {
-      name: "cost"
+      name: "Cost"
       req: true
       type: "`$NUMBER`"
     }
     {
-      name: "instance_type"
+      name: "InstanceType"
       req: true
       type: "`$STRING`"
     }
     {
-      name: "memory"
+      name: "Memory"
       req: true
       type: "`$STRING`"
     }
     {
-      name: "monthly_price"
+      name: "MonthlyPrice"
       req: true
       type: "`$NUMBER`"
     }
     {
-      name: "network"
+      name: "Network"
       req: true
       type: "`$STRING`"
     }
     {
-      name: "spot_price"
+      name: "SpotPrice"
       req: true
       type: "`$STRING`"
     }
     {
-      name: "storage"
+      name: "Storage"
       req: true
       type: "`$STRING`"
     }
     {
-      name: "vcpus"
+      name: "VCPUS"
       req: true
       type: "`$INTEGER`"
     }

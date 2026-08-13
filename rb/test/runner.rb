@@ -23,8 +23,8 @@ module Ec2ShopTestRunner
   end
 
   def self.env_override(m)
-    live = getenv("EC2SHOP_TEST_LIVE")
-    override = getenv("EC2SHOP_TEST_OVERRIDE")
+    live = getenv("EC2_SHOP_TEST_LIVE")
+    override = getenv("EC2_SHOP_TEST_OVERRIDE")
 
     if live == "TRUE" || override == "TRUE"
       m.each_key do |key|
@@ -44,8 +44,8 @@ module Ec2ShopTestRunner
       end
     end
 
-    explain = getenv("EC2SHOP_TEST_EXPLAIN")
-    m["EC2SHOP_TEST_EXPLAIN"] = explain if explain && !explain.empty?
+    explain = getenv("EC2_SHOP_TEST_EXPLAIN")
+    m["EC2_SHOP_TEST_EXPLAIN"] = explain if explain && !explain.empty?
 
     m
   end

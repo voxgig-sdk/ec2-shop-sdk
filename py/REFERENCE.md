@@ -87,14 +87,14 @@ get_instance_pricing = client.GetInstancePricing()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `cost` | `float` | Yes |  |
-| `instance_type` | `str` | Yes |  |
-| `memory` | `str` | Yes |  |
-| `monthly_price` | `float` | Yes |  |
-| `network` | `str` | Yes |  |
-| `spot_price` | `str` | Yes |  |
-| `storage` | `str` | Yes |  |
-| `vcpus` | `int` | Yes |  |
+| `Cost` | `float` | Yes |  |
+| `InstanceType` | `str` | Yes |  |
+| `Memory` | `str` | Yes |  |
+| `MonthlyPrice` | `float` | Yes |  |
+| `Network` | `str` | Yes |  |
+| `SpotPrice` | `str` | Yes |  |
+| `Storage` | `str` | Yes |  |
+| `VCPUS` | `int` | Yes |  |
 
 ### Operations
 

@@ -10,75 +10,75 @@
 
 # GetInstancePricing entity data model.
 #
-# @!attribute [rw] cost
+# @!attribute [rw] Cost
 #   @return [Float]
 #
-# @!attribute [rw] instance_type
+# @!attribute [rw] InstanceType
 #   @return [String]
 #
-# @!attribute [rw] memory
+# @!attribute [rw] Memory
 #   @return [String]
 #
-# @!attribute [rw] monthly_price
+# @!attribute [rw] MonthlyPrice
 #   @return [Float]
 #
-# @!attribute [rw] network
+# @!attribute [rw] Network
 #   @return [String]
 #
-# @!attribute [rw] spot_price
+# @!attribute [rw] SpotPrice
 #   @return [String]
 #
-# @!attribute [rw] storage
+# @!attribute [rw] Storage
 #   @return [String]
 #
-# @!attribute [rw] vcpus
+# @!attribute [rw] VCPUS
 #   @return [Integer]
 GetInstancePricing = Struct.new(
-  :cost,
-  :instance_type,
-  :memory,
-  :monthly_price,
-  :network,
-  :spot_price,
-  :storage,
-  :vcpus,
+  :Cost,
+  :InstanceType,
+  :Memory,
+  :MonthlyPrice,
+  :Network,
+  :SpotPrice,
+  :Storage,
+  :VCPUS,
   keyword_init: true
 )
 
 # Request payload for GetInstancePricing#list.
 #
-# @!attribute [rw] cost
+# @!attribute [rw] Cost
 #   @return [Float, nil]
 #
-# @!attribute [rw] instance_type
+# @!attribute [rw] InstanceType
 #   @return [String, nil]
 #
-# @!attribute [rw] memory
+# @!attribute [rw] Memory
 #   @return [String, nil]
 #
-# @!attribute [rw] monthly_price
+# @!attribute [rw] MonthlyPrice
 #   @return [Float, nil]
 #
-# @!attribute [rw] network
+# @!attribute [rw] Network
 #   @return [String, nil]
 #
-# @!attribute [rw] spot_price
+# @!attribute [rw] SpotPrice
 #   @return [String, nil]
 #
-# @!attribute [rw] storage
+# @!attribute [rw] Storage
 #   @return [String, nil]
 #
-# @!attribute [rw] vcpus
+# @!attribute [rw] VCPUS
 #   @return [Integer, nil]
 GetInstancePricingListMatch = Struct.new(
-  :cost,
-  :instance_type,
-  :memory,
-  :monthly_price,
-  :network,
-  :spot_price,
-  :storage,
-  :vcpus,
+  :Cost,
+  :InstanceType,
+  :Memory,
+  :MonthlyPrice,
+  :Network,
+  :SpotPrice,
+  :Storage,
+  :VCPUS,
   keyword_init: true
 )
 

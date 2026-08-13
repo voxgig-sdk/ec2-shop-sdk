@@ -24,6 +24,7 @@ require_relative 'prepare_method'
 require_relative 'prepare_params'
 require_relative 'prepare_path'
 require_relative 'prepare_query'
+require_relative 'graphql'
 require_relative 'result_basic'
 require_relative 'result_body'
 require_relative 'result_headers'
@@ -55,6 +56,8 @@ Ec2ShopUtility.registrar = ->(u) {
   u.prepare_params = Ec2ShopUtilities::PrepareParams
   u.prepare_path = Ec2ShopUtilities::PreparePath
   u.prepare_query = Ec2ShopUtilities::PrepareQuery
+  u.graphql_body = Ec2ShopUtilities::GraphqlBody
+  u.graphql_errors = Ec2ShopUtilities::GraphqlErrors
   u.result_basic = Ec2ShopUtilities::ResultBasic
   u.result_body = Ec2ShopUtilities::ResultBody
   u.result_headers = Ec2ShopUtilities::ResultHeaders

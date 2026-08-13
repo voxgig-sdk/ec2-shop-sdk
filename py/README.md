@@ -124,7 +124,8 @@ Create a mock client for unit testing — no server required:
 ```python
 client = Ec2ShopSDK.test()
 
-# Entity ops return the bare record and raise on error.
+# Entity ops return the ENTITY and raises on error;
+# call data_get() for the record.
 getinstancepricing = client.GetInstancePricing().list()
 # getinstancepricing contains the mock response record
 ```
@@ -220,7 +221,7 @@ All entities share the same interface.
 
 ### Result shape
 
-Entity operations return the bare result data (a `dict` for single-entity
+Entity operations return the ENTITY (call data_get() for the record) (a `dict` for single-entity
 ops, a `list` for `list`) and raise on error. Wrap calls in
 `try`/`except` to handle failures.
 
@@ -242,14 +243,14 @@ On error, `ok` is `False` and `err` contains the error value.
 
 | Field | Description |
 | --- | --- |
-| `cost` |  |
-| `instance_type` |  |
-| `memory` |  |
-| `monthly_price` |  |
-| `network` |  |
-| `spot_price` |  |
-| `storage` |  |
-| `vcpus` |  |
+| `Cost` |  |
+| `InstanceType` |  |
+| `Memory` |  |
+| `MonthlyPrice` |  |
+| `Network` |  |
+| `SpotPrice` |  |
+| `Storage` |  |
+| `VCPUS` |  |
 
 Operations: List.
 
@@ -274,14 +275,14 @@ Create an instance: `get_instance_pricing = client.GetInstancePricing()`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `cost` | `float` |  |
-| `instance_type` | `str` |  |
-| `memory` | `str` |  |
-| `monthly_price` | `float` |  |
-| `network` | `str` |  |
-| `spot_price` | `str` |  |
-| `storage` | `str` |  |
-| `vcpus` | `int` |  |
+| `Cost` | `float` |  |
+| `InstanceType` | `str` |  |
+| `Memory` | `str` |  |
+| `MonthlyPrice` | `float` |  |
+| `Network` | `str` |  |
+| `SpotPrice` | `str` |  |
+| `Storage` | `str` |  |
+| `VCPUS` | `int` |  |
 
 #### Example: List
 

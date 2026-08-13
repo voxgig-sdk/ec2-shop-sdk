@@ -16,11 +16,11 @@
 import pytest
 
 from ec2shop_sdk import Ec2ShopSDK
-from core.error import Ec2ShopError
-from core.result import Ec2ShopResult
-from core.response import Ec2ShopResponse
-from core.spec import Ec2ShopSpec
-from feature.base_feature import Ec2ShopBaseFeature
+from ec2shop_sdk.core.error import Ec2ShopError
+from ec2shop_sdk.core.result import Ec2ShopResult
+from ec2shop_sdk.core.response import Ec2ShopResponse
+from ec2shop_sdk.core.spec import Ec2ShopSpec
+from ec2shop_sdk.feature.base_feature import Ec2ShopBaseFeature
 
 
 def _client():

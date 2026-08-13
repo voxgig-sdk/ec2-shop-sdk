@@ -35,7 +35,9 @@ const client = new Ec2ShopSDK()
 
 ### 2. List getinstancepricing records
 
-`list()` resolves to an array of GetInstancePricing objects — iterate it directly:
+`list()` resolves to an array of GetInstancePricing ENTITIES — every operation
+resolves to entities, not raw records. Iterate them directly, and call
+`.data()` on one for the record it holds:
 
 ```ts
 const getinstancepricings = await client.GetInstancePricing().list()
@@ -120,7 +122,8 @@ Create a mock client for unit testing — no server required:
 const client = Ec2ShopSDK.test()
 
 const getinstancepricing = await client.GetInstancePricing().list()
-// getinstancepricing is a bare entity populated with mock response data
+// getinstancepricing is the entity, populated with mock response data
+// — call getinstancepricing.data() for the record itself
 console.log(getinstancepricing)
 ```
 
@@ -284,14 +287,14 @@ The `prepare()` method returns:
 
 | Field | Description |
 | --- | --- |
-| `cost` |  |
-| `instance_type` |  |
-| `memory` |  |
-| `monthly_price` |  |
-| `network` |  |
-| `spot_price` |  |
-| `storage` |  |
-| `vcpus` |  |
+| `Cost` |  |
+| `InstanceType` |  |
+| `Memory` |  |
+| `MonthlyPrice` |  |
+| `Network` |  |
+| `SpotPrice` |  |
+| `Storage` |  |
+| `VCPUS` |  |
 
 Operations: list.
 
@@ -316,14 +319,14 @@ Create an instance: `const get_instance_pricing = client.GetInstancePricing()`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `cost` | `number` |  |
-| `instance_type` | `string` |  |
-| `memory` | `string` |  |
-| `monthly_price` | `number` |  |
-| `network` | `string` |  |
-| `spot_price` | `string` |  |
-| `storage` | `string` |  |
-| `vcpus` | `number` |  |
+| `Cost` | `number` |  |
+| `InstanceType` | `string` |  |
+| `Memory` | `string` |  |
+| `MonthlyPrice` | `number` |  |
+| `Network` | `string` |  |
+| `SpotPrice` | `string` |  |
+| `Storage` | `string` |  |
+| `VCPUS` | `number` |  |
 
 #### Example: List
 

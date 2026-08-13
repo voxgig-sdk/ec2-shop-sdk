@@ -6,24 +6,24 @@
 // @voxgig/apidef VALID_CANON). Do not edit by hand.
 
 export interface GetInstancePricing {
-  cost: number
-  instance_type: string
-  memory: string
-  monthly_price: number
-  network: string
-  spot_price: string
-  storage: string
-  vcpus: number
+  Cost: number
+  InstanceType: string
+  Memory: string
+  MonthlyPrice: number
+  Network: string
+  SpotPrice: string
+  Storage: string
+  VCPUS: number
 }
 
 export interface GetInstancePricingListMatch {
-  cost?: number
-  instance_type?: string
-  memory?: string
-  monthly_price?: number
-  network?: string
-  spot_price?: string
-  storage?: string
-  vcpus?: number
+  Cost?: number
+  InstanceType?: string
+  Memory?: string
+  MonthlyPrice?: number
+  Network?: string
+  SpotPrice?: string
+  Storage?: string
+  VCPUS?: number
 }
 

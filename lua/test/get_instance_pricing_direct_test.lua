@@ -61,11 +61,11 @@ function get_instance_pricing_direct_setup(mockres)
   local calls = {}
 
   local env = runner.env_override({
-    ["EC_SHOP_TEST_GET_INSTANCE_PRICING_ENTID"] = {},
-    ["EC_SHOP_TEST_LIVE"] = "FALSE",
+    ["EC2_SHOP_TEST_GET_INSTANCE_PRICING_ENTID"] = {},
+    ["EC2_SHOP_TEST_LIVE"] = "FALSE",
   })
 
-  local live = env["EC_SHOP_TEST_LIVE"] == "TRUE"
+  local live = env["EC2_SHOP_TEST_LIVE"] == "TRUE"
 
   if live then
     local merged_opts = {

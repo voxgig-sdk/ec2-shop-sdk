@@ -15,26 +15,26 @@ declare(strict_types=1);
 /** GetInstancePricing entity data model. */
 class GetInstancePricing
 {
-    public float $cost;
-    public string $instance_type;
-    public string $memory;
-    public float $monthly_price;
-    public string $network;
-    public string $spot_price;
-    public string $storage;
-    public int $vcpus;
+    public float $Cost;
+    public string $InstanceType;
+    public string $Memory;
+    public float $MonthlyPrice;
+    public string $Network;
+    public string $SpotPrice;
+    public string $Storage;
+    public int $VCPUS;
 }
 
 /** Request payload for GetInstancePricing#list. */
 class GetInstancePricingListMatch
 {
-    public ?float $cost = null;
-    public ?string $instance_type = null;
-    public ?string $memory = null;
-    public ?float $monthly_price = null;
-    public ?string $network = null;
-    public ?string $spot_price = null;
-    public ?string $storage = null;
-    public ?int $vcpus = null;
+    public ?float $Cost = null;
+    public ?string $InstanceType = null;
+    public ?string $Memory = null;
+    public ?float $MonthlyPrice = null;
+    public ?string $Network = null;
+    public ?string $SpotPrice = null;
+    public ?string $Storage = null;
+    public ?int $VCPUS = null;
 }
 

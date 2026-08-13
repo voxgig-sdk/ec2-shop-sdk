@@ -37,7 +37,7 @@ begin
   # list returns an Array of GetInstancePricing records — iterate directly.
   getinstancepricings = client.GetInstancePricing.list
   getinstancepricings.each do |item|
-    puts "#{item["cost"]}"
+    puts "#{item["Cost"]}"
   end
 rescue => err
   warn "list failed: #{err}"
@@ -119,7 +119,8 @@ Create a mock client for unit testing — no server required:
 ```ruby
 client = Ec2ShopSDK.test
 
-# Entity ops return the bare mock record (raises on error).
+# Entity ops return the ENTITY (raises on error);
+# call data_get for the mock record.
 getinstancepricing = client.GetInstancePricing.list()
 puts getinstancepricing
 ```
@@ -236,14 +237,14 @@ returns a result `Hash` with these keys:
 
 | Field | Description |
 | --- | --- |
-| `cost` |  |
-| `instance_type` |  |
-| `memory` |  |
-| `monthly_price` |  |
-| `network` |  |
-| `spot_price` |  |
-| `storage` |  |
-| `vcpus` |  |
+| `Cost` |  |
+| `InstanceType` |  |
+| `Memory` |  |
+| `MonthlyPrice` |  |
+| `Network` |  |
+| `SpotPrice` |  |
+| `Storage` |  |
+| `VCPUS` |  |
 
 Operations: List.
 
@@ -268,14 +269,14 @@ Create an instance: `get_instance_pricing = client.GetInstancePricing`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `cost` | `Float` |  |
-| `instance_type` | `String` |  |
-| `memory` | `String` |  |
-| `monthly_price` | `Float` |  |
-| `network` | `String` |  |
-| `spot_price` | `String` |  |
-| `storage` | `String` |  |
-| `vcpus` | `Integer` |  |
+| `Cost` | `Float` |  |
+| `InstanceType` | `String` |  |
+| `Memory` | `String` |  |
+| `MonthlyPrice` | `Float` |  |
+| `Network` | `String` |  |
+| `SpotPrice` | `String` |  |
+| `Storage` | `String` |  |
+| `VCPUS` | `Integer` |  |
 
 #### Example: List
 

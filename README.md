@@ -38,9 +38,18 @@ network, and no credentials:
 ### TypeScript
 
 ```ts
-const client = Ec2ShopSDK.test()
+// The offline mock starts EMPTY — seed it with the records the test needs.
+// Shape: { entity: { <entity-name>: { <id>: <record> } } }
+const client = Ec2ShopSDK.test({
+  entity: {
+    get_instance_pricing: {
+      test01: { id: 'test01' },
+    },
+  },
+})
 const getinstancepricings = await client.GetInstancePricing().list()
-// getinstancepricings is an array of bare GetInstancePricing records populated with mock data
+// getinstancepricings is an array of GetInstancePricing entities, populated with mock data
+// — call getinstancepricings[0].data() for the record itself
 console.log(getinstancepricings)
 ```
 
@@ -110,7 +119,7 @@ import { Ec2ShopSDK } from '@voxgig-sdk/ec2-shop'
 
 const client = new Ec2ShopSDK()
 
-// List all getinstancepricings (returns GetInstancePricing[])
+// List all getinstancepricings (returns GetInstancePricingEntity[] — .data() for the record)
 const getinstancepricings = await client.GetInstancePricing().list()
 for (const getinstancepricing of getinstancepricings) {
   console.log(getinstancepricing)
@@ -343,6 +352,9 @@ Pass custom features via the `extend` option at construction time.
 
 This SDK is generated from the upstream OpenAPI specification. It is an
 unofficial client and is not affiliated with the API provider.
+
+The OpenAPI spec(s) this SDK was generated from are kept in the
+[`.sdk/def/`](.sdk/def/) folder.
 
 - Upstream API: [https://github.com/yeo/ec2.shop](https://github.com/yeo/ec2.shop)
 
