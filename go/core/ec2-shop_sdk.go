@@ -23,7 +23,7 @@ func NewEc2ShopSDK(options map[string]any) *Ec2ShopSDK {
 
 	sdk.utility = NewUtility()
 
-	config := MakeConfig()
+	config := SharedConfig()
 
 	sdk.rootctx = sdk.utility.MakeContext(map[string]any{
 		"client":  sdk,

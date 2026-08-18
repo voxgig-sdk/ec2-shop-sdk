@@ -14,7 +14,7 @@ from __future__ import annotations
 
 from urllib.parse import quote
 
-from ec2shop_sdk.config import make_config
+from ec2shop_sdk.config import shared_config
 from ec2shop_sdk.features import _make_feature
 from ec2shop_sdk.core.control import Ec2ShopControl
 from ec2shop_sdk.core.error import Ec2ShopError
@@ -24,7 +24,7 @@ from ec2shop_sdk.core.spec import Ec2ShopSpec
 
 # True when this SDK was generated with the named feature.
 def has_feature(name):
-    feature = make_config().get("feature")
+    feature = shared_config().get("feature")
     return isinstance(feature, dict) and feature.get(name) is not None
 
 

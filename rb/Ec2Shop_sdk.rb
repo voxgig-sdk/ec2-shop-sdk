@@ -28,7 +28,7 @@ class Ec2ShopSDK
     utility = Ec2ShopUtility.new
     @_utility = utility
 
-    config = Ec2ShopConfig.make_config
+    config = Ec2ShopConfig.shared_config
 
     @_rootctx = utility.make_context.call({
       "client" => self,

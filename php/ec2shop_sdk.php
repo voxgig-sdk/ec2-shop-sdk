@@ -40,7 +40,7 @@ class Ec2ShopSDK
         $utility = new Ec2ShopUtility();
         $this->_utility = $utility;
 
-        $config = Ec2ShopConfig::make_config();
+        $config = Ec2ShopConfig::shared_config();
 
         $this->_rootctx = ($utility->make_context)([
             "client" => $this,
