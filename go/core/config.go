@@ -11,6 +11,9 @@ func MakeConfig() map[string]any {
 	return map[string]any{
 		"main": map[string]any{
 			"name": "Ec2Shop",
+			"slug": "ec2-shop",
+			"version": "0.0.1",
+			"target": "go",
 		},
 		"feature": map[string]any{
 			"test": map[string]any{
@@ -34,41 +37,49 @@ func MakeConfig() map[string]any {
 					map[string]any{
 						"name": "Cost",
 						"req": true,
+						"short": "Hourly cost for on-demand Linux instance in USD",
 						"type": "`$NUMBER`",
 					},
 					map[string]any{
 						"name": "InstanceType",
 						"req": true,
+						"short": "The EC2 instance type (e.g., 't2.micro', 'm5.large')",
 						"type": "`$STRING`",
 					},
 					map[string]any{
 						"name": "Memory",
 						"req": true,
+						"short": "Amount of memory available in GiB",
 						"type": "`$STRING`",
 					},
 					map[string]any{
 						"name": "MonthlyPrice",
 						"req": true,
+						"short": "Estimated monthly cost in USD (Cost * 730 hours)",
 						"type": "`$NUMBER`",
 					},
 					map[string]any{
 						"name": "Network",
 						"req": true,
+						"short": "Network performance capability",
 						"type": "`$STRING`",
 					},
 					map[string]any{
 						"name": "SpotPrice",
 						"req": true,
+						"short": "Current spot instance hourly price in USD, or 'NA' if not available for spot pricing",
 						"type": "`$STRING`",
 					},
 					map[string]any{
 						"name": "Storage",
 						"req": true,
+						"short": "Storage type and capacity (e.g., 'EBS only', '1 x 80 SSD')",
 						"type": "`$STRING`",
 					},
 					map[string]any{
 						"name": "VCPUS",
 						"req": true,
+						"short": "Number of virtual CPUs",
 						"type": "`$INTEGER`",
 					},
 				},

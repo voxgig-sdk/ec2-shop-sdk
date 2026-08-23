@@ -9,7 +9,7 @@ The API is exposed as capitalised, semantic **Entities** — e.g.
 instead of raw URL paths and query parameters. This keeps the surface
 predictable and low-friction for both humans and AI agents.
 
-> Other languages, the CLI, and MCP server live alongside this one — see
+> Also generated from this model: `go`, `go-cli`, `go-mcp`, `lua`, `php`, `py`, `rb` — see
 > the [top-level README](../README.md).
 
 
@@ -287,14 +287,14 @@ The `prepare()` method returns:
 
 | Field | Description |
 | --- | --- |
-| `Cost` |  |
-| `InstanceType` |  |
-| `Memory` |  |
-| `MonthlyPrice` |  |
-| `Network` |  |
-| `SpotPrice` |  |
-| `Storage` |  |
-| `VCPUS` |  |
+| `Cost` | Hourly cost for on-demand Linux instance in USD |
+| `InstanceType` | The EC2 instance type (e.g., 't2.micro', 'm5.large') |
+| `Memory` | Amount of memory available in GiB |
+| `MonthlyPrice` | Estimated monthly cost in USD (Cost * 730 hours) |
+| `Network` | Network performance capability |
+| `SpotPrice` | Current spot instance hourly price in USD, or 'NA' if not available for spot pricing |
+| `Storage` | Storage type and capacity (e.g., 'EBS only', '1 x 80 SSD') |
+| `VCPUS` | Number of virtual CPUs |
 
 Operations: list.
 
@@ -319,14 +319,14 @@ Create an instance: `const get_instance_pricing = client.GetInstancePricing()`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `Cost` | `number` |  |
-| `InstanceType` | `string` |  |
-| `Memory` | `string` |  |
-| `MonthlyPrice` | `number` |  |
-| `Network` | `string` |  |
-| `SpotPrice` | `string` |  |
-| `Storage` | `string` |  |
-| `VCPUS` | `number` |  |
+| `Cost` | `number` | Hourly cost for on-demand Linux instance in USD |
+| `InstanceType` | `string` | The EC2 instance type (e.g., 't2.micro', 'm5.large') |
+| `Memory` | `string` | Amount of memory available in GiB |
+| `MonthlyPrice` | `number` | Estimated monthly cost in USD (Cost * 730 hours) |
+| `Network` | `string` | Network performance capability |
+| `SpotPrice` | `string` | Current spot instance hourly price in USD, or 'NA' if not available for spot pricing |
+| `Storage` | `string` | Storage type and capacity (e.g., 'EBS only', '1 x 80 SSD') |
+| `VCPUS` | `number` | Number of virtual CPUs |
 
 #### Example: List
 

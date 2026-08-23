@@ -28,6 +28,9 @@ def make_config():
     return {
         "main": {
             "name": "Ec2Shop",
+            "slug": "ec2-shop",
+            "version": "0.0.1",
+            "target": "py",
         },
         "feature": {
             "test": {
@@ -51,41 +54,49 @@ def make_config():
           {
             "name": "Cost",
             "req": True,
+            "short": "Hourly cost for on-demand Linux instance in USD",
             "type": "`$NUMBER`",
           },
           {
             "name": "InstanceType",
             "req": True,
+            "short": "The EC2 instance type (e.g., 't2.micro', 'm5.large')",
             "type": "`$STRING`",
           },
           {
             "name": "Memory",
             "req": True,
+            "short": "Amount of memory available in GiB",
             "type": "`$STRING`",
           },
           {
             "name": "MonthlyPrice",
             "req": True,
+            "short": "Estimated monthly cost in USD (Cost * 730 hours)",
             "type": "`$NUMBER`",
           },
           {
             "name": "Network",
             "req": True,
+            "short": "Network performance capability",
             "type": "`$STRING`",
           },
           {
             "name": "SpotPrice",
             "req": True,
+            "short": "Current spot instance hourly price in USD, or 'NA' if not available for spot pricing",
             "type": "`$STRING`",
           },
           {
             "name": "Storage",
             "req": True,
+            "short": "Storage type and capacity (e.g., 'EBS only', '1 x 80 SSD')",
             "type": "`$STRING`",
           },
           {
             "name": "VCPUS",
             "req": True,
+            "short": "Number of virtual CPUs",
             "type": "`$INTEGER`",
           },
         ],

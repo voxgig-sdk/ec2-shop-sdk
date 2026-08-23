@@ -237,14 +237,14 @@ returns a result `Hash` with these keys:
 
 | Field | Description |
 | --- | --- |
-| `Cost` |  |
-| `InstanceType` |  |
-| `Memory` |  |
-| `MonthlyPrice` |  |
-| `Network` |  |
-| `SpotPrice` |  |
-| `Storage` |  |
-| `VCPUS` |  |
+| `Cost` | Hourly cost for on-demand Linux instance in USD |
+| `InstanceType` | The EC2 instance type (e.g., 't2.micro', 'm5.large') |
+| `Memory` | Amount of memory available in GiB |
+| `MonthlyPrice` | Estimated monthly cost in USD (Cost * 730 hours) |
+| `Network` | Network performance capability |
+| `SpotPrice` | Current spot instance hourly price in USD, or 'NA' if not available for spot pricing |
+| `Storage` | Storage type and capacity (e.g., 'EBS only', '1 x 80 SSD') |
+| `VCPUS` | Number of virtual CPUs |
 
 Operations: List.
 
@@ -269,14 +269,14 @@ Create an instance: `get_instance_pricing = client.GetInstancePricing`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `Cost` | `Float` |  |
-| `InstanceType` | `String` |  |
-| `Memory` | `String` |  |
-| `MonthlyPrice` | `Float` |  |
-| `Network` | `String` |  |
-| `SpotPrice` | `String` |  |
-| `Storage` | `String` |  |
-| `VCPUS` | `Integer` |  |
+| `Cost` | `Float` | Hourly cost for on-demand Linux instance in USD |
+| `InstanceType` | `String` | The EC2 instance type (e.g., 't2.micro', 'm5.large') |
+| `Memory` | `String` | Amount of memory available in GiB |
+| `MonthlyPrice` | `Float` | Estimated monthly cost in USD (Cost * 730 hours) |
+| `Network` | `String` | Network performance capability |
+| `SpotPrice` | `String` | Current spot instance hourly price in USD, or 'NA' if not available for spot pricing |
+| `Storage` | `String` | Storage type and capacity (e.g., 'EBS only', '1 x 80 SSD') |
+| `VCPUS` | `Integer` | Number of virtual CPUs |
 
 #### Example: List
 

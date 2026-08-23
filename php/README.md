@@ -247,14 +247,14 @@ On error, `ok` is `false` and `$err` contains the error value.
 
 | Field | Description |
 | --- | --- |
-| `Cost` |  |
-| `InstanceType` |  |
-| `Memory` |  |
-| `MonthlyPrice` |  |
-| `Network` |  |
-| `SpotPrice` |  |
-| `Storage` |  |
-| `VCPUS` |  |
+| `Cost` | Hourly cost for on-demand Linux instance in USD |
+| `InstanceType` | The EC2 instance type (e.g., 't2.micro', 'm5.large') |
+| `Memory` | Amount of memory available in GiB |
+| `MonthlyPrice` | Estimated monthly cost in USD (Cost * 730 hours) |
+| `Network` | Network performance capability |
+| `SpotPrice` | Current spot instance hourly price in USD, or 'NA' if not available for spot pricing |
+| `Storage` | Storage type and capacity (e.g., 'EBS only', '1 x 80 SSD') |
+| `VCPUS` | Number of virtual CPUs |
 
 Operations: List.
 
@@ -279,14 +279,14 @@ Create an instance: `$get_instance_pricing = $client->GetInstancePricing();`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `Cost` | `float` |  |
-| `InstanceType` | `string` |  |
-| `Memory` | `string` |  |
-| `MonthlyPrice` | `float` |  |
-| `Network` | `string` |  |
-| `SpotPrice` | `string` |  |
-| `Storage` | `string` |  |
-| `VCPUS` | `int` |  |
+| `Cost` | `float` | Hourly cost for on-demand Linux instance in USD |
+| `InstanceType` | `string` | The EC2 instance type (e.g., 't2.micro', 'm5.large') |
+| `Memory` | `string` | Amount of memory available in GiB |
+| `MonthlyPrice` | `float` | Estimated monthly cost in USD (Cost * 730 hours) |
+| `Network` | `string` | Network performance capability |
+| `SpotPrice` | `string` | Current spot instance hourly price in USD, or 'NA' if not available for spot pricing |
+| `Storage` | `string` | Storage type and capacity (e.g., 'EBS only', '1 x 80 SSD') |
+| `VCPUS` | `int` | Number of virtual CPUs |
 
 #### Example: List
 

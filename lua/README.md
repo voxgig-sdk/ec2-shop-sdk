@@ -231,14 +231,14 @@ Only `direct()` returns a response envelope — a `table` with `ok`,
 
 | Field | Description |
 | --- | --- |
-| `Cost` |  |
-| `InstanceType` |  |
-| `Memory` |  |
-| `MonthlyPrice` |  |
-| `Network` |  |
-| `SpotPrice` |  |
-| `Storage` |  |
-| `VCPUS` |  |
+| `Cost` | Hourly cost for on-demand Linux instance in USD |
+| `InstanceType` | The EC2 instance type (e.g., 't2.micro', 'm5.large') |
+| `Memory` | Amount of memory available in GiB |
+| `MonthlyPrice` | Estimated monthly cost in USD (Cost * 730 hours) |
+| `Network` | Network performance capability |
+| `SpotPrice` | Current spot instance hourly price in USD, or 'NA' if not available for spot pricing |
+| `Storage` | Storage type and capacity (e.g., 'EBS only', '1 x 80 SSD') |
+| `VCPUS` | Number of virtual CPUs |
 
 Operations: List.
 
@@ -263,14 +263,14 @@ Create an instance: `local get_instance_pricing = client:GetInstancePricing(nil)
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `Cost` | `number` |  |
-| `InstanceType` | `string` |  |
-| `Memory` | `string` |  |
-| `MonthlyPrice` | `number` |  |
-| `Network` | `string` |  |
-| `SpotPrice` | `string` |  |
-| `Storage` | `string` |  |
-| `VCPUS` | `number` |  |
+| `Cost` | `number` | Hourly cost for on-demand Linux instance in USD |
+| `InstanceType` | `string` | The EC2 instance type (e.g., 't2.micro', 'm5.large') |
+| `Memory` | `string` | Amount of memory available in GiB |
+| `MonthlyPrice` | `number` | Estimated monthly cost in USD (Cost * 730 hours) |
+| `Network` | `string` | Network performance capability |
+| `SpotPrice` | `string` | Current spot instance hourly price in USD, or 'NA' if not available for spot pricing |
+| `Storage` | `string` | Storage type and capacity (e.g., 'EBS only', '1 x 80 SSD') |
+| `VCPUS` | `number` | Number of virtual CPUs |
 
 #### Example: List
 

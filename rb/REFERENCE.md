@@ -93,14 +93,14 @@ get_instance_pricing = client.GetInstancePricing
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `Cost` | `Float` | Yes |  |
-| `InstanceType` | `String` | Yes |  |
-| `Memory` | `String` | Yes |  |
-| `MonthlyPrice` | `Float` | Yes |  |
-| `Network` | `String` | Yes |  |
-| `SpotPrice` | `String` | Yes |  |
-| `Storage` | `String` | Yes |  |
-| `VCPUS` | `Integer` | Yes |  |
+| `Cost` | `Float` | Yes | Hourly cost for on-demand Linux instance in USD |
+| `InstanceType` | `String` | Yes | The EC2 instance type (e.g., 't2.micro', 'm5.large') |
+| `Memory` | `String` | Yes | Amount of memory available in GiB |
+| `MonthlyPrice` | `Float` | Yes | Estimated monthly cost in USD (Cost * 730 hours) |
+| `Network` | `String` | Yes | Network performance capability |
+| `SpotPrice` | `String` | Yes | Current spot instance hourly price in USD, or 'NA' if not available for spot pricing |
+| `Storage` | `String` | Yes | Storage type and capacity (e.g., 'EBS only', '1 x 80 SSD') |
+| `VCPUS` | `Integer` | Yes | Number of virtual CPUs |
 
 ### Operations
 

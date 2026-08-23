@@ -90,14 +90,14 @@ local get_instance_pricing = client:GetInstancePricing(nil)
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `Cost` | `number` | Yes |  |
-| `InstanceType` | `string` | Yes |  |
-| `Memory` | `string` | Yes |  |
-| `MonthlyPrice` | `number` | Yes |  |
-| `Network` | `string` | Yes |  |
-| `SpotPrice` | `string` | Yes |  |
-| `Storage` | `string` | Yes |  |
-| `VCPUS` | `number` | Yes |  |
+| `Cost` | `number` | Yes | Hourly cost for on-demand Linux instance in USD |
+| `InstanceType` | `string` | Yes | The EC2 instance type (e.g., 't2.micro', 'm5.large') |
+| `Memory` | `string` | Yes | Amount of memory available in GiB |
+| `MonthlyPrice` | `number` | Yes | Estimated monthly cost in USD (Cost * 730 hours) |
+| `Network` | `string` | Yes | Network performance capability |
+| `SpotPrice` | `string` | Yes | Current spot instance hourly price in USD, or 'NA' if not available for spot pricing |
+| `Storage` | `string` | Yes | Storage type and capacity (e.g., 'EBS only', '1 x 80 SSD') |
+| `VCPUS` | `number` | Yes | Number of virtual CPUs |
 
 ### Operations
 

@@ -6,7 +6,7 @@ The Golang SDK for the Ec2Shop API — an entity-oriented client using standard 
 
 It exposes the API as capitalised, semantic **Entities** — e.g. `client.GetInstancePricing(nil)` — each with the same small set of operations (`List`) instead of raw URL paths and query strings. You call meaning, not endpoints, which keeps the cognitive load low.
 
-> Other languages, the CLI, and MCP server live alongside this one — see
+> Also generated from this model: `go-cli`, `go-mcp`, `lua`, `php`, `py`, `rb`, `ts` — see
 > the [top-level README](../README.md).
 
 
@@ -260,14 +260,14 @@ Only `Direct()` returns a response envelope — a `map[string]any` with
 
 | Field | Description |
 | --- | --- |
-| `"Cost"` |  |
-| `"InstanceType"` |  |
-| `"Memory"` |  |
-| `"MonthlyPrice"` |  |
-| `"Network"` |  |
-| `"SpotPrice"` |  |
-| `"Storage"` |  |
-| `"VCPUS"` |  |
+| `"Cost"` | Hourly cost for on-demand Linux instance in USD |
+| `"InstanceType"` | The EC2 instance type (e.g., 't2.micro', 'm5.large') |
+| `"Memory"` | Amount of memory available in GiB |
+| `"MonthlyPrice"` | Estimated monthly cost in USD (Cost * 730 hours) |
+| `"Network"` | Network performance capability |
+| `"SpotPrice"` | Current spot instance hourly price in USD, or 'NA' if not available for spot pricing |
+| `"Storage"` | Storage type and capacity (e.g., 'EBS only', '1 x 80 SSD') |
+| `"VCPUS"` | Number of virtual CPUs |
 
 Operations: List.
 
@@ -292,14 +292,14 @@ Create an instance: `getInstancePricing := client.GetInstancePricing(nil)`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `Cost` | `float64` |  |
-| `InstanceType` | `string` |  |
-| `Memory` | `string` |  |
-| `MonthlyPrice` | `float64` |  |
-| `Network` | `string` |  |
-| `SpotPrice` | `string` |  |
-| `Storage` | `string` |  |
-| `VCPUS` | `int` |  |
+| `Cost` | `float64` | Hourly cost for on-demand Linux instance in USD |
+| `InstanceType` | `string` | The EC2 instance type (e.g., 't2.micro', 'm5.large') |
+| `Memory` | `string` | Amount of memory available in GiB |
+| `MonthlyPrice` | `float64` | Estimated monthly cost in USD (Cost * 730 hours) |
+| `Network` | `string` | Network performance capability |
+| `SpotPrice` | `string` | Current spot instance hourly price in USD, or 'NA' if not available for spot pricing |
+| `Storage` | `string` | Storage type and capacity (e.g., 'EBS only', '1 x 80 SSD') |
+| `VCPUS` | `int` | Number of virtual CPUs |
 
 #### Example: List
 
