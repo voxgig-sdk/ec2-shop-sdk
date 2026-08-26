@@ -42,6 +42,7 @@ class Ec2ShopConfig
           'options' => [
             'active' => false,
           ],
+          'transport' => 'base',
         ],
             ],
             "options" => [
