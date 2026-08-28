@@ -26,14 +26,9 @@ type GetInstancePricing struct {
 
 // GetInstancePricingListMatch is the typed request payload for GetInstancePricing.ListTyped.
 type GetInstancePricingListMatch struct {
-	Cost *float64 `json:"Cost,omitempty"`
-	InstanceType *string `json:"InstanceType,omitempty"`
-	Memory *string `json:"Memory,omitempty"`
-	MonthlyPrice *float64 `json:"MonthlyPrice,omitempty"`
-	Network *string `json:"Network,omitempty"`
-	SpotPrice *string `json:"SpotPrice,omitempty"`
-	Storage *string `json:"Storage,omitempty"`
-	VCPUS *int `json:"VCPUS,omitempty"`
+	Filter *string `json:"filter,omitempty"`
+	Json *string `json:"json,omitempty"`
+	Sort *string `json:"sort,omitempty"`
 }
 
 // asMap turns a typed request/data struct into the map[string]any the

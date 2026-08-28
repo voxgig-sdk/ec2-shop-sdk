@@ -17,13 +17,8 @@ export interface GetInstancePricing {
 }
 
 export interface GetInstancePricingListMatch {
-  Cost?: number
-  InstanceType?: string
-  Memory?: string
-  MonthlyPrice?: number
-  Network?: string
-  SpotPrice?: string
-  Storage?: string
-  VCPUS?: number
+  filter?: string
+  json?: string
+  sort?: string
 }
 

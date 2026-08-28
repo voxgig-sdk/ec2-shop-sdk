@@ -28,11 +28,6 @@ class GetInstancePricing(TypedDict):
 
 
 class GetInstancePricingListMatch(TypedDict, total=False):
-    Cost: float
-    InstanceType: str
-    Memory: str
-    MonthlyPrice: float
-    Network: str
-    SpotPrice: str
-    Storage: str
-    VCPUS: int
+    filter: str
+    json: str
+    sort: str

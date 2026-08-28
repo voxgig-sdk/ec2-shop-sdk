@@ -47,38 +47,18 @@ GetInstancePricing = Struct.new(
 
 # Request payload for GetInstancePricing#list.
 #
-# @!attribute [rw] Cost
-#   @return [Float, nil]
-#
-# @!attribute [rw] InstanceType
+# @!attribute [rw] filter
 #   @return [String, nil]
 #
-# @!attribute [rw] Memory
+# @!attribute [rw] json
 #   @return [String, nil]
 #
-# @!attribute [rw] MonthlyPrice
-#   @return [Float, nil]
-#
-# @!attribute [rw] Network
+# @!attribute [rw] sort
 #   @return [String, nil]
-#
-# @!attribute [rw] SpotPrice
-#   @return [String, nil]
-#
-# @!attribute [rw] Storage
-#   @return [String, nil]
-#
-# @!attribute [rw] VCPUS
-#   @return [Integer, nil]
 GetInstancePricingListMatch = Struct.new(
-  :Cost,
-  :InstanceType,
-  :Memory,
-  :MonthlyPrice,
-  :Network,
-  :SpotPrice,
-  :Storage,
-  :VCPUS,
+  :filter,
+  :json,
+  :sort,
   keyword_init: true
 )
 

@@ -17,14 +17,9 @@
 ---@field VCPUS number
 
 ---@class GetInstancePricingListMatch
----@field Cost? number
----@field InstanceType? string
----@field Memory? string
----@field MonthlyPrice? number
----@field Network? string
----@field SpotPrice? string
----@field Storage? string
----@field VCPUS? number
+---@field filter? string
+---@field json? string
+---@field sort? string
 
 local M = {}
 

@@ -28,13 +28,8 @@ class GetInstancePricing
 /** Request payload for GetInstancePricing#list. */
 class GetInstancePricingListMatch
 {
-    public ?float $Cost = null;
-    public ?string $InstanceType = null;
-    public ?string $Memory = null;
-    public ?float $MonthlyPrice = null;
-    public ?string $Network = null;
-    public ?string $SpotPrice = null;
-    public ?string $Storage = null;
-    public ?int $VCPUS = null;
+    public ?string $filter = null;
+    public ?string $json = null;
+    public ?string $sort = null;
 }
 
