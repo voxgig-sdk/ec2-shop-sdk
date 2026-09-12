@@ -58,6 +58,7 @@ class Ec2ShopConfig
         'get_instance_pricing' => [
           'fields' => [
             [
+              'format' => 'float',
               'name' => 'Cost',
               'req' => true,
               'short' => 'Hourly cost for on-demand Linux instance in USD',
@@ -76,6 +77,7 @@ class Ec2ShopConfig
               'type' => '`$STRING`',
             ],
             [
+              'format' => 'float',
               'name' => 'MonthlyPrice',
               'req' => true,
               'short' => 'Estimated monthly cost in USD (Cost * 730 hours)',
@@ -140,7 +142,7 @@ class Ec2ShopConfig
                   'kind' => 'http',
                   'method' => 'GET',
                   'orig' => '/',
-                  'parts' => [],
+                  'segments' => [],
                   'select' => [
                     'exist' => [
                       'filter',
@@ -152,6 +154,7 @@ class Ec2ShopConfig
                     'req' => '`reqdata`',
                     'res' => '`body`',
                   ],
+                  'parts' => [],
                 ],
               ],
             ],

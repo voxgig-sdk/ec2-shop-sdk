@@ -98,7 +98,7 @@ func TestGetInstancePricingEntity(t *testing.T) {
 		client := setup.client
 
 		// Bootstrap entity data from existing test data (no create step in flow).
-		getInstancePricingRef01DataRaw := vs.Items(core.ToMapAny(vs.GetPath("existing.get_instance_pricing", setup.data)))
+		getInstancePricingRef01DataRaw := vs.Items(core.ToMapAny(vs.GetPath(setup.data, "existing.get_instance_pricing")))
 		var getInstancePricingRef01Data map[string]any
 		if len(getInstancePricingRef01DataRaw) > 0 {
 			getInstancePricingRef01Data = core.ToMapAny(getInstancePricingRef01DataRaw[0][1])
@@ -147,7 +147,7 @@ func get_instance_pricingBasicSetup(extra map[string]any) *entityTestSetup {
 	client := sdk.TestSDK(options, extra)
 
 	// Generate idmap via transform, matching TS pattern.
-	idmap := vs.Transform(
+	idmap, _ := vs.Transform(
 		[]any{"get_instance_pricing01", "get_instance_pricing02", "get_instance_pricing03"},
 		map[string]any{
 			"`$PACK`": []any{"", map[string]any{
@@ -175,10 +175,22 @@ func get_instance_pricingBasicSetup(extra map[string]any) *entityTestSetup {
 	}
 
 	if env["EC2_SHOP_TEST_LIVE"] == "TRUE" {
+		// An empty map, not a nil one: Merge returns nil when its last entry
+		// is nil, and BasicSetup is normally called with no extras - so a
+		// bare nil silently discarded the apikey and server values below.
+		extraOpts := extra
+		if extraOpts == nil {
+			extraOpts = map[string]any{}
+		}
+
 		mergedOpts := vs.Merge([]any{
+			// liveClientOptions() FIRST, so the generated fields below win:
+			// sdk-test-control.json's test.client.options adds to the live
+			// client, it does not redirect it.
+			liveClientOptions(),
 			map[string]any{
 			},
-			extra,
+			extraOpts,
 		})
 		client = sdk.NewEc2ShopSDK(core.ToMapAny(mergedOpts))
 	}

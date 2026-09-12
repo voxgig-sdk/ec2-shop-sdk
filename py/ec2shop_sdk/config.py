@@ -1,6 +1,14 @@
 # Ec2Shop SDK configuration
 
 
+# The sekreto plugin DEFINITIONS the model selected per feature, imported
+# above by name from the modules the catalogue's active `plugin.def`
+# entries declare. Handed to each feature (secrets builds its Sekreto
+# with them): a provider kind not listed here is unknown to that SDK.
+FEATURE_PLUGINS = {
+}
+
+
 _shared_config = None
 
 
@@ -53,6 +61,7 @@ def make_config():
       "get_instance_pricing": {
         "fields": [
           {
+            "format": "float",
             "name": "Cost",
             "req": True,
             "short": "Hourly cost for on-demand Linux instance in USD",
@@ -71,6 +80,7 @@ def make_config():
             "type": "`$STRING`",
           },
           {
+            "format": "float",
             "name": "MonthlyPrice",
             "req": True,
             "short": "Estimated monthly cost in USD (Cost * 730 hours)",
@@ -135,7 +145,7 @@ def make_config():
                 "kind": "http",
                 "method": "GET",
                 "orig": "/",
-                "parts": [],
+                "segments": [],
                 "select": {
                   "exist": [
                     "filter",
@@ -147,6 +157,7 @@ def make_config():
                   "req": "`reqdata`",
                   "res": "`body`",
                 },
+                "parts": [],
               },
             ],
           },

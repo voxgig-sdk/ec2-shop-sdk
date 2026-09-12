@@ -32,6 +32,7 @@ local function make_config()
       ["get_instance_pricing"] = {
         ["fields"] = {
           {
+            ["format"] = "float",
             ["name"] = "Cost",
             ["req"] = true,
             ["short"] = "Hourly cost for on-demand Linux instance in USD",
@@ -50,6 +51,7 @@ local function make_config()
             ["type"] = "`$STRING`",
           },
           {
+            ["format"] = "float",
             ["name"] = "MonthlyPrice",
             ["req"] = true,
             ["short"] = "Estimated monthly cost in USD (Cost * 730 hours)",
@@ -114,7 +116,7 @@ local function make_config()
                 ["kind"] = "http",
                 ["method"] = "GET",
                 ["orig"] = "/",
-                ["parts"] = {},
+                ["segments"] = {},
                 ["select"] = {
                   ["exist"] = {
                     "filter",
@@ -126,6 +128,7 @@ local function make_config()
                   ["req"] = "`reqdata`",
                   ["res"] = "`body`",
                 },
+                ["parts"] = {},
               },
             },
           },
