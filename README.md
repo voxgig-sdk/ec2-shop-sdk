@@ -105,7 +105,7 @@ local results, err = client:GetInstancePricing():list()
 
 | Language | Package | Install |
 | --- | --- | --- |
-| TypeScript | `@voxgig-sdk/ec2-shop` | publish pending — [install from git tag](https://github.com/voxgig-sdk/ec2-shop-sdk/releases) |
+| TypeScript | `@voxgig-sdk/ec2-shop-sdk` | publish pending — [install from git tag](https://github.com/voxgig-sdk/ec2-shop-sdk/releases) |
 | Python | `voxgig-sdk-ec2-shop` | publish pending — [install from git tag](https://github.com/voxgig-sdk/ec2-shop-sdk/releases) |
 | PHP | `voxgig-sdk/ec2-shop` | publish pending — [install from git tag](https://github.com/voxgig-sdk/ec2-shop-sdk/releases) |
 | Golang | `github.com/voxgig-sdk/ec2-shop-sdk/go` | `go get github.com/voxgig-sdk/ec2-shop-sdk/go@latest` |
@@ -119,7 +119,7 @@ local results, err = client:GetInstancePricing():list()
 ### TypeScript
 
 ```ts
-import { Ec2ShopSDK } from '@voxgig-sdk/ec2-shop'
+import { Ec2ShopSDK } from '@voxgig-sdk/ec2-shop-sdk'
 
 const client = new Ec2ShopSDK()
 

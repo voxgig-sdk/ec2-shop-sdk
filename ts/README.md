@@ -28,7 +28,7 @@ loading a specific record.
 ### 1. Create a client
 
 ```ts
-import { Ec2ShopSDK } from '@voxgig-sdk/ec2-shop'
+import { Ec2ShopSDK } from '@voxgig-sdk/ec2-shop-sdk'
 
 const client = new Ec2ShopSDK()
 ```
@@ -417,7 +417,7 @@ ec2-shop/
 Import the SDK from the package root:
 
 ```ts
-import { Ec2ShopSDK } from '@voxgig-sdk/ec2-shop'
+import { Ec2ShopSDK } from '@voxgig-sdk/ec2-shop-sdk'
 ```
 
 ### Entity state

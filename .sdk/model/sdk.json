@@ -864,7 +864,7 @@
             "registry": {
               "active": false,
               "name": "npm",
-              "package": "",
+              "package": "@voxgig-sdk/ec2-shop-sdk",
               "state": "pending",
               "url": "https://registry.npmjs.org",
               "vault": {
