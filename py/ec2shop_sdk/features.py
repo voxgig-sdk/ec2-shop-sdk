@@ -1,12 +1,18 @@
 # Ec2Shop SDK feature factory
 
 from ec2shop_sdk.feature.base_feature import Ec2ShopBaseFeature
+from ec2shop_sdk.feature.ratelimit_feature import Ec2ShopRatelimitFeature
+from ec2shop_sdk.feature.retry_feature import Ec2ShopRetryFeature
 from ec2shop_sdk.feature.test_feature import Ec2ShopTestFeature
+from ec2shop_sdk.feature.timeout_feature import Ec2ShopTimeoutFeature
 
 
 _FEATURES = {
     "base": lambda: Ec2ShopBaseFeature(),
+    "ratelimit": lambda: Ec2ShopRatelimitFeature(),
+    "retry": lambda: Ec2ShopRetryFeature(),
     "test": lambda: Ec2ShopTestFeature(),
+    "timeout": lambda: Ec2ShopTimeoutFeature(),
 }
 
 

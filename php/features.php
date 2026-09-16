@@ -4,7 +4,10 @@ declare(strict_types=1);
 // Ec2Shop SDK feature factory
 
 require_once __DIR__ . '/feature/BaseFeature.php';
+require_once __DIR__ . '/feature/RatelimitFeature.php';
+require_once __DIR__ . '/feature/RetryFeature.php';
 require_once __DIR__ . '/feature/TestFeature.php';
+require_once __DIR__ . '/feature/TimeoutFeature.php';
 
 
 class Ec2ShopFeatures
@@ -14,8 +17,14 @@ class Ec2ShopFeatures
         switch ($name) {
             case "base":
                 return new Ec2ShopBaseFeature();
+            case "ratelimit":
+                return new Ec2ShopRatelimitFeature();
+            case "retry":
+                return new Ec2ShopRetryFeature();
             case "test":
                 return new Ec2ShopTestFeature();
+            case "timeout":
+                return new Ec2ShopTimeoutFeature();
             default:
                 return new Ec2ShopBaseFeature();
         }
@@ -31,7 +40,10 @@ class Ec2ShopFeatures
     {
         switch ($name) {
             case "base":
+            case "ratelimit":
+            case "retry":
             case "test":
+            case "timeout":
                 return true;
             default:
                 return false;
