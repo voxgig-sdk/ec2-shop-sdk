@@ -127,9 +127,9 @@ class Config {
 
     entity: {
       
-      get_instance_pricing: {
-      },
-
+        get_instance_pricing: {
+        },
+  
     }
   }
 
