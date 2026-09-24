@@ -2,7 +2,6 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.GetInstancePricingEntity = void 0;
 const Ec2ShopEntityBase_1 = require("../Ec2ShopEntityBase");
-// TODO: needs Entity superclass
 class GetInstancePricingEntity extends Ec2ShopEntityBase_1.Ec2ShopEntityBase {
     constructor(client, entopts) {
         super(client, entopts);

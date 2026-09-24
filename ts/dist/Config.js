@@ -11,19 +11,12 @@ const FEATURE_CLASS = {
     test: TestFeature_1.TestFeature,
     timeout: TimeoutFeature_1.TimeoutFeature,
 };
-// Per-feature plugin DEFINITIONS (voxgig/plugin `Definition` values), from
-// the model's active plugin groups. A feature that takes a `plugins` option
-// (secrets over sekreto) reads its own entry; a feature with no plugins has
-// none. Named imports above make each definition statically reachable, so
-// an SDK carries exactly the plugin modules its model selects — the same
-// leanness the old side-effect registry imports bought, without a registry.
 const FEATURE_PLUGINS = {};
 exports.FEATURE_PLUGINS = FEATURE_PLUGINS;
 class Config {
     makeFeature(fn) {
         const fc = FEATURE_CLASS[fn];
         const fi = new fc();
-        // TODO: errors etc
         return fi;
     }
     // False for a feature added at runtime via options.extend (station's
@@ -113,54 +106,62 @@ class Config {
         "get_instance_pricing": {
             "fields": [
                 {
-                    "format": "float",
                     "name": "Cost",
+                    "title": "Cost",
+                    "type": "`$NUMBER`",
                     "req": true,
                     "short": "Hourly cost for on-demand Linux instance in USD",
-                    "type": "`$NUMBER`"
+                    "format": "float"
                 },
                 {
                     "name": "InstanceType",
+                    "title": "Instance Type",
+                    "type": "`$STRING`",
                     "req": true,
-                    "short": "The EC2 instance type (e.g., 't2.micro', 'm5.large')",
-                    "type": "`$STRING`"
+                    "short": "The EC2 instance type (e.g., 't2.micro', 'm5.large')"
                 },
                 {
                     "name": "Memory",
+                    "title": "Memory",
+                    "type": "`$STRING`",
                     "req": true,
-                    "short": "Amount of memory available in GiB",
-                    "type": "`$STRING`"
+                    "short": "Amount of memory available in GiB"
                 },
                 {
-                    "format": "float",
                     "name": "MonthlyPrice",
+                    "title": "Monthly Price",
+                    "type": "`$NUMBER`",
                     "req": true,
                     "short": "Estimated monthly cost in USD (Cost * 730 hours)",
-                    "type": "`$NUMBER`"
+                    "format": "float"
                 },
                 {
                     "name": "Network",
+                    "title": "Network",
+                    "type": "`$STRING`",
                     "req": true,
-                    "short": "Network performance capability",
-                    "type": "`$STRING`"
+                    "short": "Network performance capability"
                 },
                 {
                     "name": "SpotPrice",
+                    "title": "Spot Price",
+                    "type": "`$STRING`",
                     "req": true,
-                    "short": "Current spot instance hourly price in USD, or 'NA' if not available for spot pricing",
-                    "type": "`$STRING`"
+                    "short": "Current spot instance hourly price in USD, or 'NA' if not available for spot pricing"
                 },
                 {
                     "name": "Storage",
+                    "title": "Storage",
+                    "type": "`$STRING`",
                     "req": true,
-                    "short": "Storage type and capacity (e.g., 'EBS only', '1 x 80 SSD')",
-                    "type": "`$STRING`"
+                    "short": "Storage type and capacity (e.g., 'EBS only', '1 x 80 SSD')"
                 },
                 {
                     "name": "VCPUS",
+                    "title": "Vcpus",
+                    "type": "`$INTEGER`",
                     "req": true,
-                    "short": "Number of virtual CPUs",
-                    "type": "`$INTEGER`"
+                    "short": "Number of virtual CPUs"
                 }
             ],
             "name": "get_instance_pricing",
@@ -170,46 +171,47 @@ class Config {
                     "name": "list",
                     "points": [
                         {
-                            "args": {
-                                "query": [
-                                    {
-                                        "example": "i3",
-                                        "kind": "query",
-                                        "name": "filter",
-                                        "orig": "filter",
-                                        "type": "`$STRING`"
-                                    },
-                                    {
-                                        "kind": "query",
-                                        "name": "json",
-                                        "orig": "json",
-                                        "type": "`$STRING`"
-                                    },
-                                    {
-                                        "example": "price",
-                                        "kind": "query",
-                                        "name": "sort",
-                                        "orig": "sort",
-                                        "type": "`$STRING`"
-                                    }
-                                ]
-                            },
                             "kind": "http",
                             "method": "GET",
                             "orig": "/",
                             "segments": [],
+                            "parts": [],
+                            "rename": {},
+                            "transform": {
+                                "req": "`reqdata`",
+                                "res": "`body`"
+                            },
+                            "args": {
+                                "query": [
+                                    {
+                                        "name": "filter",
+                                        "orig": "filter",
+                                        "type": "`$STRING`",
+                                        "kind": "query",
+                                        "example": "i3"
+                                    },
+                                    {
+                                        "name": "json",
+                                        "orig": "json",
+                                        "type": "`$STRING`",
+                                        "kind": "query"
+                                    },
+                                    {
+                                        "name": "sort",
+                                        "orig": "sort",
+                                        "type": "`$STRING`",
+                                        "kind": "query",
+                                        "example": "price"
+                                    }
+                                ]
+                            },
                             "select": {
                                 "exist": [
                                     "filter",
                                     "json",
                                     "sort"
                                 ]
-                            },
-                            "transform": {
-                                "req": "`reqdata`",
-                                "res": "`body`"
-                            },
-                            "parts": []
+                            }
                         }
                     ]
                 }

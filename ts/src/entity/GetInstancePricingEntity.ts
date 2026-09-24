@@ -19,7 +19,6 @@ import type {
   GetInstancePricingListMatch,
 } from '../Ec2ShopTypes'
 
-// TODO: needs Entity superclass
 class GetInstancePricingEntity extends Ec2ShopEntityBase<GetInstancePricing> {
 
   constructor(client: Ec2ShopSDK, entopts: any) {

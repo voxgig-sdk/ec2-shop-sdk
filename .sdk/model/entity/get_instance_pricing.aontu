@@ -1,0 +1,126 @@
+# Entity: get_instance_pricing
+
+main: kit: entity: get_instance_pricing: {
+
+  alias: field: {}
+
+  fields: {
+    Cost: {
+      fo: "float"
+      h: "Cost"
+      n: "Cost"
+      r: true
+      sh: "Hourly cost for on-demand Linux instance in USD"
+      t: "`$NUMBER`"
+    }
+    InstanceType: {
+      h: "Instance Type"
+      n: "InstanceType"
+      r: true
+      sh: "The EC2 instance type (e.g., 't2.micro', 'm5.large')"
+      t: "`$STRING`"
+    }
+    Memory: {
+      h: "Memory"
+      n: "Memory"
+      r: true
+      sh: "Amount of memory available in GiB"
+      t: "`$STRING`"
+    }
+    MonthlyPrice: {
+      fo: "float"
+      h: "Monthly Price"
+      n: "MonthlyPrice"
+      r: true
+      sh: "Estimated monthly cost in USD (Cost * 730 hours)"
+      t: "`$NUMBER`"
+    }
+    Network: {
+      h: "Network"
+      n: "Network"
+      r: true
+      sh: "Network performance capability"
+      t: "`$STRING`"
+    }
+    SpotPrice: {
+      h: "Spot Price"
+      n: "SpotPrice"
+      r: true
+      sh: "Current spot instance hourly price in USD, or 'NA' if not available for spot pricing"
+      t: "`$STRING`"
+    }
+    Storage: {
+      h: "Storage"
+      n: "Storage"
+      r: true
+      sh: "Storage type and capacity (e.g., 'EBS only', '1 x 80 SSD')"
+      t: "`$STRING`"
+    }
+    VCPUS: {
+      h: "Vcpus"
+      n: "VCPUS"
+      r: true
+      sh: "Number of virtual CPUs"
+      t: "`$INTEGER`"
+    }
+  }
+
+  name: "get_instance_pricing"
+  op: {
+    list: {
+      name: "list"
+      points: [
+        {
+          co: {
+            id: "GET /"
+            source: "openapi3"
+            version: 2
+          }
+          g: {
+            query: [
+              {
+                ex: "i3"
+                k: "query"
+                n: "filter"
+                or: "filter"
+                r: false
+                t: "`$STRING`"
+              }
+              {
+                k: "query"
+                n: "json"
+                or: "json"
+                r: false
+                t: "`$STRING`"
+              }
+              {
+                ex: "price"
+                k: "query"
+                n: "sort"
+                or: "sort"
+                r: false
+                t: "`$STRING`"
+              }
+            ]
+          }
+          m: "GET"
+          o: "/"
+          q: {
+            exist: [
+              "filter"
+              "json"
+              "sort"
+            ]
+          }
+          t: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
+  }
+
+
+
+}

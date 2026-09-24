@@ -1,7 +1,7 @@
 // Typed models for the Ec2Shop SDK.
 //
-// GENERATED from the API model: main.kit.entity.<e>.fields[] and per-op
-// params (op.<name>.points[].args.params[]). Field/param types come from the
+// GENERATED from the API model: main.kit.entity.<e>.fields{} and per-op
+// params (op.<name>.points[].g.params[]). Field/param types come from the
 // canonical type sentinels via @voxgig/sdkgen canonToType (source of truth:
 // @voxgig/apidef VALID_CANON). Do not edit by hand.
 package entity
@@ -14,14 +14,6 @@ import (
 
 // GetInstancePricing is the typed data model for the get_instance_pricing entity.
 type GetInstancePricing struct {
-	Cost float64 `json:"Cost"`
-	InstanceType string `json:"InstanceType"`
-	Memory string `json:"Memory"`
-	MonthlyPrice float64 `json:"MonthlyPrice"`
-	Network string `json:"Network"`
-	SpotPrice string `json:"SpotPrice"`
-	Storage string `json:"Storage"`
-	VCPUS int `json:"VCPUS"`
 }
 
 // GetInstancePricingListMatch is the typed request payload for GetInstancePricing.ListTyped.

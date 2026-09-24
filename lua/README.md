@@ -43,7 +43,7 @@ local getinstancepricings, err = client:GetInstancePricing():list()
 if err then error(err) end
 
 for _, item in ipairs(getinstancepricings) do
-  print(item["InstanceType"])
+  print(item)
 end
 ```
 
