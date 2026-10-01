@@ -20,6 +20,7 @@ from ec2shop_sdk.core.control import Ec2ShopControl
 from ec2shop_sdk.core.error import Ec2ShopError
 from ec2shop_sdk.core.result import Ec2ShopResult
 from ec2shop_sdk.core.spec import Ec2ShopSpec
+from ec2shop_sdk.utility.clean import clean_util, clean_add_util
 
 
 # True when this SDK was generated with the named feature.
@@ -115,6 +116,9 @@ def build_url(spec):
 class _Utility:
     def __init__(self, fetcher):
         self.fetcher = fetcher
+        # The real ones: every feature record leaves through clean.
+        self.clean = clean_util
+        self.clean_add = clean_add_util
 
         def param(ctx, name):
             params = ctx.spec.params if ctx.spec is not None else {}

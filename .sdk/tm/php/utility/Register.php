@@ -37,6 +37,8 @@ require_once __DIR__ . '/TransformResponse.php';
 
 Ec2ShopUtility::setRegistrar(function (Ec2ShopUtility $u): void {
     $u->clean = [Ec2ShopClean::class, 'call'];
+    $u->clean_add = [Ec2ShopClean::class, 'add'];
+    $u->clean_explain = [Ec2ShopDone::class, 'clean_explain'];
     $u->done = [Ec2ShopDone::class, 'call'];
     $u->make_error = [Ec2ShopMakeError::class, 'call'];
     $u->feature_add = [Ec2ShopFeatureAdd::class, 'call'];

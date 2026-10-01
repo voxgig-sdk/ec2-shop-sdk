@@ -33,6 +33,8 @@ require_relative 'transform_response'
 
 Ec2ShopUtility.registrar = ->(u) {
   u.clean = Ec2ShopUtilities::Clean
+  u.clean_add = Ec2ShopUtilities::CleanAdd
+  u.clean_explain = Ec2ShopUtilities::CleanExplain
   u.done = Ec2ShopUtilities::Done
   u.make_error = Ec2ShopUtilities::MakeError
   u.feature_add = Ec2ShopUtilities::FeatureAdd
