@@ -105,12 +105,15 @@ main: kit: entity: get_instance_pricing: {
           }
           m: "GET"
           o: "/"
-          q: {
-            exist: [
-              "filter"
-              "json"
-              "sort"
+          rs: {
+            alternatives: [
+              {
+                kind: "raw"
+                media: "text/plain"
+              }
             ]
+            kind: "json"
+            media: "application/json"
           }
           t: {
             req: "`reqdata`"

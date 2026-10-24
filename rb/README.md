@@ -12,7 +12,7 @@ The SDK exposes the API as capitalised, semantic **Entities** — for example `c
 
 ## Install
 This package is not yet published to RubyGems. Install it from the
-GitHub release tag (`rb/vX.Y.Z`, see [Releases](https://github.com/voxgig-sdk/ec2-shop-sdk/releases)), or
+GitHub release tag (`rb/vX.Y.Z`, see [Tags](https://github.com/voxgig-sdk/ec2-shop-sdk/tags)), or
 from a clone:
 
 ```bash
@@ -43,10 +43,11 @@ client = Ec2ShopSDK.new
 
 ```ruby
 begin
-  # list returns an Array of GetInstancePricing records — iterate directly.
+  # list returns an Array of GetInstancePricing entities, one per record; data_get reads the record.
   getinstancepricings = client.GetInstancePricing.list
   getinstancepricings.each do |item|
-    puts "#{item["Cost"]}"
+    record = item.data_get
+    puts "#{record["Cost"]}"
   end
 rescue => err
   warn "list failed: #{err}"
@@ -128,10 +129,10 @@ Create a mock client for unit testing — no server required:
 ```ruby
 client = Ec2ShopSDK.test
 
-# Entity ops return the ENTITY (raises on error);
-# call data_get for the mock record.
-getinstancepricing = client.GetInstancePricing.list()
-puts getinstancepricing
+# list returns an Array of GetInstancePricing entities, one per mock record (raises on
+# error); data_get reads each record.
+getinstancepricings = client.GetInstancePricing.list()
+getinstancepricings.each { |item| puts item.data_get }
 ```
 
 ### Use a custom fetch function
@@ -215,7 +216,7 @@ All entities share the same interface.
 
 | Method | Signature | Description |
 | --- | --- | --- |
-| `list` | `(reqmatch = nil, ctrl) -> Array` | List entities matching the criteria (call with no argument to list all). Raises on error. |
+| `list` | `(reqmatch = nil, ctrl) -> Array` | List entities matching the criteria (call with no argument to list all), one per record. Raises on error. |
 | `data_get` | `() -> Hash` | Get entity data. |
 | `data_set` | `(data)` | Set entity data. |
 | `match_get` | `() -> Hash` | Get entity match criteria. |
@@ -225,9 +226,10 @@ All entities share the same interface.
 
 ### Result shape
 
-Entity operations return the result data directly. On failure they
-raise a `Ec2ShopError` (a `StandardError` subclass), so wrap
-calls in `begin`/`rescue` where you need to handle errors.
+Entity operations return the entity, and `list` an `Array` of entities, one
+per record; an entity's `data_get` reads its record. On failure they raise a
+`Ec2ShopError` (a `StandardError` subclass), so wrap calls in
+`begin`/`rescue` where you need to handle errors.
 
 The `direct` escape hatch is the exception: it never raises and instead
 returns a result `Hash` with these keys:
@@ -290,8 +292,9 @@ Create an instance: `get_instance_pricing = client.GetInstancePricing`
 #### Example: List
 
 ```ruby
-# list returns an Array of GetInstancePricing records (raises on error).
+# list returns an Array of GetInstancePricing entities, one per record (raises on error).
 get_instance_pricings = client.GetInstancePricing.list
+get_instance_pricings.each { |item| puts item.data_get }
 ```
 
 ## Features

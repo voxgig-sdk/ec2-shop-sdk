@@ -3,5 +3,17 @@
     "SUMMARY.md"
   ],
   "config": ".sdk/doc/qa/vale.ini",
-  "routes": {}
+  "routes": {},
+  "quoted": {
+    "SUMMARY.md": [
+      "A simple and fast API to get Amazon EC2 instance pricing right from your terminal. Supports filtering and sorting by various attributes like memory, CPU, price, and spot price. Provides up-to-date pricing data for on-demand and spot instances, refreshed every 2.5 minutes.",
+      "Amount of memory available in GiB",
+      "Estimated monthly cost in USD (Cost * 730 hours)",
+      "Hourly cost for on-demand Linux instance in USD",
+      "Network performance capability",
+      "Production server",
+      "Successful response with instance pricing data",
+      "The EC2 instance type (for example, &#39;t2.micro&#39;, &#39;m5.large&#39;)"
+    ]
+  }
 }

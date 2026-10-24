@@ -9,8 +9,39 @@ require_once __DIR__ . '/Runner.php';
 use PHPUnit\Framework\TestCase;
 use Voxgig\Struct\Struct as Vs;
 
+class GetInstancePricingEntityTestFailHook extends Ec2ShopBaseFeature
+{
+    public int $unexpected = 0;
+
+    public function __construct()
+    {
+        parent::__construct();
+        $this->name = 'failhook';
+    }
+
+    public function init(Ec2ShopContext $ctx, array $options): void
+    {
+    }
+
+    public function PreSpec(Ec2ShopContext $ctx): void
+    {
+        throw new \RuntimeException('get_instance_pricing hook failed');
+    }
+
+    public function PreUnexpected(Ec2ShopContext $ctx): void
+    {
+        $this->unexpected++;
+    }
+}
+
 class GetInstancePricingEntityTest extends TestCase
 {
+    // main.kit.test.live.strict is true (the default is true): a live
+    // request that fails, or a live test missing an input it needs,
+    // fails the test.
+    // An account with no record for a test to read skips it either way.
+    private const LIVE_STRICT = true;
+
     public function test_create_instance(): void
     {
         $testsdk = Ec2ShopSDK::test(null, null);
@@ -57,6 +88,125 @@ class GetInstancePricingEntityTest extends TestCase
         }
     }
 
+    public function test_stream_error(): void
+    {
+        $offline = ["net" => ["offline" => true]];
+        $streamerr = null;
+        try {
+            iterator_to_array(Ec2ShopSDK::test($offline, null)->GetInstancePricing(null)
+                ->stream("list", null, null), false);
+        } catch (\Throwable $e) {
+            $streamerr = $e;
+        }
+        $this->assertNotNull($streamerr, 'the stream should raise the transport failure');
+        $this->assertStringContainsString('offline', $streamerr->getMessage());
+
+        iterator_to_array(Ec2ShopSDK::test($offline, null)->GetInstancePricing(null)
+            ->stream("list", null, ["ctrl" => ["throw" => false]]), false);
+
+        $cfg = Ec2ShopConfig::shared_config();
+        if (isset($cfg["feature"]["rbac"])) {
+            $denied = Ec2ShopSDK::test(null, ["feature" => ["rbac" => ["active" => true, "deny" => true]]]);
+            $denyerr = null;
+            try {
+                iterator_to_array($denied->GetInstancePricing(null)->stream("list", null, null), false);
+            } catch (\Throwable $e) {
+                $denyerr = $e;
+            }
+            $this->assertSame('rbac_denied', $denyerr->sdk_code ?? null);
+        }
+    }
+
+    public function test_stream_ctrl(): void
+    {
+        $ctrl = ["explain" => []];
+        iterator_to_array(Ec2ShopSDK::test(null, null)->GetInstancePricing(null)
+            ->stream("list", null, ["ctrl" => $ctrl]), false);
+        $this->assertSame(["explain"], array_keys($ctrl));
+    }
+
+    public function test_unexpected(): void
+    {
+        $hook = new GetInstancePricingEntityTestFailHook();
+        $client = new Ec2ShopSDK(["feature" => ["test" => ["active" => true]], "extend" => [$hook]]);
+
+        $err = null;
+        try {
+            $client->GetInstancePricing(null)->list(null, null);
+        } catch (\Throwable $e) {
+            $err = $e;
+        }
+        $this->assertNotNull($err, 'the throwing hook should fail the operation');
+        $this->assertStringContainsString('hook failed', $err->getMessage());
+        $this->assertGreaterThan(0, $hook->unexpected, 'PreUnexpected did not fire');
+
+        $fired = $hook->unexpected;
+        $this->assertNull($client->GetInstancePricing(null)->list(null, ["throw" => false]));
+        $this->assertGreaterThan($fired, $hook->unexpected, 'PreUnexpected did not fire');
+    }
+
+    public function test_cost_commits_a_throwing_transport(): void
+    {
+        $cfg = Ec2ShopConfig::shared_config();
+        if (!isset($cfg["feature"]["cost"])) {
+            $this->markTestSkipped('feature not present in this SDK: cost');
+        }
+        $client = new Ec2ShopSDK([
+            "test" => ["active" => true],
+            "feature" => ["cost" => ["active" => true, "unit" => 1]],
+            "utility" => ["fetcher" => function ($ctx, $url, $fetchdef) {
+                throw new \RuntimeException('get_instance_pricing transport failed');
+            }],
+        ]);
+
+        $err = null;
+        try {
+            $client->GetInstancePricing(null)->list(null, null);
+        } catch (\Throwable $e) {
+            $err = $e;
+        }
+        $this->assertInstanceOf(Ec2ShopError::class, $err);
+        $this->assertStringContainsString('transport failed', $err->getMessage());
+
+        $client->GetInstancePricing(null)->list(null, ["throw" => false]);
+        $this->assertSame(2, $client->_cost["total"]["calls"]);
+        $this->assertSame(2, $client->_cost["total"]["attempts"]);
+    }
+
+    public function test_validate_list_response(): void
+    {
+        $cfg = Ec2ShopConfig::shared_config();
+        if (!isset($cfg["feature"]["validate"])) {
+            $this->markTestSkipped('feature not present in this SDK: validate');
+        }
+        $opts = ["feature" => ["validate" => ["active" => true, "request" => false, "response" => true]]];
+        $listed = Ec2ShopSDK::test(['entity' => ['get_instance_pricing' => ['v1' => ['Cost' => 1, 'InstanceType' => 'x', 'Memory' => 'x', 'MonthlyPrice' => 1, 'Network' => 'x', 'SpotPrice' => 'x', 'Storage' => 'x', 'VCPUS' => 1]]]], $opts)->GetInstancePricing(null)->list(null, null);
+        $this->assertSame(['v1'], array_map(fn($ent) => $ent->data_get()['id'] ?? null, $listed));
+        $err = null;
+        try {
+            Ec2ShopSDK::test(['entity' => ['get_instance_pricing' => ['v1' => ['Cost' => 'x', 'InstanceType' => 'x', 'Memory' => 'x', 'MonthlyPrice' => 1, 'Network' => 'x', 'SpotPrice' => 'x', 'Storage' => 'x', 'VCPUS' => 1]]]], $opts)->GetInstancePricing(null)->list(null, null);
+        } catch (\Throwable $e) {
+            $err = $e;
+        }
+        $this->assertSame('validate_failed', $err->sdk_code ?? null);
+    }
+
+    public function test_validate(): void
+    {
+        $cfg = Ec2ShopConfig::shared_config();
+        if (!isset($cfg["feature"]["validate"])) {
+            $this->markTestSkipped('feature not present in this SDK: validate');
+        }
+        $client = Ec2ShopSDK::test(null, ["feature" => ["validate" => ["active" => true]]]);
+        $err = null;
+        try {
+            $client->GetInstancePricing(null)->list(["filter" => 1], null);
+        } catch (\Throwable $e) {
+            $err = $e;
+        }
+        $this->assertSame('validate_failed', $err->sdk_code ?? null);
+    }
+
     public function test_basic_flow(): void
     {
         $setup = get_instance_pricing_basic_setup(null);
@@ -68,12 +218,6 @@ class GetInstancePricingEntityTest extends TestCase
                 $this->markTestSkipped($_reason ?? "skipped via sdk-test-control.json");
                 return;
             }
-        }
-        // The basic flow consumes synthetic IDs from the fixture. In live mode
-        // without an *_ENTID env override, those IDs hit the live API and 4xx.
-        if (!empty($setup["synthetic_only"])) {
-            $this->markTestSkipped("live entity test uses synthetic IDs from fixture — set EC2_SHOP_TEST_GET_INSTANCE_PRICING_ENTID JSON to run live");
-            return;
         }
         $client = $setup["client"];
 
@@ -114,9 +258,8 @@ function get_instance_pricing_basic_setup($extra)
         $idmap[$k] = strtoupper($k);
     }
 
-    // Detect ENTID env override before envOverride consumes it. When live
-    // mode is on without a real override, the basic test runs against synthetic
-    // IDs from the fixture and 4xx's. Surface this so the test can skip.
+    // Whether *_ENTID supplied the idmap, read before env_override consumes
+    // it: without it, the ids a live flow binds are the fixture's synthetic ones.
     $entid_env_raw = getenv("EC2_SHOP_TEST_GET_INSTANCE_PRICING_ENTID");
     $idmap_overridden = $entid_env_raw !== false && str_starts_with(trim($entid_env_raw), "{");
 

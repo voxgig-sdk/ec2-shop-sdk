@@ -339,9 +339,6 @@ initialiser
 [Vv][Ii][Rr][Tt][Uu][Aa][Ll]
 [Cc][Pp][Uu][Ss]
 [Vv][Cc][Pp][Uu][Ss]
-[Ff][Ii][Ll][Tt][Ee][Rr]
-[Jj][Ss][Oo][Nn]
-[Ss][Oo][Rr][Tt]
 [Ss][Ii][Mm][Pp][Ll][Ee]
 [Ff][Aa][Ss][Tt]
 [Aa][Pp][Ii]
@@ -385,6 +382,8 @@ initialiser
 [Bb][Aa][Dd]
 [Rr][Ee][Qq][Uu][Ee][Ss][Tt]
 [Ii][Nn][Vv][Aa][Ll][Ii][Dd]
+[Ff][Ii][Ll][Tt][Ee][Rr]
+[Ss][Oo][Rr][Tt]
 [Pp][Aa][Rr][Aa][Mm][Ee][Tt][Ee][Rr][Ss]
 [Ee][Rr][Rr][Oo][Rr]
 [Mm][Ee][Ss][Ss][Aa][Gg][Ee]
@@ -417,6 +416,8 @@ initialiser
 [Pp][Rr][Ee][Ff][Ii][Xx]
 [Ee][Xx][Cc][Ll][Uu][Dd][Ee]
 [Tt]3
+[Gg][Pp][Uu]_[Cc][Oo][Rr][Ee]
+[Gg][Pp][Uu]_[Mm][Ee][Mm]
 [Ii]3
 [Ss][Pp][Ee][Cc][Ii][Ff][Ii][Cc]
 [Aa][Dd][Vv][Aa][Nn][Cc][Ee][Dd]

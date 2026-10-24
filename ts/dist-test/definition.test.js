@@ -16,15 +16,34 @@ const PLAN = [
         "path": "/",
         "args": [],
         "select": {
-            "filter": "v1",
+            "filter": "i3",
             "json": "v1",
-            "sort": "v1"
+            "sort": "price"
         },
         "headers": [],
+        "cookies": [],
+        "responseMedia": [
+            "application/json",
+            "text/plain"
+        ],
         "query": [
             "filter",
             "sort",
             "json"
+        ],
+        "queryArgs": [
+            {
+                "name": "filter",
+                "wire": "filter"
+            },
+            {
+                "name": "json",
+                "wire": "json"
+            },
+            {
+                "name": "sort",
+                "wire": "sort"
+            }
         ],
         "auth": null,
         "status": 200,

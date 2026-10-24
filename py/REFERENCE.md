@@ -98,14 +98,14 @@ get_instance_pricing = client.GetInstancePricing()
 
 ### Operations
 
-#### `list(reqmatch=None, ctrl=None) -> list`
+#### `list(reqmatch=None, ctrl=None) -> list[GetInstancePricingEntity]`
 
-List entities matching the given criteria. The match is optional — call `list()` with no argument to list all records. Returns a list and raises on error.
+List entities matching the given criteria. The match is optional — call `list()` with no argument to list all records. Returns a list of entities, one per record, and raises on error.
 
 ```python
 results = client.GetInstancePricing().list()
 for get_instance_pricing in results:
-    print(get_instance_pricing)
+    print(get_instance_pricing.data_get())
 ```
 
 ### Common Methods
@@ -294,6 +294,7 @@ Timeout.
 | Option | Type |
 |---|---|
 | `clearTimer` | function |
+| `now` | function |
 | `setTimer` | function |
 
 These take no default: the feature behaves one way when you supply them and

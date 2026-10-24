@@ -9,7 +9,7 @@ import { createLiveTransport } from '../../live-runner'
 import { runLiveEntity } from '../../live-entity'
 
 
-import { Ec2ShopSDK, BaseFeature, stdutil } from '../../..'
+import { Ec2ShopSDK, BaseFeature, config, stdutil } from '../../..'
 
 import {
   envOverride,
@@ -41,6 +41,64 @@ describe('GetInstancePricingEntity', async () => {
   })
 
 
+  class FailHook extends BaseFeature {
+    name = 'failhook'
+    version = '0.0.1'
+    active = true
+    unexpected = 0
+    init() { }
+    PreSpec() { throw new Error('get_instance_pricing hook failed') }
+    PreUnexpected() { this.unexpected++ }
+  }
+
+  test('stream-error', async () => {
+    const offline = { net: { offline: true } }
+    await assert.rejects(async () => {
+      for await (const _item of Ec2ShopSDK.test(offline).GetInstancePricing().stream('list')) { }
+    }, /offline/)
+
+    for await (const _item of Ec2ShopSDK.test(offline).GetInstancePricing()
+      .stream('list', undefined, { ctrl: { throw: false } })) { }
+
+    if (null != (config as any).feature?.rbac) {
+      const denied = Ec2ShopSDK.test(undefined, { feature: { rbac: { active: true, deny: true } } })
+      await assert.rejects(async () => {
+        for await (const _item of denied.GetInstancePricing().stream('list')) { }
+      }, (err: any) => 'rbac_denied' === err.code)
+    }
+  })
+
+  test('stream-ctrl', async () => {
+    const explain: any = {}
+    const ctrl: any = { explain }
+    for await (const _item of Ec2ShopSDK.test().GetInstancePricing().stream('list', undefined, { ctrl })) { }
+    assert.deepStrictEqual(Object.keys(ctrl), ['explain'])
+    assert(explain === ctrl.explain && 0 < Object.keys(explain).length)
+  })
+
+  test('unexpected', async () => {
+    const hook = new FailHook()
+    const client = new Ec2ShopSDK({ feature: { test: { active: true } }, extend: [hook] })
+    await assert.rejects(client.GetInstancePricing().list(), /hook failed/)
+    assert(0 < hook.unexpected)
+
+    const fired = hook.unexpected
+    assert.strictEqual(await client.GetInstancePricing().list(undefined, { throw: false }), undefined)
+    assert(fired < hook.unexpected)
+  })
+
+  test('validate', async (t) => {
+    if (null == (config as any).feature?.validate) {
+      t.skip('feature not present in this SDK: validate')
+      return
+    }
+    const client = Ec2ShopSDK.test(undefined, { feature: { validate: { active: true } } })
+    await assert.rejects(client.GetInstancePricing().list({"filter":1} as any),
+      (err: any) => 'validate_failed' === err.code)
+  })
+
+
+
   test('basic', async (t) => {
 
     const live = 'TRUE' === process.env.EC2_SHOP_TEST_LIVE
@@ -51,7 +109,7 @@ describe('GetInstancePricingEntity', async () => {
     
     const setup = basicSetup()
     if (setup.live) {
-      return runLiveEntity(setup, {"active":true,"alias":{"field":{}},"fields":{"Cost":{"a":true,"fo":"float","h":"Cost","n":"Cost","r":true,"sh":"Hourly cost for on-demand Linux instance in USD","t":"`$NUMBER`","key$":"Cost","index$":0},"InstanceType":{"a":true,"h":"Instance Type","n":"InstanceType","r":true,"sh":"The EC2 instance type (e.g., 't2.micro', 'm5.large')","t":"`$STRING`","key$":"InstanceType","index$":1},"Memory":{"a":true,"h":"Memory","n":"Memory","r":true,"sh":"Amount of memory available in GiB","t":"`$STRING`","key$":"Memory","index$":2},"MonthlyPrice":{"a":true,"fo":"float","h":"Monthly Price","n":"MonthlyPrice","r":true,"sh":"Estimated monthly cost in USD (Cost * 730 hours)","t":"`$NUMBER`","key$":"MonthlyPrice","index$":3},"Network":{"a":true,"h":"Network","n":"Network","r":true,"sh":"Network performance capability","t":"`$STRING`","key$":"Network","index$":4},"SpotPrice":{"a":true,"h":"Spot Price","n":"SpotPrice","r":true,"sh":"Current spot instance hourly price in USD, or 'NA' if not available for spot pricing","t":"`$STRING`","key$":"SpotPrice","index$":5},"Storage":{"a":true,"h":"Storage","n":"Storage","r":true,"sh":"Storage type and capacity (e.g., 'EBS only', '1 x 80 SSD')","t":"`$STRING`","key$":"Storage","index$":6},"VCPUS":{"a":true,"h":"Vcpus","n":"VCPUS","r":true,"sh":"Number of virtual CPUs","t":"`$INTEGER`","key$":"VCPUS","index$":7}},"name":"get_instance_pricing","op":{"list":{"input":"data","name":"list","points":[{"a":true,"co":{"id":"GET /","source":"openapi3","version":2},"g":{"query":[{"a":true,"ex":"i3","k":"query","n":"filter","or":"filter","r":false,"t":"`$STRING`","index$":0},{"a":true,"k":"query","n":"json","or":"json","r":false,"t":"`$STRING`","index$":1},{"a":true,"ex":"price","k":"query","n":"sort","or":"sort","r":false,"t":"`$STRING`","index$":2}]},"k":"http","m":"GET","o":"/","q":{"exist":["filter","json","sort"]},"r":{},"s":[],"t":{"req":"`reqdata`","res":"`body`"},"index$":0}],"key$":"list"}},"relations":{"ancestors":[]},"key$":"get_instance_pricing","name__orig":"get_instance_pricing","Name":"GetInstancePricing","name_":"get_instance_pricing","name-":"get-instance-pricing","NAME":"GET_INSTANCE_PRICING","index$":0}, {"active":true,"entity":"get_instance_pricing","key$":"BasicGetInstancePricingFlow","kind":"basic","name":"BasicGetInstancePricingFlow","param":{},"step":[{"a":true,"d":{},"i":{},"m":{},"o":"list","s":[],"v":[{"apply":"ItemExists","def":{"ref":"get_instance_pricing_ref01"}}],"index$":0}]}, 'GetInstancePricing', {"GET /":{"protocol":"http","parameters":[{"name":"filter","in":"query","description":"Filter instances by various criteria. Supports instance types (e.g., 't2.medium'), storage types (e.g., 'ssd'), and comparison expressions (e.g., 'mem>=32', 'cpu<=4', 'price<0.1', 'spotprice>0.05', 'gpu_core>=1', 'gpu_mem>=8'). Multiple filters can be comma-separated. Use '-' prefix to exclude (e.g., '-t3').","required":false,"schema":{"type":"string"},"examples":{"instanceType":{"value":"i3","description":"Filter for i3 instance types"},"storageType":{"value":"ssd","description":"Filter for instances with SSD storage"},"multipleTypes":{"value":"t2.medium,t3.medium","description":"Filter for specific instance types"},"advancedFilter":{"value":"ssd,mem>=32,mem<=64,cpu>=2,cpu<=4","description":"Advanced filter with multiple criteria"},"excludeFilter":{"value":"-t3,price<0.1,mem>=2","description":"Exclude t3 instances with additional criteria"}},"index$":0},{"name":"sort","in":"query","description":"Sort instances by specified field(s). Use '-' prefix for descending order (e.g., '-price'). Multiple sort fields can be comma-separated (e.g., '-price,mem'). Supported fields: price, mem, cpu, spotprice, gpu_core, gpu_mem.","required":false,"schema":{"type":"string"},"examples":{"ascending":{"value":"price","description":"Sort by price ascending"},"descending":{"value":"-price","description":"Sort by price descending"},"multiple":{"value":"-price,mem","description":"Sort by price descending, then by memory"}},"index$":1},{"name":"json","in":"query","description":"Alternative method to request JSON response format instead of using Accept header","required":false,"schema":{"type":"string","enum":[""]},"index$":2}]}})
+      return runLiveEntity(setup, {"active":true,"alias":{"field":{}},"fields":{"Cost":{"a":true,"fo":"float","h":"Cost","n":"Cost","r":true,"sh":"Hourly cost for on-demand Linux instance in USD","t":"`$NUMBER`","key$":"Cost","index$":0},"InstanceType":{"a":true,"h":"Instance Type","n":"InstanceType","r":true,"sh":"The EC2 instance type (e.g., 't2.micro', 'm5.large')","t":"`$STRING`","key$":"InstanceType","index$":1},"Memory":{"a":true,"h":"Memory","n":"Memory","r":true,"sh":"Amount of memory available in GiB","t":"`$STRING`","key$":"Memory","index$":2},"MonthlyPrice":{"a":true,"fo":"float","h":"Monthly Price","n":"MonthlyPrice","r":true,"sh":"Estimated monthly cost in USD (Cost * 730 hours)","t":"`$NUMBER`","key$":"MonthlyPrice","index$":3},"Network":{"a":true,"h":"Network","n":"Network","r":true,"sh":"Network performance capability","t":"`$STRING`","key$":"Network","index$":4},"SpotPrice":{"a":true,"h":"Spot Price","n":"SpotPrice","r":true,"sh":"Current spot instance hourly price in USD, or 'NA' if not available for spot pricing","t":"`$STRING`","key$":"SpotPrice","index$":5},"Storage":{"a":true,"h":"Storage","n":"Storage","r":true,"sh":"Storage type and capacity (e.g., 'EBS only', '1 x 80 SSD')","t":"`$STRING`","key$":"Storage","index$":6},"VCPUS":{"a":true,"h":"Vcpus","n":"VCPUS","r":true,"sh":"Number of virtual CPUs","t":"`$INTEGER`","key$":"VCPUS","index$":7}},"name":"get_instance_pricing","op":{"list":{"input":"data","name":"list","points":[{"a":true,"co":{"id":"GET /","source":"openapi3","version":2},"g":{"query":[{"a":true,"ex":"i3","k":"query","n":"filter","or":"filter","r":false,"t":"`$STRING`","index$":0},{"a":true,"k":"query","n":"json","or":"json","r":false,"t":"`$STRING`","index$":1},{"a":true,"ex":"price","k":"query","n":"sort","or":"sort","r":false,"t":"`$STRING`","index$":2}]},"k":"http","m":"GET","o":"/","q":{},"r":{},"rs":{"alternatives":[{"kind":"raw","media":"text/plain"}],"kind":"json","media":"application/json"},"s":[],"t":{"req":"`reqdata`","res":"`body`"},"index$":0}],"key$":"list"}},"relations":{"ancestors":[]},"key$":"get_instance_pricing","name__orig":"get_instance_pricing","Name":"GetInstancePricing","name_":"get_instance_pricing","name-":"get-instance-pricing","NAME":"GET_INSTANCE_PRICING","index$":0}, {"active":true,"entity":"get_instance_pricing","key$":"BasicGetInstancePricingFlow","kind":"basic","name":"BasicGetInstancePricingFlow","param":{},"step":[{"a":true,"d":{},"i":{},"m":{},"o":"list","s":[],"v":[{"apply":"ItemExists","def":{"ref":"get_instance_pricing_ref01"}}],"index$":0}]}, 'GetInstancePricing', {"GET /":{"protocol":"http","parameters":[{"name":"filter","in":"query","description":"Filter instances by various criteria. Supports instance types (e.g., 't2.medium'), storage types (e.g., 'ssd'), and comparison expressions (e.g., 'mem>=32', 'cpu<=4', 'price<0.1', 'spotprice>0.05', 'gpu_core>=1', 'gpu_mem>=8'). Multiple filters can be comma-separated. Use '-' prefix to exclude (e.g., '-t3').","required":false,"schema":{"type":"string"},"examples":{"instanceType":{"value":"i3","description":"Filter for i3 instance types"},"storageType":{"value":"ssd","description":"Filter for instances with SSD storage"},"multipleTypes":{"value":"t2.medium,t3.medium","description":"Filter for specific instance types"},"advancedFilter":{"value":"ssd,mem>=32,mem<=64,cpu>=2,cpu<=4","description":"Advanced filter with multiple criteria"},"excludeFilter":{"value":"-t3,price<0.1,mem>=2","description":"Exclude t3 instances with additional criteria"}},"index$":0},{"name":"sort","in":"query","description":"Sort instances by specified field(s). Use '-' prefix for descending order (e.g., '-price'). Multiple sort fields can be comma-separated (e.g., '-price,mem'). Supported fields: price, mem, cpu, spotprice, gpu_core, gpu_mem.","required":false,"schema":{"type":"string"},"examples":{"ascending":{"value":"price","description":"Sort by price ascending"},"descending":{"value":"-price","description":"Sort by price descending"},"multiple":{"value":"-price,mem","description":"Sort by price descending, then by memory"}},"index$":1},{"name":"json","in":"query","description":"Alternative method to request JSON response format instead of using Accept header","required":false,"schema":{"type":"string","enum":[""]},"index$":2}]}}, { strict: LIVE_STRICT, t })
     }
     const client = setup.client
     const struct = setup.struct
@@ -72,6 +130,12 @@ describe('GetInstancePricingEntity', async () => {
 })
 
 
+
+// main.kit.test.live.strict is true (the default is true): a live
+// request that fails, or a live test missing an input it needs,
+// fails the test.
+// An account with no record for a test to read skips it either way.
+const LIVE_STRICT = true
 
 function basicSetup(extra?: any) {
   // TODO: fix test def options
